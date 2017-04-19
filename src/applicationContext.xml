@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+<context:component-scan base-package="com.xzit.pms..*" use-default-filters="true"/>
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:pms">
+		</property>
+		<property name="username" value="jjj"></property>
+		<property name="password" value="123456"></property>
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9Dialect
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				  <prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xzit.pms.po.Building</value>
+				<value>com.xzit.pms.po.Charge</value>
+				<value>com.xzit.pms.po.Cleanmanage</value>
+				<value>com.xzit.pms.po.Complaint</value>
+				<value>com.xzit.pms.po.Equipment</value>
+				<value>com.xzit.pms.po.Hire</value>
+				<value>com.xzit.pms.po.Maintain</value>
+				<value>com.xzit.pms.po.Ower</value>
+				<value>com.xzit.pms.po.Resident</value>
+				<value>com.xzit.pms.po.Room</value>
+				<value>com.xzit.pms.po.Security</value>
+				<value>com.xzit.pms.po.Users</value></list>
+		</property></bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" /><bean
+		id="UsersDAO" class="com.xzit.pms.dao.UsersDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+</bean>
+	<bean id="BuildingDAO" class="com.xzit.pms.dao.BuildingDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ChargeDAO" class="com.xzit.pms.dao.ChargeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="OwerDAO" class="com.xzit.pms.dao.OwerDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CleanmanageDAO" class="com.xzit.pms.dao.CleanmanageDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ComplaintDAO" class="com.xzit.pms.dao.ComplaintDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="EquipmentDAO" class="com.xzit.pms.dao.EquipmentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="HireDAO" class="com.xzit.pms.dao.HireDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="MaintainDAO" class="com.xzit.pms.dao.MaintainDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ResidentDAO" class="com.xzit.pms.dao.ResidentDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="RoomDAO" class="com.xzit.pms.dao.RoomDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="SecurityDAO" class="com.xzit.pms.dao.SecurityDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

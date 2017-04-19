@@ -1,0 +1,99 @@
+﻿* {
+    padding: 0px;
+    margin: 0px;
+    font-family: "微软雅黑";
+}
+
+#header {
+    width: 100%;
+    height: 40px;
+    background-color: #808080;
+}
+
+.hitem {
+    float: right;
+    line-height: 40px;
+    margin-right: 10px;
+}
+
+    .hitem a {
+        text-decoration: none;
+        color: #fff;
+    }
+
+.loginitem input {
+    width: 350px;
+    height: 40px;
+    border: solid 1px #ccc;
+}
+
+.loginitem a {
+    width: 353px;
+    height: 40px;
+    background-color: #257385;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.loginitem {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#dloginbox {
+    display: none;
+}
+
+#enroll{
+	margin:100px auto 0;
+	text-align:center;
+}
+	
+.enr-loginitem{ 
+    margin-top: 20px;
+    margin-left: 20px;
+}
+	
+	
+.enr-loginitem a{
+	width: 353px;
+    height: 40px;
+    background-color: #257385;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+	
+.enr-loginitem input{
+	width: 350px;
+    height: 40px;
+    border: solid 1px #ccc;
+}
+#name{
+	width: 100%;
+    height: 70px;
+    margin:2px;
+    position: relative;
+    top: 50px;
+	text-align:center;
+	color:#0080ff;
+	font-size:50px;
+}
+#pic{
+	width:100%; 
+	height: 500px;
+    margin:2px;
+    position: relative;
+    top: 48px;
+   
+}
+.img{
+	text-align:center
+}
