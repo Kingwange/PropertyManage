@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>业主添加</title>
+    <title>楼宇添加</title>
   <meta name="keywords" content="ower">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
 <body>
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加业主</strong> / <small>Add Ower</small></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加楼宇信息</strong> / <small>Add Building</small></div>
     </div>
 
     <hr/>
@@ -60,8 +60,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div class="am-u-sm-9">
               <select  class="am-input-sm" name="state" required="required">
 					<option value="">请选择</option>
-					<option value="0">未竣工</option>
-					<option value="1">已竣工</option>		
+					<option value="N">未竣工</option>
+					<option value="Y">已竣工</option>		
 			</select>
             </div>
           </div>

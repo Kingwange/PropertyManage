@@ -29,7 +29,7 @@ public class Building implements java.io.Serializable {
 	private Integer bid;
 	private String bname;
 	private Integer plies;
-	private Boolean state;
+	private String state;
 	private String remark;
 	private Set<Room> rooms = new HashSet<Room>(0);
 	private Set<Hire> hires = new HashSet<Hire>(0);
@@ -41,14 +41,14 @@ public class Building implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Building(String bname, Integer plies, Boolean state) {
+	public Building(String bname, Integer plies, String state) {
 		this.bname = bname;
 		this.plies = plies;
 		this.state = state;
 	}
 
 	/** full constructor */
-	public Building(String bname, Integer plies, Boolean state, String remark,
+	public Building(String bname, Integer plies, String state, String remark,
 			Set<Room> rooms, Set<Hire> hires) {
 		this.bname = bname;
 		this.plies = plies;
@@ -59,7 +59,7 @@ public class Building implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_building",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "BID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -89,12 +89,12 @@ public class Building implements java.io.Serializable {
 		this.plies = plies;
 	}
 
-	@Column(name = "STATE", nullable = false, precision = 1, scale = 0)
-	public Boolean getState() {
+	@Column(name = "STATE", length = 10)
+	public String getState() {
 		return this.state;
 	}
 
-	public void setState(Boolean state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 

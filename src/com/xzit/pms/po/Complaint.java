@@ -27,7 +27,7 @@ public class Complaint implements java.io.Serializable {
 	private Resident resident;
 	private String cpcontent;
 	private Date submissiontime;
-	private Boolean state;
+	private String state;
 	private String handleinfo;
 
 	// Constructors
@@ -38,7 +38,7 @@ public class Complaint implements java.io.Serializable {
 
 	/** full constructor */
 	public Complaint(Resident resident, String cpcontent, Date submissiontime,
-			Boolean state, String handleinfo) {
+			String state, String handleinfo) {
 		this.resident = resident;
 		this.cpcontent = cpcontent;
 		this.submissiontime = submissiontime;
@@ -47,7 +47,7 @@ public class Complaint implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_complaint",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "CPID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -88,12 +88,12 @@ public class Complaint implements java.io.Serializable {
 		this.submissiontime = submissiontime;
 	}
 
-	@Column(name = "STATE", precision = 1, scale = 0)
-	public Boolean getState() {
+	@Column(name = "STATE", length = 10)
+	public String getState() {
 		return this.state;
 	}
 
-	public void setState(Boolean state) {
+	public void setState(String state) {
 		this.state = state;
 	}
 

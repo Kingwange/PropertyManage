@@ -31,7 +31,7 @@ public class Maintain implements java.io.Serializable {
 	private String mtel;
 	private String serviceman;
 	private String stel;
-	private Boolean type;
+	private String type;
 	private String remark;
 
 	// Constructors
@@ -48,7 +48,7 @@ public class Maintain implements java.io.Serializable {
 
 	/** full constructor */
 	public Maintain(Room room, String mcontent, String mname, Date repairdate,
-			String mtel, String serviceman, String stel, Boolean type,
+			String mtel, String serviceman, String stel, String type,
 			String remark) {
 		this.room = room;
 		this.mcontent = mcontent;
@@ -62,7 +62,7 @@ public class Maintain implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_maintain",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "MID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -139,12 +139,12 @@ public class Maintain implements java.io.Serializable {
 		this.stel = stel;
 	}
 
-	@Column(name = "TYPE", precision = 1, scale = 0)
-	public Boolean getType() {
+	@Column(name = "TYPE", length = 10)
+	public String getType() {
 		return this.type;
 	}
 
-	public void setType(Boolean type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

@@ -22,7 +22,7 @@ public class Cleanmanage implements java.io.Serializable {
 
 	private Integer cmid;
 	private String cmname;
-	private Boolean sex;
+	private String sex;
 	private String tel;
 	private Date worktime;
 	private String address;
@@ -42,7 +42,7 @@ public class Cleanmanage implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Cleanmanage(String cmname, Boolean sex, String tel, Date worktime,
+	public Cleanmanage(String cmname, String sex, String tel, Date worktime,
 			String address, String cleanarea, String remark) {
 		this.cmname = cmname;
 		this.sex = sex;
@@ -54,7 +54,7 @@ public class Cleanmanage implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_cleanmanage",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "CMID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -75,12 +75,12 @@ public class Cleanmanage implements java.io.Serializable {
 		this.cmname = cmname;
 	}
 
-	@Column(name = "SEX", precision = 1, scale = 0)
-	public Boolean getSex() {
+	@Column(name = "SEX", length = 10)
+	public String getSex() {
 		return this.sex;
 	}
 
-	public void setSex(Boolean sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 

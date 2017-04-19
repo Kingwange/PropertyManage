@@ -20,7 +20,7 @@ import com.xzit.pms.service.BuildingService;
 @InterceptorRefs({ @InterceptorRef(value="paramsPrepareParamsStack",params={"modelDriven.refreshModelBeforeResult","true"})}) 
 public class BuildingAction extends BaseAction implements ModelDriven<Building> {
     private Building building=new Building();
-    private int page=1;
+    private int page;
     private PageBean pageBean;
     private String queryInfo;
     @Resource(name="buildingService")
@@ -37,12 +37,13 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
    	}
    @Action(value="findAllBuilding",results={@Result(name="success",location="/building/findbuilding.jsp")})
    public String findAllBuilding() {
+	   System.out.println(queryInfo);
 	   if(queryInfo==null){
 			queryInfo="";
 		}
 		if(page==0)
 			page=1;
-		this.req.setAttribute("queryInfo", queryInfo);;
+		this.req.setAttribute("queryInfo",queryInfo);;
 	    this.pageBean =buildingServiceimpl.queryForPage(2, page,queryInfo);
 	    return SUCCESS;
    }
@@ -52,11 +53,11 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
 		return SUCCESS; 	
   }
 	 @Action(value="updateBuilding",results={@Result(name="success",type="redirectAction",location="findAllBuilding.action")})
-   public String  updateOwer(){
+   public String  updateBuilding(){
 		 buildingServiceimpl.updateBuilding(building);
 		return SUCCESS; 	
   }
-	 @Action(value="deleteBuilding",results={@Result(name="success",type="redirectAction",location="findAllOwer.action")})
+	 @Action(value="deleteBuilding",results={@Result(name="success",type="redirectAction",location="findAllBuilding.action")})
    public String  deleteBuilding(){
 		 buildingServiceimpl.deleteBuilding(building);
 		return SUCCESS; 	

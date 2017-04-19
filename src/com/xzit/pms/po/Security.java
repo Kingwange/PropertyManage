@@ -24,13 +24,13 @@ public class Security implements java.io.Serializable {
 
 	private Integer sid;
 	private String sname;
-	private Boolean sex;
+	private String sex;
 	private String identity;
 	private String tel;
-	private Boolean job;
+	private String job;
 	private String address;
 	private String territory;
-	private Boolean workttype;
+	private String workttype;
 	private String remark;
 	private Set<Equipment> equipments = new HashSet<Equipment>(0);
 
@@ -46,8 +46,8 @@ public class Security implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Security(String sname, Boolean sex, String identity, String tel,
-			Boolean job, String address, String territory, Boolean workttype,
+	public Security(String sname, String sex, String identity, String tel,
+			String job, String address, String territory, String workttype,
 			String remark, Set<Equipment> equipments) {
 		this.sname = sname;
 		this.sex = sex;
@@ -62,7 +62,7 @@ public class Security implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_security",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "SID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -83,12 +83,12 @@ public class Security implements java.io.Serializable {
 		this.sname = sname;
 	}
 
-	@Column(name = "SEX", precision = 1, scale = 0)
-	public Boolean getSex() {
+	@Column(name = "SEX", length = 10)
+	public String getSex() {
 		return this.sex;
 	}
 
-	public void setSex(Boolean sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
@@ -110,12 +110,12 @@ public class Security implements java.io.Serializable {
 		this.tel = tel;
 	}
 
-	@Column(name = "JOB", precision = 1, scale = 0)
-	public Boolean getJob() {
+	@Column(name = "JOB", length = 10)
+	public String getJob() {
 		return this.job;
 	}
 
-	public void setJob(Boolean job) {
+	public void setJob(String job) {
 		this.job = job;
 	}
 
@@ -137,12 +137,12 @@ public class Security implements java.io.Serializable {
 		this.territory = territory;
 	}
 
-	@Column(name = "WORKTTYPE", precision = 1, scale = 0)
-	public Boolean getWorkttype() {
+	@Column(name = "WORKTTYPE", length = 10)
+	public String getWorkttype() {
 		return this.workttype;
 	}
 
-	public void setWorkttype(Boolean workttype) {
+	public void setWorkttype(String workttype) {
 		this.workttype = workttype;
 	}
 

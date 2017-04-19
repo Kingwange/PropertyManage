@@ -32,7 +32,7 @@ public class Room implements java.io.Serializable {
 	private Ower ower;
 	private String rname;
 	private Date intime;
-	private Boolean type;
+	private String type;
 	private Double rarea;
 	private Set<Resident> residents = new HashSet<Resident>(0);
 	private Set<Maintain> maintains = new HashSet<Maintain>(0);
@@ -47,7 +47,7 @@ public class Room implements java.io.Serializable {
 
 	/** full constructor */
 	public Room(Building building, Ower ower, String rname, Date intime,
-			Boolean type, Double rarea, Set<Resident> residents,
+			String type, Double rarea, Set<Resident> residents,
 			Set<Maintain> maintains, Set<Charge> charges, Set<Hire> hires) {
 		this.building = building;
 		this.ower = ower;
@@ -62,7 +62,7 @@ public class Room implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_room",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "RID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -113,12 +113,12 @@ public class Room implements java.io.Serializable {
 		this.intime = intime;
 	}
 
-	@Column(name = "TYPE", precision = 1, scale = 0)
-	public Boolean getType() {
+	@Column(name = "TYPE", length = 10)
+	public String getType() {
 		return this.type;
 	}
 
-	public void setType(Boolean type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

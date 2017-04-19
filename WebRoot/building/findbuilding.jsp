@@ -22,10 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  
   <body>
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">业主信息</strong> / <small>Ower</small></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">楼宇信息</strong> / <small>Building</small></div>
       
     </div>
 
@@ -45,11 +44,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       
       <div class="am-u-md-3 am-cf">
         <div class="am-fr">
-         <form id="owerconditionForm" >
+         <form id="buildingconditionForm" >
           <div class="am-input-group am-input-group-sm">
-            <input type="text" class="am-form-field" id="queryInfo" name="queryInfo" placeholder="业主名 / Name" value="${queryInfo}">
+           <select  class="class="am-form-field"" id="queryInfo" name="queryInfo" required="required">
+					
+					<s:if test="queryInfo=='N'.toString()">
+					<option value="N">未竣工</option>
+					<option value="Y">已竣工</option>
+					<option value="">全部</option></s:if>
+					<s:elseif test="queryInfo=='Y'.toString()">
+					<option value="Y">已竣工</option>
+					<option value="N">未竣工</option>
+					<option value="">全部</option>
+					</s:elseif>	
+					<s:else>
+					<option value="">全部</option>
+					<option value="Y">已竣工</option>
+					<option value="N">未竣工</option>
+					</s:else>
+			</select>
                 <span class="am-input-group-btn">
-                  <button class="am-btn am-btn-default" type="button" onclick="findAllOwer(1)">搜索</button>
+                  <button class="am-btn am-btn-default" type="button" onclick="findAllBuilding(1)">搜索</button>
                 </span>       
           </div>
           </form>
@@ -66,8 +81,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <table class="am-table am-table-striped am-table-hover table-main">
             <thead>
               <tr>
-                <th class="building-ID">ID</th><th class="building-name">楼宇名称</th><th class="building-piles">楼宇层数</th><th class="building-state">楼盘状态</th><th class="building-remark">备注</th>
-               
+                <th class="building-ID">ID</th>
+                <th class="building-name">楼宇名称</th>
+                <th class="building-piles">楼宇层数</th>
+                <th class="building-state">楼盘状态</th>
+                <th class="building-remark">备注</th>               
                 <th width="150px">操作</th>
              
               </tr>
@@ -77,9 +95,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           		<tr>
           			<td class="tocenter"><s:property value="bid"/></td>
           			<td class="tocenter"><s:property value="bname"/></td>
-          			<td class="tocenter"><s:property value="piles"/></td> 
-          			<s:if value=" state == 0><s:property value="未竣工" /></s:if>
-                    <s:elseif value="state == 0><s:property value="已竣工" /></s:elseif> 
+          			<td class="tocenter"><s:property value="plies"/></td>
+                    <td class="tocenter"><s:if test="state=='Y'.toString()">已竣工</s:if>
+                    <s:else>未竣工</s:else>
+                    </td> 
           			<td class="tocenter"><s:property value="remark"/></td> 	
           			<s:if test="#session.users.rsid==null">	
           			<td><button type="button" class="am-btn am-btn-xs am-btn-default am-radius" onclick='getUpdateBuildingPage(<s:property value="bid"/>)'>修改</button>
@@ -107,12 +126,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      <td colspan="4" width="55%" class="tocenter">
                          <s:if test="%{pageBean.currentPage == 1}">第1页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;</s:if>
                         <s:else>
-                             <a onclick="findAllOwer(1)">第1页&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                             <a onclick='findAllOwer(<s:property value="%{pageBean.currentPage-1}"/>)'>上一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                             <a onclick="findAllBuilding(1)">第1页&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                             <a onclick='findAllBuilding(<s:property value="%{pageBean.currentPage-1}"/>)'>上一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
                          </s:else>
                          <s:if test="%{pageBean.currentPage != pageBean.totalPage}">
-                             <a onclick='findAllOwer(<s:property value="%{pageBean.currentPage+1}"/>)'>下一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
-                             <a onclick='findAllOwer(<s:property value="pageBean.totalPage"/>)'>末页</a>
+                             <a onclick='findAllBuilding(<s:property value="%{pageBean.currentPage+1}"/>)'>下一页&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                             <a onclick='findAllBuilding(<s:property value="pageBean.totalPage"/>)'>末页</a>
                          </s:if>
                          <s:else>下一页&nbsp;&nbsp;&nbsp;&nbsp; 末页</s:else>
                    </td>

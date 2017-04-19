@@ -68,6 +68,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <input type="text"  id="intime" name="intime" placeholder="输入你的入住时间 / Date"  readonly>
             </div>
           </div>
+           <div class="am-form-group">
+            <label for="user-phone" class="am-u-sm-3 am-form-label">备注</label>
+            <div class="am-u-sm-9">
+              <input type="text" id="ower-tel" placeholder="" name="remark">
+            </div>
+          </div>
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
               <button type="button" class="am-btn am-btn-primary" onclick="saveOwer()">保存</button>

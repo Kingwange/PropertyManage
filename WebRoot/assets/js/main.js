@@ -37,5 +37,20 @@ function saveBuilding(){
 	  });
  }
 function findAllBuilding(page){
-	 $("#admin-content").load("findAllBuilding.action?page="+page);
+	var queryBuildingInfo = $("#buildingconditionForm").serialize();
+	  $.post("findAllBuilding.action?page="+page,queryBuildingInfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}
+function getUpdateBuildingPage(i){
+	$("#admin-content").load("modifyBuildingpage.action",{"bid":i});
+}
+function updateBuilding(){
+	 var buildingInfo = $("#updateBuildingForm").serialize();
+$.post("updateBuilding.action",buildingInfo,function(data){
+	  $("#admin-content").html(data);
+ });
+}
+function deleteBuilding(i){
+		$("#admin-content").load("deleteBuilding.action",{"bid":i});
 }

@@ -12,4 +12,54 @@
 		<generator class="sequence"></generator>
 	</primary-key>
 </table>
+<table name="USERS" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="CHARGE" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="CLEANMANAGE" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="SECURITY" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="COMPLAINT" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="MAINTAIN" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="EQUIPMENT" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="RESIDENT" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="OWER" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
+<table name="HIRE" schema="JJJ">
+	<primary-key>
+		<generator class="sequence"></generator>
+	</primary-key>
+</table>
 </hibernate-reverse-engineering>

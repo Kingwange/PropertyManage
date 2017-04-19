@@ -27,7 +27,7 @@ public class Resident implements java.io.Serializable {
 	private Integer rsid;
 	private Room room;
 	private String rname;
-	private Boolean rsex;
+	private String rsex;
 	private String identity;
 	private String tel;
 	private String reamrk;
@@ -46,7 +46,7 @@ public class Resident implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Resident(Room room, String rname, Boolean rsex, String identity,
+	public Resident(Room room, String rname, String rsex, String identity,
 			String tel, String reamrk, Set<Complaint> complaints) {
 		this.room = room;
 		this.rname = rname;
@@ -58,7 +58,7 @@ public class Resident implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_resident",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "RSID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -89,12 +89,12 @@ public class Resident implements java.io.Serializable {
 		this.rname = rname;
 	}
 
-	@Column(name = "RSEX", precision = 1, scale = 0)
-	public Boolean getRsex() {
+	@Column(name = "RSEX", length = 10)
+	public String getRsex() {
 		return this.rsex;
 	}
 
-	public void setRsex(Boolean rsex) {
+	public void setRsex(String rsex) {
 		this.rsex = rsex;
 	}
 

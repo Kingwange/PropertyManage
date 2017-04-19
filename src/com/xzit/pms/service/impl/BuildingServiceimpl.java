@@ -45,19 +45,19 @@ public class BuildingServiceimpl implements BuildingService {
 
 	@Override
 	public Building findBuildingID(Building building) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return buildingDAO.findById(building.getBid());
 	}
 
 	@Override
 	public void updateBuilding(Building building) {
-		// TODO Auto-generated method stub
+		buildingDAO.attachDirty(building);
 		
 	}
 
 	@Override
 	public void deleteBuilding(Building building) {
-		// TODO Auto-generated method stub
+		buildingDAO.delete(building);
 		
 	}
 

@@ -24,7 +24,7 @@ public class Charge implements java.io.Serializable {
 	private Room room;
 	private String cname;
 	private Double price;
-	private Boolean chargestate;
+	private String chargestate;
 	private String remark;
 
 	// Constructors
@@ -39,7 +39,7 @@ public class Charge implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Charge(Room room, String cname, Double price, Boolean chargestate,
+	public Charge(Room room, String cname, Double price, String chargestate,
 			String remark) {
 		this.room = room;
 		this.cname = cname;
@@ -49,7 +49,7 @@ public class Charge implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_example",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_charge",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "CID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -89,12 +89,12 @@ public class Charge implements java.io.Serializable {
 		this.price = price;
 	}
 
-	@Column(name = "CHARGESTATE", precision = 1, scale = 0)
-	public Boolean getChargestate() {
+	@Column(name = "CHARGESTATE", length = 10)
+	public String getChargestate() {
 		return this.chargestate;
 	}
 
-	public void setChargestate(Boolean chargestate) {
+	public void setChargestate(String chargestate) {
 		this.chargestate = chargestate;
 	}
 
