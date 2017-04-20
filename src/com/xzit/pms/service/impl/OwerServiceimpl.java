@@ -62,4 +62,9 @@ public class OwerServiceimpl implements OwerService {
 		return pageBean;
 	}
 
+	@Override
+	public List<Ower> findAll() {
+		return owerDAO.findAll();
+	}
+
 }

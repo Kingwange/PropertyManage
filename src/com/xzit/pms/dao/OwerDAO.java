@@ -200,7 +200,6 @@ public class OwerDAO {
 
 	      public List<Ower> queryForPage(String hql1,int offset, int length) {
 	         Query q = this.getCurrentSession().createQuery(hql1);
-	         System.out.println(q);
 	         q.setFirstResult(offset);
 	         q.setMaxResults(length);
 	         System.out.println(q.list().size());

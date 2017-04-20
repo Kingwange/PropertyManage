@@ -8,6 +8,8 @@ public interface OwerService {
 	public void saveOwer(Ower ower);
 
 	public Ower findOwerID(Ower ower);
+	
+	public List<Ower> findAll();
 
 	public void updateOwer(Ower ower);
 

@@ -2,12 +2,15 @@ package com.xzit.pms.po;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.SEQUENCE;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -16,6 +19,7 @@ import javax.persistence.Table;
 /**
  * Security entity. @author MyEclipse Persistence Tools
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "SECURITY", schema = "JJJ")
 public class Security implements java.io.Serializable {
@@ -30,7 +34,7 @@ public class Security implements java.io.Serializable {
 	private String job;
 	private String address;
 	private String territory;
-	private String workttype;
+	private String worktype;
 	private String remark;
 	private Set<Equipment> equipments = new HashSet<Equipment>(0);
 
@@ -47,7 +51,7 @@ public class Security implements java.io.Serializable {
 
 	/** full constructor */
 	public Security(String sname, String sex, String identity, String tel,
-			String job, String address, String territory, String workttype,
+			String job, String address, String territory, String worktype,
 			String remark, Set<Equipment> equipments) {
 		this.sname = sname;
 		this.sex = sex;
@@ -56,7 +60,7 @@ public class Security implements java.io.Serializable {
 		this.job = job;
 		this.address = address;
 		this.territory = territory;
-		this.workttype = workttype;
+		this.worktype = worktype;
 		this.remark = remark;
 		this.equipments = equipments;
 	}
@@ -137,13 +141,13 @@ public class Security implements java.io.Serializable {
 		this.territory = territory;
 	}
 
-	@Column(name = "WORKTTYPE", length = 10)
-	public String getWorkttype() {
-		return this.workttype;
+	@Column(name = "WORKTYPE", length = 10)
+	public String getWorktype() {
+		return this.worktype;
 	}
 
-	public void setWorkttype(String workttype) {
-		this.workttype = workttype;
+	public void setWorktype(String worktype) {
+		this.worktype = worktype;
 	}
 
 	@Column(name = "REMARK", length = 20)

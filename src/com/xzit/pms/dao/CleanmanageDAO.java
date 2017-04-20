@@ -7,14 +7,18 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Cleanmanage;
 
 /**
@@ -28,7 +32,7 @@ import com.xzit.pms.po.Cleanmanage;
  * @see com.xzit.pms.po.Cleanmanage
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("cleanmanageDAO")
 public class CleanmanageDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(CleanmanageDAO.class);
@@ -39,7 +43,7 @@ public class CleanmanageDAO {
 	public static final String ADDRESS = "address";
 	public static final String CLEANAREA = "cleanarea";
 	public static final String REMARK = "remark";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -56,6 +60,7 @@ public class CleanmanageDAO {
 
 	public void save(Cleanmanage transientInstance) {
 		log.debug("saving Cleanmanage instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -63,10 +68,14 @@ public class CleanmanageDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Cleanmanage persistentInstance) {
 		log.debug("deleting Cleanmanage instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -74,6 +83,9 @@ public class CleanmanageDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Cleanmanage findById(java.lang.Integer id) {
@@ -169,6 +181,7 @@ public class CleanmanageDAO {
 
 	public void attachDirty(Cleanmanage instance) {
 		log.debug("attaching dirty Cleanmanage instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -176,6 +189,9 @@ public class CleanmanageDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Cleanmanage instance) {
@@ -193,5 +209,18 @@ public class CleanmanageDAO {
 	public static CleanmanageDAO getFromApplicationContext(
 			ApplicationContext ctx) {
 		return (CleanmanageDAO) ctx.getBean("CleanmanageDAO");
+	}
+
+	public int getCount(String hql) {
+		 Query q = getCurrentSession().createQuery(hql);
+		 return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Cleanmanage> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+        return q.list();
 	}
 }

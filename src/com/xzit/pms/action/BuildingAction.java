@@ -31,7 +31,6 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
 	 }
     @Action(value="saveBuilding",results={@Result(name="success",type="redirectAction",location="findAllBuilding.action")})
    	public String saveBuilding(){
-    	System.out.println(building.getBname()+building.getPlies()+building.getState());
     	buildingServiceimpl.saveBuilding(building);
    		return SUCCESS;
    	}

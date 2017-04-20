@@ -7,14 +7,18 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Security;
 
 /**
@@ -28,7 +32,7 @@ import com.xzit.pms.po.Security;
  * @see com.xzit.pms.po.Security
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("securityDAO")
 public class SecurityDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(SecurityDAO.class);
@@ -42,8 +46,9 @@ public class SecurityDAO {
 	public static final String TERRITORY = "territory";
 	public static final String WORKTTYPE = "workttype";
 	public static final String REMARK = "remark";
-
+	@Autowired
 	private SessionFactory sessionFactory;
+	
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -59,6 +64,7 @@ public class SecurityDAO {
 
 	public void save(Security transientInstance) {
 		log.debug("saving Security instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -66,10 +72,14 @@ public class SecurityDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Security persistentInstance) {
 		log.debug("deleting Security instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -77,6 +87,9 @@ public class SecurityDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Security findById(java.lang.Integer id) {
@@ -184,6 +197,7 @@ public class SecurityDAO {
 
 	public void attachDirty(Security instance) {
 		log.debug("attaching dirty Security instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -191,6 +205,9 @@ public class SecurityDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Security instance) {
@@ -207,5 +224,18 @@ public class SecurityDAO {
 
 	public static SecurityDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (SecurityDAO) ctx.getBean("SecurityDAO");
+	}
+
+	public int getCount(String hql) {
+		 Query q = getCurrentSession().createQuery(hql);
+		    return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Building> queryForPage(String hql1, int offset, int length) {
+		 Query q = this.getCurrentSession().createQuery(hql1);
+	        q.setFirstResult(offset);
+	        q.setMaxResults(length);
+	        System.out.println(q.list().size());
+	       return q.list();
 	}
 }

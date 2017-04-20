@@ -72,8 +72,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
      </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-2'}"><span class="am-icon-file"></span>房间信息管理</a>
          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-2">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>房间信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 房间信息添加 </a></li>
+             <li><a class="am-cf" style="cursor: pointer;" onclick="findAllRoom(1)"><span class="am-icon-check"></span>房间信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addRoom()"><span class="am-icon-puzzle-piece"></span> 房间信息添加 </a></li>
       </ul>
      </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-3'}"><span class="am-icon-file"></span>业主信息管理</a>
@@ -108,14 +108,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-8'}"><span class="am-icon-file"></span> 保安管理</a>
         <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-8">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>保安信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 保安信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllSecurity(1)"><span class="am-icon-check"></span>保安信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addSecurity()"><span class="am-icon-puzzle-piece"></span> 保安信息添加 </a></li>
        </ul>
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-9'}"><span class="am-icon-file"></span> 保洁环卫管理</a>
        <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-9">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>保洁信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 保洁信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllCleanmanage(1)"><span class="am-icon-check"></span>保洁信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addCleanmanage()"><span class="am-icon-puzzle-piece"></span> 保洁信息添加 </a></li>
        </ul>
       </li>
       <li class="admin-parent">

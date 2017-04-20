@@ -24,7 +24,6 @@ public class Cleanmanage implements java.io.Serializable {
 	private String cmname;
 	private String sex;
 	private String tel;
-	private Date worktime;
 	private String address;
 	private String cleanarea;
 	private String remark;
@@ -42,12 +41,11 @@ public class Cleanmanage implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Cleanmanage(String cmname, String sex, String tel, Date worktime,
+	public Cleanmanage(String cmname, String sex, String tel,
 			String address, String cleanarea, String remark) {
 		this.cmname = cmname;
 		this.sex = sex;
 		this.tel = tel;
-		this.worktime = worktime;
 		this.address = address;
 		this.cleanarea = cleanarea;
 		this.remark = remark;
@@ -91,16 +89,6 @@ public class Cleanmanage implements java.io.Serializable {
 
 	public void setTel(String tel) {
 		this.tel = tel;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "WORKTIME", length = 7)
-	public Date getWorktime() {
-		return this.worktime;
-	}
-
-	public void setWorktime(Date worktime) {
-		this.worktime = worktime;
 	}
 
 	@Column(name = "ADDRESS", length = 50)

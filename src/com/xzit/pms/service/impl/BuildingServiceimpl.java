@@ -61,4 +61,10 @@ public class BuildingServiceimpl implements BuildingService {
 		
 	}
 
+	@Override
+	public List<Building> findAll() {
+		// TODO Auto-generated method stub
+		return buildingDAO.findAll();
+	}
+
 }

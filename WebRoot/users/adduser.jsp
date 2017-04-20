@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <div class="am-form-group">
-            <label for="user-weibo" class="am-u-sm-3 am-form-label">职位 / Position</label>
+            <label for="user-weibo" class="am-u-sm-3 am-form-label"> / Position</label>
             <div class="am-u-sm-9">
               <select class="data-am-selected" name="user.usertype">	
               			<option value="B">企业负责人</option>

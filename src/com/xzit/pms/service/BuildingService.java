@@ -1,5 +1,7 @@
 package com.xzit.pms.service;
 
+import java.util.List;
+
 import com.xzit.pms.po.Building;
 import com.xzit.pms.po.PageBean;
 
@@ -10,6 +12,8 @@ public interface BuildingService {
 	public PageBean queryForPage(int pageSize, int currentPage,String queryInfo);
 
 	public Building findBuildingID(Building building);
+	
+	public List<Building> findAll();
 
 	public void updateBuilding(Building building);
 
