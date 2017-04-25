@@ -26,11 +26,11 @@ public class Resident implements java.io.Serializable {
 
 	private Integer rsid;
 	private Room room;
-	private String rname;
+	private String rsname;
 	private String rsex;
 	private String identity;
 	private String tel;
-	private String reamrk;
+	private String remark;
 	private Set<Complaint> complaints = new HashSet<Complaint>(0);
 
 	// Constructors
@@ -40,20 +40,20 @@ public class Resident implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Resident(String rname, String tel) {
-		this.rname = rname;
+	public Resident(String rsname, String tel) {
+		this.rsname = rsname;
 		this.tel = tel;
 	}
 
 	/** full constructor */
-	public Resident(Room room, String rname, String rsex, String identity,
-			String tel, String reamrk, Set<Complaint> complaints) {
+	public Resident(Room room, String rsname, String rsex, String identity,
+			String tel, String remark, Set<Complaint> complaints) {
 		this.room = room;
-		this.rname = rname;
+		this.rsname = rsname;
 		this.rsex = rsex;
 		this.identity = identity;
 		this.tel = tel;
-		this.reamrk = reamrk;
+		this.remark = remark;
 		this.complaints = complaints;
 	}
 
@@ -80,13 +80,13 @@ public class Resident implements java.io.Serializable {
 		this.room = room;
 	}
 
-	@Column(name = "RNAME", nullable = false, length = 20)
-	public String getRname() {
-		return this.rname;
+	@Column(name = "RSNAME", nullable = false, length = 20)
+	public String getRsname() {
+		return this.rsname;
 	}
 
-	public void setRname(String rname) {
-		this.rname = rname;
+	public void setRsname(String rsname) {
+		this.rsname = rsname;
 	}
 
 	@Column(name = "RSEX", length = 10)
@@ -116,13 +116,13 @@ public class Resident implements java.io.Serializable {
 		this.tel = tel;
 	}
 
-	@Column(name = "REAMRK", length = 40)
-	public String getReamrk() {
-		return this.reamrk;
+	@Column(name = "REMARK", length = 40)
+	public String getRemark() {
+		return this.remark;
 	}
 
-	public void setReamrk(String reamrk) {
-		this.reamrk = reamrk;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "resident")

@@ -1,20 +1,19 @@
 package com.xzit.pms.dao;
-
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.stereotype.Repository;
 import com.xzit.pms.po.Hire;
 
 /**
@@ -28,14 +27,14 @@ import com.xzit.pms.po.Hire;
  * @see com.xzit.pms.po.Hire
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("hireDAO")
 public class HireDAO {
 	private static final Logger log = LoggerFactory.getLogger(HireDAO.class);
 	// property constants
 	public static final String HNAME = "hname";
 	public static final String HTEL = "htel";
 	public static final String REMARK = "remark";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -52,6 +51,7 @@ public class HireDAO {
 
 	public void save(Hire transientInstance) {
 		log.debug("saving Hire instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -59,10 +59,14 @@ public class HireDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Hire persistentInstance) {
 		log.debug("deleting Hire instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -70,6 +74,9 @@ public class HireDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Hire findById(java.lang.Integer id) {
@@ -152,6 +159,7 @@ public class HireDAO {
 
 	public void attachDirty(Hire instance) {
 		log.debug("attaching dirty Hire instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -159,6 +167,9 @@ public class HireDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Hire instance) {
@@ -175,5 +186,18 @@ public class HireDAO {
 
 	public static HireDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (HireDAO) ctx.getBean("HireDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+		return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Hire> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+        return q.list();
 	}
 }

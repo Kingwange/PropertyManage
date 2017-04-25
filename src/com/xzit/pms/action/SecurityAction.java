@@ -1,13 +1,19 @@
 package com.xzit.pms.action;
+import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
+
 import com.opensymphony.xwork2.ModelDriven;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Security;
+import com.xzit.pms.po.Users;
 import com.xzit.pms.service.SecurityService;
+import com.xzit.pms.service.UsersService;
 @SuppressWarnings("serial")
 @InterceptorRefs({ @InterceptorRef(value="paramsPrepareParamsStack",params={"modelDriven.refreshModelBeforeResult","true"})})
 public class SecurityAction extends BaseAction implements ModelDriven<Security> {
@@ -16,10 +22,14 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
     private PageBean pageBean;
     private String queryInfo;
     private String querytype;
+    private List<Users> userslist;
     @Resource(name="securityService")
     private SecurityService securityServiceimpl;
+    @Resource(name="usersService")
+    private UsersService usersServiceimpl;
     @Action(value="addSecurityPage",results={@Result(name="success",location="/security/addsecurity.jsp")})
 	 public String addSecurityPage(){
+    	userslist=usersServiceimpl.finAll();
 	    return SUCCESS;
 	 }
    @Action(value="saveSecurity",results={@Result(name="success",type="redirectAction",location="findAllSecurity.action")})
@@ -45,6 +55,7 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
   }
   @Action(value="modifySecuritypage",results={@Result(name="success",location="/security/updatesecurity.jsp")})   
   public String  modifySecuritypage(){
+	  userslist=usersServiceimpl.finAll();
 	  security=securityServiceimpl.findSecurityID(security);
 		return SUCCESS; 	
  }
@@ -89,6 +100,12 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
 	}
 	public void setQuerytype(String querytype) {
 		this.querytype = querytype;
+	}
+	public List<Users> getUserslist() {
+		return userslist;
+	}
+	public void setUserslist(List<Users> userslist) {
+		this.userslist = userslist;
 	}
 
 }

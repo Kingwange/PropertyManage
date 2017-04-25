@@ -60,4 +60,10 @@ public class SecurityServiceimpl implements SecurityService {
 
 	}
 
+	@Override
+	public List<Security> findAll() {
+		// TODO Auto-generated method stub
+		return securityDAO.findAll();
+	}
+
 }

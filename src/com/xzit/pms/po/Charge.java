@@ -1,5 +1,6 @@
 package com.xzit.pms.po;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Charge entity. @author MyEclipse Persistence Tools
@@ -26,6 +29,7 @@ public class Charge implements java.io.Serializable {
 	private Double price;
 	private String chargestate;
 	private String remark;
+	private Date chargedate;
 
 	// Constructors
 
@@ -40,12 +44,13 @@ public class Charge implements java.io.Serializable {
 
 	/** full constructor */
 	public Charge(Room room, String cname, Double price, String chargestate,
-			String remark) {
+			String remark, Date chargedate) {
 		this.room = room;
 		this.cname = cname;
 		this.price = price;
 		this.chargestate = chargestate;
 		this.remark = remark;
+		this.chargedate = chargedate;
 	}
 
 	// Property accessors
@@ -105,6 +110,16 @@ public class Charge implements java.io.Serializable {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CHARGEDATE", length = 7)
+	public Date getChargedate() {
+		return this.chargedate;
+	}
+
+	public void setChargedate(Date chargedate) {
+		this.chargedate = chargedate;
 	}
 
 }

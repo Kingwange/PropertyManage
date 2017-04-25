@@ -36,8 +36,6 @@ public class MaintainDAO {
 	public static final String MCONTENT = "mcontent";
 	public static final String MNAME = "mname";
 	public static final String MTEL = "mtel";
-	public static final String SERVICEMAN = "serviceman";
-	public static final String STEL = "stel";
 	public static final String TYPE = "type";
 	public static final String REMARK = "remark";
 
@@ -129,14 +127,6 @@ public class MaintainDAO {
 
 	public List<Maintain> findByMtel(Object mtel) {
 		return findByProperty(MTEL, mtel);
-	}
-
-	public List<Maintain> findByServiceman(Object serviceman) {
-		return findByProperty(SERVICEMAN, serviceman);
-	}
-
-	public List<Maintain> findByStel(Object stel) {
-		return findByProperty(STEL, stel);
 	}
 
 	public List<Maintain> findByType(Object type) {

@@ -1,5 +1,7 @@
 package com.xzit.pms.service;
 
+import java.util.List;
+
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Security;
 
@@ -14,5 +16,7 @@ public interface SecurityService {
 	public void updateSecurity(Security security);
 
 	public void deleteSecurity(Security security);
+
+	public List<Security> findAll();
 
 }

@@ -25,12 +25,11 @@ public class Maintain implements java.io.Serializable {
 
 	private Integer mid;
 	private Room room;
+	private Maintainman maintainman;
 	private String mcontent;
 	private String mname;
 	private Date repairdate;
 	private String mtel;
-	private String serviceman;
-	private String stel;
 	private String type;
 	private String remark;
 
@@ -47,16 +46,15 @@ public class Maintain implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Maintain(Room room, String mcontent, String mname, Date repairdate,
-			String mtel, String serviceman, String stel, String type,
+	public Maintain(Room room, Maintainman maintainman, String mcontent,
+			String mname, Date repairdate, String mtel, String type,
 			String remark) {
 		this.room = room;
+		this.maintainman = maintainman;
 		this.mcontent = mcontent;
 		this.mname = mname;
 		this.repairdate = repairdate;
 		this.mtel = mtel;
-		this.serviceman = serviceman;
-		this.stel = stel;
 		this.type = type;
 		this.remark = remark;
 	}
@@ -82,6 +80,16 @@ public class Maintain implements java.io.Serializable {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "MMID")
+	public Maintainman getMaintainman() {
+		return this.maintainman;
+	}
+
+	public void setMaintainman(Maintainman maintainman) {
+		this.maintainman = maintainman;
 	}
 
 	@Column(name = "MCONTENT", length = 40)
@@ -119,24 +127,6 @@ public class Maintain implements java.io.Serializable {
 
 	public void setMtel(String mtel) {
 		this.mtel = mtel;
-	}
-
-	@Column(name = "SERVICEMAN", length = 20)
-	public String getServiceman() {
-		return this.serviceman;
-	}
-
-	public void setServiceman(String serviceman) {
-		this.serviceman = serviceman;
-	}
-
-	@Column(name = "STEL", length = 20)
-	public String getStel() {
-		return this.stel;
-	}
-
-	public void setStel(String stel) {
-		this.stel = stel;
 	}
 
 	@Column(name = "TYPE", length = 10)

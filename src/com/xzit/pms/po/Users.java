@@ -1,10 +1,15 @@
 package com.xzit.pms.po;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -20,7 +25,9 @@ public class Users implements java.io.Serializable {
 	private Integer id;
 	private String username;
 	private String password;
-	private Integer rsid;
+	private String authority;
+	private Set<Room> rooms = new HashSet<Room>(0);
+	private Set<Maintainman> maintainmans = new HashSet<Maintainman>(0);
 
 	// Constructors
 
@@ -35,14 +42,17 @@ public class Users implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Users(String username, String password, Integer rsid) {
+	public Users(String username, String password, String authority,
+			Set<Room> rooms, Set<Maintainman> maintainmans) {
 		this.username = username;
 		this.password = password;
-		this.rsid = rsid;
+		this.authority = authority;
+		this.rooms = rooms;
+		this.maintainmans = maintainmans;
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="seq_users",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="SEQ_USERS",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -72,13 +82,31 @@ public class Users implements java.io.Serializable {
 		this.password = password;
 	}
 
-	@Column(name = "RSID", precision = 6, scale = 0)
-	public Integer getRsid() {
-		return this.rsid;
+	@Column(name = "AUTHORITY", length = 10)
+	public String getAuthority() {
+		return this.authority;
 	}
 
-	public void setRsid(Integer rsid) {
-		this.rsid = rsid;
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "users")
+	public Set<Room> getRooms() {
+		return this.rooms;
+	}
+
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "users")
+	public Set<Maintainman> getMaintainmans() {
+		return this.maintainmans;
+	}
+
+	public void setMaintainmans(Set<Maintainman> maintainmans) {
+		this.maintainmans = maintainmans;
 	}
 
 }

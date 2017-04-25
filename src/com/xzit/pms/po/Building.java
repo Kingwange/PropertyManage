@@ -32,7 +32,6 @@ public class Building implements java.io.Serializable {
 	private String state;
 	private String remark;
 	private Set<Room> rooms = new HashSet<Room>(0);
-	private Set<Hire> hires = new HashSet<Hire>(0);
 
 	// Constructors
 
@@ -49,13 +48,12 @@ public class Building implements java.io.Serializable {
 
 	/** full constructor */
 	public Building(String bname, Integer plies, String state, String remark,
-			Set<Room> rooms, Set<Hire> hires) {
+			Set<Room> rooms) {
 		this.bname = bname;
 		this.plies = plies;
 		this.state = state;
 		this.remark = remark;
 		this.rooms = rooms;
-		this.hires = hires;
 	}
 
 	// Property accessors
@@ -116,13 +114,5 @@ public class Building implements java.io.Serializable {
 		this.rooms = rooms;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "building")
-	public Set<Hire> getHires() {
-		return this.hires;
-	}
-
-	public void setHires(Set<Hire> hires) {
-		this.hires = hires;
-	}
 
 }

@@ -20,11 +20,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="assets/css/amazeui.datetimepicker.css"/>
   <link rel="stylesheet" href="assets/css/admin.css">
-   <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css">
-  <script  src="assets/js/bootstrap-datetimepicker.min.js"></script>
-  <script src="assets/js/bootstrap-datetimepicker.zh-CN.js"></script>
   <script src="assets/js/jquery.min.js"></script>
+   <script src="assets/js/amazeui.datetimepicker.min.js"></script>
   <script src="assets/js/amazeui.min.js"></script>
   <script src="assets/js/app.js"></script>
  </head>
@@ -63,9 +62,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
           </div>
           <div class="am-form-group">
-            <label for="user-phone" class="am-u-sm-3 am-form-label">入住时间 </label>
-            <div class="am-u-sm-9">
-           <input type="text"  id="intime" name="intime" placeholder="输入你的入住时间 / Date"  readonly>
+             <label for="user-phone" class="am-u-sm-3 am-form-label">入住时间 </label>
+             <div class="am-u-sm-9">
+              <input type="text"  name="intime" id="intime" class="am-form-field"/>
             </div>
           </div>
            <div class="am-form-group">
@@ -84,22 +83,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
   </div>
   <!-- content end -->
-  <script type="text/javascript">
-  $('.date').datetimepicker({
-   language: 'zh-CN',//显示中文
-   format: 'yyyy-mm-dd',//显示格式
-   minView: "month",//设置只显示到月份
-   initialDate: new Date(),//初始化当前日期
-   autoclose: true,//选中自动关闭
-   todayBtn: true//显示今日按钮
-   })
-    $("#intime").datetimepicker({
-    format: 'yyyy-mm-dd',
-    minView:'month',
-    language: 'zh-CN',
-    autoclose:true,
-    startDate:new Date()
-  });
-</script>
+ <script>
+ $('#intime').datetimepicker({
+	  format: 'yyyy-mm-dd hh:ii'
+	});
+ $(function(){
+	 var today=new Date();
+    var y=today.getFullYear();
+    var m=today.getMonth()+1;
+    var d=today.getDate();
+    var h=today.getHours();
+    var min=today.getMinutes();
+    var localtime =  y+"-"+m+"-"+d+" "+h+":"+min;
+	$("#intime").val(localtime);
+ }); 
+ </script>
 </body>
 </html>

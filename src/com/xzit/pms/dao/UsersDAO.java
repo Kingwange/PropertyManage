@@ -1,11 +1,13 @@
 package com.xzit.pms.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
@@ -29,18 +31,16 @@ import com.xzit.pms.po.Users;
  * @see com.xzit.pms.po.Users
  * @author MyEclipse Persistence Tools
  */
-@Repository("usersDao")
+@Repository("usersDAO")
 public class UsersDAO {
 	private static final Logger log = LoggerFactory.getLogger(UsersDAO.class);
 	// property constants
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
-	public static final String RSID = "rsid";
-	@Autowired
+	public static final String AUTHORITY = "authority";
+    @Autowired
 	private SessionFactory sessionFactory;
 	private Query query;
-	private Users user;
-
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -55,6 +55,7 @@ public class UsersDAO {
 
 	public void save(Users transientInstance) {
 		log.debug("saving Users instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -62,10 +63,14 @@ public class UsersDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Users persistentInstance) {
 		log.debug("deleting Users instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -73,6 +78,9 @@ public class UsersDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Users findById(java.lang.Integer id) {
@@ -125,8 +133,8 @@ public class UsersDAO {
 		return findByProperty(PASSWORD, password);
 	}
 
-	public List<Users> findByRsid(Object rsid) {
-		return findByProperty(RSID, rsid);
+	public List<Users> findByAuthority(Object authority) {
+		return findByProperty(AUTHORITY, authority);
 	}
 
 	public List findAll() {
@@ -155,6 +163,7 @@ public class UsersDAO {
 
 	public void attachDirty(Users instance) {
 		log.debug("attaching dirty Users instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -162,6 +171,9 @@ public class UsersDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Users instance) {
@@ -175,27 +187,40 @@ public class UsersDAO {
 			throw re;
 		}
 	}
+	public Users usersLogin(Users users) {
+	    Users user=new Users(); 
+		query = this.getCurrentSession().createQuery(" from Users where username=? and password=? ");
+		System.out.println(users.getUsername());
+		query.setString(0, users.getUsername());
+		query.setString(1, users.getPassword());
+		System.out.println(query);
+		List<Users> lists = query.list();
+		System.out.println(lists.get(0));
+		if (lists.size() > 0) {
+			user = lists.get(0);
+		} else {
+			System.out.println("失败");
+			user = null;
+		}
+		return users;
+	
+}
+
+public int getCount(String hql) {
+	Query q = getCurrentSession().createQuery(hql);
+    return Integer.parseInt(q.list().get(0).toString());
+}
+
+public List<Users> queryForPage(String hql1, int offset, int length) {
+	Query q = this.getCurrentSession().createQuery(hql1);
+    q.setFirstResult(offset);
+    q.setMaxResults(length);
+    System.out.println(q.list().size());
+   return q.list();
+}
+
 
 	public static UsersDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (UsersDAO) ctx.getBean("UsersDAO");
-	}
-	@SuppressWarnings("finally")
-	public Users usersLogin(Users users) {
-		
-			query = this.getCurrentSession().createQuery(" from Users where username=? and password=? ");
-			System.out.println(users.getUsername());
-			query.setString(0, users.getUsername());
-			query.setString(1, users.getPassword());
-			System.out.println(query);
-			List<Users> lists = query.list();
-			System.out.println(lists.get(0));
-			if (lists.size() > 0) {
-				user = lists.get(0);
-			} else {
-				System.out.println("失败");
-				user = null;
-			}
-			return users;
-		
 	}
 }

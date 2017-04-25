@@ -88,12 +88,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           			<td ><s:property value="tel"/></td> 
                     <td ><s:property value="address"/></td>
                     <td ><s:property value="cleanarea"/></td>
-                    <td ><s:property value="remark"/></td> 	
-          			<s:if test="#session.users.rsid==null">	
-          			<td><button type="button" class="am-btn am-btn-xs am-btn-default am-radius" onclick='getUpdateCleanmanagePage(<s:property value="cmid"/>)'>修改</button>
+                    <td ><s:property value="remark"/></td> 
+          		    <td><button type="button" class="am-btn am-btn-xs am-btn-default am-radius" onclick='getUpdateCleanmanagePage(<s:property value="cmid"/>)'>修改</button>
           			<button type="button" class="am-btn am-btn-xs am-btn-default am-radius" style="color: red" onclick='deleteCleanmanage(<s:property value="cmid"/>)'>删除</button>
           			</td>
-          			</s:if>
+          			
           		</tr>
           	</s:iterator>
           	  <tr>
@@ -130,5 +129,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                </tr>
           </tbody>
         </table>
+        </form>
+        </div>
+        </div>
   </body>
 </html>

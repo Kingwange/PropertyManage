@@ -29,9 +29,9 @@ public class Room implements java.io.Serializable {
 
 	private Integer rid;
 	private Building building;
+	private Users users;
 	private Ower ower;
 	private String rname;
-	private Date intime;
 	private String type;
 	private Double rarea;
 	private Set<Resident> residents = new HashSet<Resident>(0);
@@ -46,13 +46,13 @@ public class Room implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Room(Building building, Ower ower, String rname, Date intime,
-			String type, Double rarea, Set<Resident> residents,
+	public Room(Building building, Users users, Ower ower, String rname,
+		 String type, Double rarea, Set<Resident> residents,
 			Set<Maintain> maintains, Set<Charge> charges, Set<Hire> hires) {
 		this.building = building;
+		this.users = users;
 		this.ower = ower;
 		this.rname = rname;
-		this.intime = intime;
 		this.type = type;
 		this.rarea = rarea;
 		this.residents = residents;
@@ -85,6 +85,16 @@ public class Room implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "ID")
+	public Users getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "OID")
 	public Ower getOwer() {
 		return this.ower;
@@ -101,16 +111,6 @@ public class Room implements java.io.Serializable {
 
 	public void setRname(String rname) {
 		this.rname = rname;
-	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "INTIME", length = 7)
-	public Date getIntime() {
-		return this.intime;
-	}
-
-	public void setIntime(Date intime) {
-		this.intime = intime;
 	}
 
 	@Column(name = "TYPE", length = 10)

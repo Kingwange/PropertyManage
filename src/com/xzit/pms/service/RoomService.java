@@ -1,5 +1,7 @@
 package com.xzit.pms.service;
 
+import java.util.List;
+
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
 
@@ -15,6 +17,8 @@ public interface RoomService {
 	public void updateRoom(Room room);
 
 	public void deleteRoom(Room room);
+
+	public List<Room> findAll();
 
 	
 

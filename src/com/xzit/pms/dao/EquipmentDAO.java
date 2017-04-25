@@ -7,12 +7,15 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Equipment;
@@ -28,7 +31,7 @@ import com.xzit.pms.po.Equipment;
  * @see com.xzit.pms.po.Equipment
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("equipmentDAO")
 public class EquipmentDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(EquipmentDAO.class);
@@ -38,7 +41,7 @@ public class EquipmentDAO {
 	public static final String VENDOR = "vendor";
 	public static final String MAINTENANCETIME = "maintenancetime";
 	public static final String REMARK = "remark";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -55,6 +58,7 @@ public class EquipmentDAO {
 
 	public void save(Equipment transientInstance) {
 		log.debug("saving Equipment instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -62,10 +66,14 @@ public class EquipmentDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Equipment persistentInstance) {
 		log.debug("deleting Equipment instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -73,6 +81,9 @@ public class EquipmentDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Equipment findById(java.lang.Integer id) {
@@ -164,6 +175,7 @@ public class EquipmentDAO {
 
 	public void attachDirty(Equipment instance) {
 		log.debug("attaching dirty Equipment instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -171,6 +183,9 @@ public class EquipmentDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Equipment instance) {
@@ -187,5 +202,18 @@ public class EquipmentDAO {
 
 	public static EquipmentDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (EquipmentDAO) ctx.getBean("EquipmentDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+		 return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Equipment> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+        return q.list();
 	}
 }

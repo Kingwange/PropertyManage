@@ -31,7 +31,6 @@ public class Ower implements java.io.Serializable {
 	private String tel;
 	private Date intime;
 	private String remark;
-	private Set<Hire> hires = new HashSet<Hire>(0);
 
 	// Constructors
 
@@ -47,13 +46,12 @@ public class Ower implements java.io.Serializable {
 
 	/** full constructor */
 	public Ower(String oname, String identity, String tel, Date intime,
-			String remark, Set<Hire> hires) {
+			String remark) {
 		this.oname = oname;
 		this.identity = identity;
 		this.tel = tel;
 		this.intime = intime;
 		this.remark = remark;
-		this.hires = hires;
 	}
 
 	// Property accessors
@@ -114,15 +112,5 @@ public class Ower implements java.io.Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "ower")
-	public Set<Hire> getHires() {
-		return this.hires;
-	}
-
-	public void setHires(Set<Hire> hires) {
-		this.hires = hires;
-	}
-
 
 }

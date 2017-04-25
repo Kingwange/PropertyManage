@@ -61,4 +61,10 @@ public class RoomServiceimpl implements RoomService {
 
 	}
 
+	@Override
+	public List<Room> findAll() {
+		// TODO Auto-generated method stub
+		return roomDAO.findAll();
+	}
+
 }

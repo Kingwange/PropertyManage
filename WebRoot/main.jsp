@@ -22,10 +22,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="assets/css/admin.css">
+  <link href='http://fonts.googleapis.com/css?family=Roboto'>
+  <link rel="stylesheet" href="assets/css/calender.css">
+ 
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/amazeui.min.js"></script>
   <script src="assets/js/app.js"></script>
   <script type="text/javascript" src="assets/js/main.js"></script>
+  <script src="assets/js/checkInfo.js"></script>
 </head>
 <body>
 <header class="am-topbar admin-header">
@@ -40,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          <span class="am-icon-users"></span>${session.users.username}<span class="am-icon-caret-down"></span>
+          <span class="am-icon-users"></span>${session.users1.username}<span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
           <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
@@ -60,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <li><a href="main.jsp"><span class="am-icon-home"></span> 首页</a></li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-1'}"><span class="am-icon-file"></span> 用户管理</a>
        <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-1">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>用户查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 用户添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllUsers(1)"><span class="am-icon-check"></span>用户查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addUsers()"><span class="am-icon-puzzle-piece"></span> 用户添加 </a></li>
       </ul>
     </li>
     <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-'}"><span class="am-icon-file"></span>楼宇信息管理</a>
@@ -84,26 +88,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-4'}"><span class="am-icon-file"></span> 住户管理</a>
        <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-4">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>住户信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 住户信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllResident(1)"><span class="am-icon-check"></span>住户信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addResident()"><span class="am-icon-puzzle-piece"></span> 住户信息添加 </a></li>
        </ul>
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-5'}"><span class="am-icon-file"></span> 租赁管理</a>
          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-5">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>租赁信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 租赁信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllHire(1)"><span class="am-icon-check"></span>租赁信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addHire()"><span class="am-icon-puzzle-piece"></span> 租赁信息添加 </a></li>
        </ul>
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-6'}"><span class="am-icon-file"></span> 收费管理</a>
         <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-6">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"><span class="am-icon-check"></span>收费信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 收费信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllCharge(1)"><span class="am-icon-check">收费信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addCharge()"><span class="am-icon-puzzle-piece"></span> 收费信息添加 </a></li>
        </ul>
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-7'}"><span class="am-icon-file"></span> 设备管理</a>
         <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-7">
-            <li><a href="user/showuser.jsp" class="am-cf"><span class="am-icon-check"></span>设备信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-            <li><a style="cursor: pointer;" onclick="addUser()"><span class="am-icon-puzzle-piece"></span> 设备信息添加 </a></li>
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllEquipment(1)"><span class="am-icon-check"></span>设备信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li><a style="cursor: pointer;" onclick="addEquipment()"><span class="am-icon-puzzle-piece"></span> 设备信息添加 </a></li>
        </ul>
       </li>
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-8'}"><span class="am-icon-file"></span> 保安管理</a>
@@ -153,7 +157,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <footer>
   <hr>
-  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license. <a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
 </footer>
 <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>

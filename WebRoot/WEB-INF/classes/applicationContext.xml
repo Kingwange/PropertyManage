@@ -43,21 +43,23 @@
 				<value>com.xzit.pms.po.Hire</value>
 				<value>com.xzit.pms.po.Maintain</value>
 				<value>com.xzit.pms.po.Ower</value>
-				<value>com.xzit.pms.po.Resident</value>
 				<value>com.xzit.pms.po.Room</value>
 				<value>com.xzit.pms.po.Security</value>
-				<value>com.xzit.pms.po.Users</value></list>
+				<value>com.xzit.pms.po.Users</value>
+				<value>com.xzit.pms.po.Maintainman</value>
+				<value>com.xzit.pms.po.Maintain</value>
+				<value>com.xzit.pms.po.Resident</value></list>
 		</property></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" /><bean
-		id="UsersDAO" class="com.xzit.pms.dao.UsersDAO">
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="UsersDAO" class="com.xzit.pms.dao.UsersDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
-</bean>
+    </bean>
 	<bean id="BuildingDAO" class="com.xzit.pms.dao.BuildingDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
@@ -98,17 +100,22 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="ResidentDAO" class="com.xzit.pms.dao.ResidentDAO">
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
-	</bean>
 	<bean id="RoomDAO" class="com.xzit.pms.dao.RoomDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
 	<bean id="SecurityDAO" class="com.xzit.pms.dao.SecurityDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="MaintainmanDAO" class="com.xzit.pms.dao.MaintainmanDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="ResidentDAO" class="com.xzit.pms.dao.ResidentDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

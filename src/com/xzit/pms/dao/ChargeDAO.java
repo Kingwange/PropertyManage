@@ -1,17 +1,21 @@
 package com.xzit.pms.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Charge;
@@ -27,7 +31,7 @@ import com.xzit.pms.po.Charge;
  * @see com.xzit.pms.po.Charge
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("chargeDAO")
 public class ChargeDAO {
 	private static final Logger log = LoggerFactory.getLogger(ChargeDAO.class);
 	// property constants
@@ -35,7 +39,7 @@ public class ChargeDAO {
 	public static final String PRICE = "price";
 	public static final String CHARGESTATE = "chargestate";
 	public static final String REMARK = "remark";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -52,6 +56,7 @@ public class ChargeDAO {
 
 	public void save(Charge transientInstance) {
 		log.debug("saving Charge instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -59,10 +64,14 @@ public class ChargeDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Charge persistentInstance) {
 		log.debug("deleting Charge instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -70,6 +79,9 @@ public class ChargeDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Charge findById(java.lang.Integer id) {
@@ -157,6 +169,7 @@ public class ChargeDAO {
 
 	public void attachDirty(Charge instance) {
 		log.debug("attaching dirty Charge instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -164,6 +177,9 @@ public class ChargeDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Charge instance) {
@@ -180,5 +196,17 @@ public class ChargeDAO {
 
 	public static ChargeDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ChargeDAO) ctx.getBean("ChargeDAO");
+	}
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+		 return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Charge> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+        return q.list();
 	}
 }

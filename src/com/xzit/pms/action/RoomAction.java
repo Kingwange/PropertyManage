@@ -15,9 +15,11 @@ import com.xzit.pms.po.Cleanmanage;
 import com.xzit.pms.po.Ower;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
+import com.xzit.pms.po.Users;
 import com.xzit.pms.service.BuildingService;
 import com.xzit.pms.service.OwerService;
 import com.xzit.pms.service.RoomService;
+import com.xzit.pms.service.UsersService;
 @SuppressWarnings("serial")
 @InterceptorRefs({ @InterceptorRef(value = "paramsPrepareParamsStack", params = {"modelDriven.refreshModelBeforeResult", "true" }) })
 public class RoomAction extends BaseAction implements ModelDriven<Room> {
@@ -29,16 +31,20 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	private String queryower;
 	private List<Building> buildlist;
 	private List<Ower> owerlist;
+	private List<Users> userslist;
 	@Resource(name ="roomService")
 	private RoomService roomServiceimpl;
 	@Resource(name="buildingService")
 	private BuildingService buildingServiceimpl;
 	@Resource(name="owerService")
     private OwerService owerServiceimpl;
+	@Resource(name="usersService")
+    private UsersService usersServiceimpl;
 	@Action(value ="addRoomPage", results = { @Result(name = "success", location = "/room/addroom.jsp") })
 	public String addRoomPage() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
+		userslist=usersServiceimpl.finAll();
 		return SUCCESS;
 	}
 
@@ -52,7 +58,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	public String findAllRoom() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
-		
+		userslist=usersServiceimpl.finAll();
 		if (queryroom == null) {
 			queryroom = "";
 		}
@@ -75,6 +81,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	public String modifyRoompage() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
+		userslist=usersServiceimpl.finAll();
 		room = roomServiceimpl.findRoomID(room);
 		return SUCCESS;
 	}
@@ -153,6 +160,14 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 
 	public void setOwerlist(List<Ower> owerlist) {
 		this.owerlist = owerlist;
+	}
+
+	public List<Users> getUserslist() {
+		return userslist;
+	}
+
+	public void setUserslist(List<Users> userslist) {
+		this.userslist = userslist;
 	}
 
 }

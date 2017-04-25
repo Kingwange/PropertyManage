@@ -24,9 +24,7 @@ public class Hire implements java.io.Serializable {
 	// Fields
 
 	private Integer hid;
-	private Building building;
 	private Room room;
-	private Ower ower;
 	private String hname;
 	private String htel;
 	private Date checkindate;
@@ -46,11 +44,9 @@ public class Hire implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Hire(Building building, Room room, Ower ower, String hname,
+	public Hire(Room room, String hname,
 			String htel, Date checkindate, Date duedate, String remark) {
-		this.building = building;
 		this.room = room;
-		this.ower = ower;
 		this.hname = hname;
 		this.htel = htel;
 		this.checkindate = checkindate;
@@ -71,16 +67,7 @@ public class Hire implements java.io.Serializable {
 		this.hid = hid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BID")
-	public Building getBuilding() {
-		return this.building;
-	}
-
-	public void setBuilding(Building building) {
-		this.building = building;
-	}
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RID")
 	public Room getRoom() {
@@ -89,16 +76,6 @@ public class Hire implements java.io.Serializable {
 
 	public void setRoom(Room room) {
 		this.room = room;
-	}
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OID")
-	public Ower getOwer() {
-		return this.ower;
-	}
-
-	public void setOwer(Ower ower) {
-		this.ower = ower;
 	}
 
 	@Column(name = "HNAME", nullable = false, length = 20)

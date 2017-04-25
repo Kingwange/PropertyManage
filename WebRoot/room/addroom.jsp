@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>保洁信息添加</title>
+    <title>房间信息添加</title>
   <meta name="keywords" content="ower">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
 <body>
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加保洁信息</strong> / <small>Add Cleanmanage</small></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加房间信息</strong> / <small>Add Room</small></div>
     </div>
 
     <hr/>
@@ -74,12 +74,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
           </div>
           <div class="am-form-group">
-            <label  class="am-u-sm-3 am-form-label">入住时间</label>
-            <div class="am-u-sm-9">
-           <input type="text"  id="intime" name="intime" placeholder="入住时间/ InTime"  >
-            </div>
-          </div>
-          <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">房型</label>
             <div class="am-u-sm-9">
               <select  class="am-input-sm" name="type" required="required">
@@ -97,6 +91,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
            <input type="text"  id="rarea" name="rarea" placeholder="房间面积/ Rarea"  >
             </div>
           </div>
+           <div class="am-form-group">
+            <label  class="am-u-sm-3 am-form-label">用户</label>
+            <div class="am-u-sm-9">
+            <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
+						id="id" name="users.id" required="required">
+					  <option value="">请选择</option>
+				   <s:iterator value="userslist">
+				     <s:if test="authority=='B'.toString()">	
+                      <option value='<s:property value="id" />'><s:property value="username" /></option>
+                     </s:if>
+                   </s:iterator>
+			</select>
+            </div>
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
               <button type="button" class="am-btn am-btn-primary" onclick="saveRoom()">保存</button>

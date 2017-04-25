@@ -42,7 +42,7 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
 		}
 		if(page==0)
 			page=1;
-		this.req.setAttribute("queryInfo",queryInfo);;
+		this.req.setAttribute("queryInfo",queryInfo);
 	    this.pageBean =buildingServiceimpl.queryForPage(2, page,queryInfo);
 	    return SUCCESS;
    }

@@ -7,12 +7,15 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Resident;
@@ -28,17 +31,17 @@ import com.xzit.pms.po.Resident;
  * @see com.xzit.pms.po.Resident
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("residentDAO")
 public class ResidentDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(ResidentDAO.class);
 	// property constants
-	public static final String RNAME = "rname";
+	public static final String RSNAME = "rsname";
 	public static final String RSEX = "rsex";
 	public static final String IDENTITY = "identity";
 	public static final String TEL = "tel";
-	public static final String REAMRK = "reamrk";
-
+	public static final String REMARK = "remark";
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -55,6 +58,7 @@ public class ResidentDAO {
 
 	public void save(Resident transientInstance) {
 		log.debug("saving Resident instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -62,10 +66,14 @@ public class ResidentDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Resident persistentInstance) {
 		log.debug("deleting Resident instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -73,6 +81,9 @@ public class ResidentDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Resident findById(java.lang.Integer id) {
@@ -117,8 +128,8 @@ public class ResidentDAO {
 		}
 	}
 
-	public List<Resident> findByRname(Object rname) {
-		return findByProperty(RNAME, rname);
+	public List<Resident> findByRsname(Object rsname) {
+		return findByProperty(RSNAME, rsname);
 	}
 
 	public List<Resident> findByRsex(Object rsex) {
@@ -133,8 +144,8 @@ public class ResidentDAO {
 		return findByProperty(TEL, tel);
 	}
 
-	public List<Resident> findByReamrk(Object reamrk) {
-		return findByProperty(REAMRK, reamrk);
+	public List<Resident> findByRemark(Object remark) {
+		return findByProperty(REMARK, remark);
 	}
 
 	public List findAll() {
@@ -164,6 +175,7 @@ public class ResidentDAO {
 
 	public void attachDirty(Resident instance) {
 		log.debug("attaching dirty Resident instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -171,6 +183,9 @@ public class ResidentDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Resident instance) {
@@ -187,5 +202,18 @@ public class ResidentDAO {
 
 	public static ResidentDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ResidentDAO) ctx.getBean("ResidentDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+		 return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Resident> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+        return q.list();
 	}
 }
