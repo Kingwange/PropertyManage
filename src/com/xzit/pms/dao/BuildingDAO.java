@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Ower;
+import com.xzit.pms.po.Users;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -211,5 +212,12 @@ public class BuildingDAO {
 
 	public static BuildingDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (BuildingDAO) ctx.getBean("BuildingDAO");
+	}
+
+	public Building findCheckName(String bname2) {
+		Query query = this.getCurrentSession().createQuery(" from Building where bname=? ");
+		query.setString(0, bname2);
+		List<Building> lists = query.list();
+		return lists.get(0);
 	}
 }

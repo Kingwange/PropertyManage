@@ -44,33 +44,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="am-form-group">
             <label for="building-name" class="am-u-sm-3 am-form-label">楼宇名称 </label>
             <div class="am-u-sm-9">
-              <input type="text" id="bname" placeholder="楼宇名/ Name" name="bname">
+              <input type="text" style="width:200px" placeholder="楼宇名/ Name" name="bname" onblur="checkBuildingname(this)">
+              <small class="error"></small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="building-piles" class="am-u-sm-3 am-form-label">楼宇层数 </label>
             <div class="am-u-sm-9">
-              <input type="text" id="plies" placeholder="层数/ piles" name="plies">
+              <input type="text"  style="width:200px" placeholder="层数/ plies" name="plies" onblur="checkPiles(this)">
+             <small class="error"></small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="building-state" class="am-u-sm-3 am-form-label">楼盘状态</label>
             <div class="am-u-sm-9">
-              <select  class="am-input-sm" name="state" required="required">
+              <select  class="am-input-sm" name="state" required="required" style="width:150px" onchange="checktype(this)">
 					<option value="">请选择</option>
 					<option value="N">未竣工</option>
 					<option value="Y">已竣工</option>		
 			</select>
+			 <small class="error"></small>
             </div>
           </div>
           <div class="am-form-group">
             <label for="user-phone" class="am-u-sm-3 am-form-label">备注</label>
             <div class="am-u-sm-9">
-           <input type="text"  id="remark" name="remark" placeholder=""  >
+           <textarea type="text"  id="remark" name="remark" placeholder=""  />
+              <small id="maintain"></small>
             </div>
           </div>
+          <br>
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
               <button type="button" class="am-btn am-btn-primary" onclick="saveBuilding()">保存</button>

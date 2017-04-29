@@ -35,6 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				});
 			});
 	</script>
+	
 <style>
 	.table_content{
 		width:45%;
@@ -78,28 +79,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 <div class="tableBox"> 
 				 <table class="table_content">
 					<tr><th>姓名</th>
-		             <td><input type="text" style="width:200px" name="mname" id="name" onblur="checkName('name')"/><small id="errname" style="color:red"></small></td>
+		             <td><input type="text" style="width:150px" name="mname" id="mname" onblur="checkName(this)"/><small class="error"></small></td>
 		             </tr>
 		            <tr>
 		            
 		            <th>联系电话</th>
-		             <td><input type="text" style="width:200px" name="mtel"/></td></tr>
-		            <tr><th>房间号</th>
-		            <td>
-		            <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="rid" name="room.rid" required="required">
-					  <option value="">请选择</option>
-				        <s:iterator value="roomlist" >	
-                      <option value='<s:property value="rid" />'><s:property value="rname" /></option>
-                        </s:iterator>
-			        </select>
-			        </td>
-			        </tr>
+		             <td><input type="text" style="width:150px" name="mtel" id="mtel" onblur="checkTel(this)"/><small class="error"></small></td></tr>
+		            
 		            <tr>
 		            	<th>报修类别</th>
 		            	<td><select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
 						 name="maintainman.mmid" required="required">
-					  <option value="">请选择</option>
+					 
 				        <s:iterator value="maintainmanlist" >	
                       <option value='<s:property value="mmid" />'>
                         <s:if test="repairtype.equals('Wood')">木工类</s:if>
@@ -117,8 +108,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<tr>
 						<th>报修内容</th>
 						<td>
-						<textarea name="mcontent" style= "background:transparent;"/> </textarea>
-						</td>
+						<textarea name="mcontent" style= "background:transparent;"  id="remark" onblur="checkRemark(this)" /> </textarea>
+						<small class="error"></small></td>
 					</tr>
 		            <tr>
 		            	<td>

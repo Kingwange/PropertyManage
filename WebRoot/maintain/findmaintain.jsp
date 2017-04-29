@@ -168,10 +168,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td><button type="button"
 										class="am-btn am-btn-xs am-btn-default am-radius"
 										onclick='getUpdateMaintainPage(<s:property value="mid"/>)'>修改</button>
+									<c:if test="${users != null && users.authority =='A'}">
 									<button type="button"
 										class="am-btn am-btn-xs am-btn-default am-radius"
 										style="color: red"
-										onclick='deleteMaintain(<s:property value="mid"/>)'>删除</button></td>
+										onclick='deleteMaintain(<s:property value="mid"/>)'>删除</button></c:if></td>
 							</tr>
 						</s:iterator>
 					</tbody>

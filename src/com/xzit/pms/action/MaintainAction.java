@@ -15,6 +15,7 @@ import com.xzit.pms.po.Maintain;
 import com.xzit.pms.po.Maintainman;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
+import com.xzit.pms.po.Users;
 import com.xzit.pms.service.MaintainService;
 import com.xzit.pms.service.MaintainmanService;
 import com.xzit.pms.service.RoomService;
@@ -27,6 +28,7 @@ public  class MaintainAction extends BaseAction implements ModelDriven<Maintain>
 	private String queryroom;
 	private String querytype;
 	private String queryrepairtype;
+	private Room room=new Room();
 	Date date =new Date();
 	List<Room> roomlist;
 	List<Maintainman> maintainmanlist;
@@ -44,6 +46,8 @@ public  class MaintainAction extends BaseAction implements ModelDriven<Maintain>
 	 }
   @Action(value="saveMaintain",results={@Result(name="success",location="/index.jsp")})
  	public String saveMaintain(){
+	    room=roomServiceimpl.findUserID((Users)(session.get("users")));
+	    maintain.setRoom(room);
         maintain.setType("N");
         maintain.setRepairdate(date);
         System.out.println("时间");

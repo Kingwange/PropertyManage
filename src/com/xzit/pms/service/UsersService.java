@@ -26,5 +26,7 @@ public interface UsersService {
 
 	public List<Users> findAll();
 
+	public Users findUsersName(Users users);
+
 	
 }

@@ -67,6 +67,12 @@ public class BuildingServiceimpl implements BuildingService {
 		return buildingDAO.findAll();
 	}
 
+	@Override
+	public Building findBuildingName(Building building) {
+		// TODO Auto-generated method stub
+		return buildingDAO.findCheckName(building.getBname());
+	}
+
 	
 
 }

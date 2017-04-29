@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="am-cf am-padding">
 		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">用户信息管理</strong> / <small><a
+			<strong class="am-text-primary am-text-lg">用户管理</strong> / <small><a
 				href="user.action">用户信息</a></small> / <small>用户信息修改</small>
 		</div>
 	</div>
@@ -39,10 +39,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input type="hidden" name="id" value='<s:property value="id"/>'>
 					<hr>
 					<div class="am-g am-margin-top">
-						<div class="am-u-sm-2 am-text-right">*用户姓名</div>
+						<div class="am-u-sm-2 am-text-right">*用户名称</div>
 						<div class="am-u-sm-4 am-text-left">
 							<input type="text" class="am-checkbox-inline" name="username"
-								width="50" value='<s:property value="username"/>'>
+								style="width:200px" value='<s:property value="username"/>' onchange="checkUsername(this)">
+						    <small class="error"></small></td>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -50,14 +51,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-2 am-text-right">*密码</div>
 						<div class="am-u-sm-4 am-text-left">
 							<input type="text" id="password" name="password" placeholder=""
-								value='<s:property value="password"/>'>
+								style="width:200px" value='<s:property value="password"/>' onblur="checkUsername(this)">
+						    <small class="error"></small></td>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*用户类别</div>
 						<div class="am-u-sm-4 am-text-left">
-							<select class="am-input-sm" name="authority" required="required">
+							<select class="am-input-sm" name="authority" required="required" style="width:150px" onchange="checktype(this)">
 								<s:if test="authority=='B'.toString()">
 									<option value="B">普通住户</option>
 									<option value="C">维修人员</option>
@@ -71,11 +73,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</s:elseif>
 								<s:else><option value="A">超级管理员</option></s:else>
 							</select>
+							<small id="maintain"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
-
-					
 					<br>
 					<br>
 					<div class="owerupdate">
@@ -83,8 +84,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							class="am-btn am-btn-primary am-btn-xs"
 							onclick="updateUsers()" id="buttonBtn">确认修改</button>
 					</div>
+					<br>
 				</form>
-
+                  
 			</div>
 		</div>
 	</div>

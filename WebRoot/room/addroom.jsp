@@ -44,66 +44,75 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">楼宇名 </label>
             <div class="am-u-sm-9">
-              <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="bid" name="building.bid" required="required">
+              <select data-am-selected="{btnSize: 'sm'}" style="width:150px" class="am-input-sm"
+						id="bid" name="building.bid" required="required" onchange="checktype(this)">
 					  <option value="">请选择</option>
 				   <s:iterator value="buildlist">	
                       <option value='<s:property value="bid" />'><s:property value="bname" /></option>
                    </s:iterator>
 			</select>
+			<small class="error"></small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">房间号</label>
             <div class="am-u-sm-9">
-              <input type="text" id="rname" placeholder="房间号/ Rname" name="rname">
+              <input type="text" style="width:200px" placeholder="房间号/ 1B-310" name="rname" onblur="checkRoomName(this)">
+               <small class="error"></small>
             </div>
           </div>
           
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">业主姓名</label>
             <div class="am-u-sm-9">
-            <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="oid" name="ower.oid" required="required">
+            <select data-am-selected="{btnSize: 'sm'}" style="width:150px" class="am-input-sm"
+						id="oid" name="ower.oid" required="required" onchange="checktype(this)">
 					  <option value="">请选择</option>
 				   <s:iterator value="owerlist">	
                       <option value='<s:property value="oid" />'><s:property value="oname" /></option>
                    </s:iterator>
 			</select>
+			<small class="error"></small>
             </div>
           </div>
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">房型</label>
             <div class="am-u-sm-9">
-              <select  class="am-input-sm" name="type" required="required">
+              <select  style="width:150px"class="am-input-sm" name="type" required="required" onchange="checktype(this)">
 					<option value="">请选择</option>
 					<option value="One">一居室</option>
 					<option value="Two">二居室</option>
 					<option value="Three">三居室</option>
 					<option value="Four">四居室</option>			
 			  </select>
+			  <small class="error"></small>
             </div>
           </div>
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">房间面积</label>
             <div class="am-u-sm-9">
-           <input type="text"  id="rarea" name="rarea" placeholder="房间面积/ Rarea"  >
+           <input type="text"  style="width:200px" name="rarea" placeholder="房间面积/ Rarea" onblur="checkArea(this)" />
+            <small class="error"></small>
             </div>
           </div>
            <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">用户</label>
             <div class="am-u-sm-9">
             <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="id" name="users.id" required="required">
+						style="width:150px" name="users.id" required="required" onchange="checktype(this)">
 					  <option value="">请选择</option>
 				   <s:iterator value="userslist">
 				     <s:if test="authority=='B'.toString()">	
                       <option value='<s:property value="id" />'><s:property value="username" /></option>
                      </s:if>
                    </s:iterator>
+                   <small class="error"></small>
+			 <small id="maintain"></small>
 			</select>
             </div>
+            <br><br>
+              <br><br>
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
               <button type="button" class="am-btn am-btn-primary" onclick="saveRoom()">保存</button>

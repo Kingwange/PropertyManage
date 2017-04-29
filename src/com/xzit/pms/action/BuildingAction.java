@@ -1,7 +1,10 @@
 package com.xzit.pms.action;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -13,6 +16,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Ower;
 import com.xzit.pms.po.PageBean;
+import com.xzit.pms.po.Users;
 import com.xzit.pms.service.BuildingService;
 
 @SuppressWarnings("serial")
@@ -29,6 +33,23 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
 	 public String addbuildingPage(){
 	    return SUCCESS;
 	 }
+    @Action(value="checkbuildingName")
+  	public void checkbuildingName(){
+	 int n;
+	 Building buildingnumber= buildingServiceimpl.findBuildingName(building);
+	 if(buildingnumber==null){
+		 n=1;
+	 }else{
+		 n=0;
+	 }
+		 try {
+			ServletActionContext.getResponse().getWriter().println(n);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
+  		
+  	}
     @Action(value="saveBuilding",results={@Result(name="success",type="redirectAction",location="findAllBuilding.action")})
    	public String saveBuilding(){
     	buildingServiceimpl.saveBuilding(building);

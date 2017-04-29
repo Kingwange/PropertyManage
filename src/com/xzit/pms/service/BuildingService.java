@@ -19,6 +19,8 @@ public interface BuildingService {
 
 	public void deleteBuilding(Building building);
 
+	public Building findBuildingName(Building building);
+
 
 
 	

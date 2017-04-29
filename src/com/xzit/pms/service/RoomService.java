@@ -29,6 +29,8 @@ public interface RoomService {
 
 	public Room findUserID(Users users);
 
+	public Room findRoomName(Room room);
+
 	
 
 }

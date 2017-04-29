@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>楼宇添加</title>
+    <title>用户添加</title>
   <meta name="keywords" content="ower">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
@@ -29,7 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </head>
 <body>
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加楼宇信息</strong> / <small>Add Building</small></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">添加用户信息</strong> / <small>Add Users</small></div>
     </div>
 
     <hr/>
@@ -44,30 +44,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="am-form-group">
             <label for="building-name" class="am-u-sm-3 am-form-label">用户名称 </label>
             <div class="am-u-sm-9">
-              <input type="text" id="username" placeholder="用户名/ Name" name="username">
+              <input type="text" style="width:200px"  placeholder="用户名/ Name" name="username" onblur="checkUsername(this)">
+              <small class="error"></small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="building-piles" class="am-u-sm-3 am-form-label">密码 </label>
             <div class="am-u-sm-9">
-              <input type="password" id="password" placeholder="密码/ password" name="password">
+              <input type="password" style="width:200px"  placeholder="密码/ password" name="password" onblur="checkPassword(this)">
+              <small class="error"></small>
             </div>
           </div>
 
           <div class="am-form-group">
             <label for="building-state" class="am-u-sm-3 am-form-label">用户类别</label>
             <div class="am-u-sm-9">
-              <select  class="am-input-sm" name="authority" required="required">
+              <select  class="am-input-sm" name="authority" required="required" style="width:150px" onchange="checktype(this)">
 					<option value="">请选择</option>
 					<option value="B">普通住户</option>
 					<option value="C">维修人员</option>	
 			</select>
+			<small class="error"></small>
+			 <small id="maintain"></small>
             </div>
           </div>
+          <br><br>
           <div class="am-form-group">
             <div class="am-u-sm-9 am-u-sm-push-3">
               <button type="button" class="am-btn am-btn-primary" onclick="saveUsers()">保存</button>
+             
             </div>
           </div>
         </form>

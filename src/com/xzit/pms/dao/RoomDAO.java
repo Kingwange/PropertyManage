@@ -19,6 +19,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Room;
 
 /**
@@ -254,5 +255,12 @@ public class RoomDAO {
 			log.error("find all failed", re);
 			throw re;
 		}
+	}
+
+	public Room findCheckRoom(String rname2) {
+		Query query = this.getCurrentSession().createQuery(" from Room where rname=? ");
+		query.setString(0, rname2);
+		List<Room> lists = query.list();
+		return lists.get(0);
 	}
 }

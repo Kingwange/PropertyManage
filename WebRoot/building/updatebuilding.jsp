@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<div class="am-cf am-padding">
 		<div class="am-fl am-cf">
-			<strong class="am-text-primary am-text-lg">楼宇信息管理</strong> / <small><a
+			<strong class="am-text-primary am-text-lg">楼宇管理</strong> / <small><a
 				href="user.action">楼宇信息</a></small> / <small>楼宇信息修改</small>
 		</div>
 	</div>
@@ -41,23 +41,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*楼宇名称</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="bname"
-								width="50" value='<s:property value="bname"/>'>
+							<input type="text" style="width:200px" class="am-checkbox-inline" name="bname"
+								width="50" value='<s:property value="bname"/>' onchange="checkBuildingname(this)">
+						     <small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*楼宇层数</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="plies"
-								width="50" value='<s:property value="plies"/>'>
+							<input type="text" style="width:200px" class="am-checkbox-inline" name="plies"
+								width="50" value='<s:property value="plies"/>' onblur="checkPiles(this)">
+						    <small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*楼盘状态</div>
 						<div class="am-u-sm-4 am-text-left">
-							<select class="am-input-sm" name="state" required="required">
+							<select style="width:150px" class="am-input-sm" name="state" required="required">
 								<s:if test="state=='N'.toString()">
 									<option value="N">未竣工</option>
 									<option value="Y">已竣工</option>
@@ -76,8 +78,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*备注</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" id="remark" name="remark" placeholder=""
+							<input type="text" style="width:300px" id="remark" name="remark" placeholder=""
 								value='<s:property value="remark"/>'>
+							<br>
+							<small id="maintain"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -87,7 +91,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<button style="" type="button"
 							class="am-btn am-btn-primary am-btn-xs"
 							onclick="updateBuilding()" id="buttonBtn">确认修改</button>
+					
 					</div>
+					<br>
 				</form>
 
 			</div>

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -23,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="assets/css/admin.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto'>
- 
+  <link rel="stylesheet" href="assets/css/demo.css">
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/amazeui.min.js"></script>
   <script src="assets/js/app.js"></script>
@@ -45,9 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <span class="am-icon-users"></span>${session.users.username}<span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
-          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
-          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+          <li><a href="logout.action"><span class="am-icon-power-off"></span> 退出</a></li>
         </ul>
       </li>
       <li><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
@@ -60,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
     <li><a href="main.jsp"><span class="am-icon-home"></span> 首页</a></li>
+      <c:if test="${users != null && users.authority =='A'}">
       <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-1'}"><span class="am-icon-file"></span> 用户管理</a>
        <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-1">
             <li><a class="am-cf" style="cursor: pointer;" onclick="findAllUsers(1)"><span class="am-icon-check"></span>用户查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
@@ -120,6 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a style="cursor: pointer;" onclick="addCleanmanage()"><span class="am-icon-puzzle-piece"></span> 保洁信息添加 </a></li>
        </ul>
       </li>
+      </c:if>
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-sign-out"></span> 客户服务管理<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
@@ -127,16 +128,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-10">
             <li><a class="am-cf" style="cursor: pointer;" onclick="findAllMaintain(1) "><span class="am-icon-sign-out"></span>维修信息管理 </a>
             </li>
+             <c:if test="${users != null && users.authority =='A'}">
             <li><a style="cursor: pointer;" data-am-collapse="{target: '#collapse-nav-12'}" "><span class="am-icon-sign-out"></span> 维修人员管理 </a>
                 <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-12">
                   <li><a class="am-cf" style="cursor: pointer;" onclick="findAllMaintainman(1)"><span class="am-icon-check"></span>维修人员查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
                   <li><a style="cursor: pointer;" onclick="addMaintainman()"><span class="am-icon-puzzle-piece"></span> 维修人员添加 </a></li>
                </ul>
             </li>
+            </c:if>
        </ul>
           </li>
+           <c:if test="${users != null && users.authority =='A'}">
           <li><a onclick="findAllComplaint(1)" ><span class="am-icon-sign-out"></span> 投诉管理<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-          
+          </c:if>
         </ul>
       </li>
     </ul>

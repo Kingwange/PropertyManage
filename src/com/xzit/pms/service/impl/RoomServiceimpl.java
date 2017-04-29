@@ -92,4 +92,10 @@ public class RoomServiceimpl implements RoomService {
 		return roomDAO.findUserID(users.getId());
 	}
 
+	@Override
+	public Room findRoomName(Room room) {
+		
+		return roomDAO.findCheckRoom(room.getRname());
+	}
+
 }

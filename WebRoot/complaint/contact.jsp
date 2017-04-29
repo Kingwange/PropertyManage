@@ -59,8 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="col-md-5 contact-right">
 				<form id="saveComlaintForm" action="saveComplaint.action" method="post" >
 					<p>投诉内容</p>
-					  <textarea name="cpcontent"  style= "background:transparent;"/> </textarea>
-		             <input type="button" onclick="saveComplaint()" value="提交"/>
+					  <textarea name="cpcontent"  style= "background:transparent;" onblur="checkRemark(this)"/> </textarea>
+		             <small class="error"></small></td>
+		             <p><input type="button" onclick="saveComplaint()" value="提交"/></p>
 		             <p><small style="color:red" id="warn"></small></p>
 		        </form>
 				</div>

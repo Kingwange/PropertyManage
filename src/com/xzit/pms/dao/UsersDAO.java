@@ -213,7 +213,6 @@ public class UsersDAO {
 		query.setString(0, users.getUsername());
 		query.setString(1, users.getPassword());
 		List<Users> lists = query.list();
-		System.out.println(lists.get(0));
 		if (lists.size() > 0) {
 			user = lists.get(0);
 		} else {
@@ -239,6 +238,13 @@ public List<Users> queryForPage(String hql1, int offset, int length) {
 
 	public static UsersDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (UsersDAO) ctx.getBean("UsersDAO");
+	}
+
+	public Users findcheckName(String username) {
+		query = this.getCurrentSession().createQuery(" from Users where username=? ");
+		query.setString(0, username);
+		List<Users> lists = query.list();
+		return lists.get(0);
 	}
 
 }

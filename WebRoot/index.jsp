@@ -15,7 +15,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" />
-	
 	<!-- Custom Theme files -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -47,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  <div class="top-nav">
 					<span class="menu"> <img src="images/icon.png" alt=""/></span>
 				<ul class="res">
-					<li><a  href="index.jsp" >主页</a></li>
+					<li><a onclick="skipahomePage()" >主页</a></li>
 					<li><a onclick="skipaboutPage()">关于我们</a></li>
 					<li><a onclick="skipblogPage()">网上报修</a></li>
 					<li><a onclick="skipcontactPage()">客户投诉</a></li>
@@ -56,8 +55,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li><a a href="javascript:;" onClick="ShowLoginBox()">登录</a></li>
 					</c:if>
 	                <c:if test="${users != null && users.id != 0}">
-	                <li><a href="logout.action">退出</a></li>
-	                <li><a style="color:green;fond-size:2px;" id="usersname" class="state">${session.users.username}</a></li>
+	                
+	                <li><a class="am-cf" style="color:blue;fond-size:2px;" id="usersname" class="state" data-am-collapse="{target: '#logout'}">${session.users.username}</a>  
+	                </li>
+	                 <li><a class="am-cf" style="cursor: pointer;" href="logout.action"><span class="am-icon-check"></span>退出</a></li>
 					</c:if>
 				<div class="clearfix"> </div>
 				</ul>

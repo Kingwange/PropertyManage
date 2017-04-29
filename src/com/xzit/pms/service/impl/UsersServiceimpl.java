@@ -79,4 +79,9 @@ public class UsersServiceimpl implements UsersService {
 		// TODO Auto-generated method stub
 		return usersDAO.findAll();
 	}
+	@Override
+	public Users findUsersName(Users users) {
+		
+		return usersDAO.findcheckName(users.getUsername());
+	}
 }

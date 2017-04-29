@@ -1,9 +1,11 @@
 package com.xzit.pms.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -46,7 +48,23 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 		userslist=usersServiceimpl.findAllroom();
 		return SUCCESS;
 	}
-
+	 @Action(value="checkroomName")
+	  	public void checkroomName(){
+		 int n;
+		 Room roomnumber= roomServiceimpl.findRoomName(room);
+		 if(roomnumber==null){
+			 n=1;
+		 }else{
+			 n=0;
+		 }
+			 try {
+				ServletActionContext.getResponse().getWriter().println(n);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
+	  		
+	  	}
 	@Action(value = "saveRoom", results = { @Result(name = "success", type = "redirectAction", location = "findAllRoom.action") })
 	public String saveRoom() {
 		roomServiceimpl.saveRoom(room);

@@ -1,8 +1,10 @@
 package com.xzit.pms.action;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -59,10 +61,31 @@ public class UserAction extends BaseAction implements ModelDriven<Users> {
 	 public String skipaboutPage(){
 	    return SUCCESS;
 	 }
+	@Action(value="skipahomePage",results={@Result(name="success",location="/home.jsp")})
+	 public String skipahomePage(){
+	    return SUCCESS;
+	 }
 	@Action(value="addusersPage",results={@Result(name="success",location="/users/adduser.jsp")})
 	 public String addusersPage(){
 	    return SUCCESS;
 	 }
+	 @Action(value="checkName")
+	  	public void checkName(){
+		 int n;
+		 Users usersnumber= usersServiceimpl.findUsersName(users);
+		 if(usersnumber==null){
+			 n=1;
+		 }else{
+			 n=0;
+		 }
+			 try {
+				ServletActionContext.getResponse().getWriter().println(n);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		 
+	  		
+	  	}
    @Action(value="saveUsers",results={@Result(name="success",type="redirectAction",location="findAllUsers.action")})
   	public String saveUsers(){
 	   usersServiceimpl.saveUsers(users);
