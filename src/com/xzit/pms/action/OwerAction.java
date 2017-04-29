@@ -18,19 +18,17 @@ import com.xzit.pms.service.OwerService;
 @InterceptorRefs({ @InterceptorRef(value="paramsPrepareParamsStack",params={"modelDriven.refreshModelBeforeResult","true"})}) 
 public class OwerAction extends BaseAction implements ModelDriven<Ower> {
     private Ower ower=new Ower();
-    private int page=1;
+    private int page;
     private PageBean pageBean;
     private String queryInfo;
-    private Date NowDate;
     @Resource(name="owerService")
     private OwerService owerServiceimpl;
     @Action(value="addowerPage",results={@Result(name="success",location="/ower/addower.jsp")})
 	 public String addowerPage(){
-    	 req.setAttribute("NowDate",new Date().toString());
 	    return SUCCESS;
 	 }
     @Action(value="saveOwer",results={@Result(name="success",type="redirectAction",location="findAllOwer.action")})
-	public String saveower(){
+	public String saveOwer(){
     	owerServiceimpl.saveOwer(ower);
 		return SUCCESS;
 	}
@@ -86,11 +84,5 @@ public String findAllOwer() {
 	}
 	public void setQueryInfo(String queryInfo) {
 		this.queryInfo = queryInfo;
-	}
-	public Date getNowDate() {
-		return NowDate;
-	}
-	public void setNowDate(Date nowDate) {
-		NowDate = nowDate;
 	}
 }

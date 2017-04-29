@@ -27,12 +27,11 @@ public class HireAction extends BaseAction implements ModelDriven<Hire> {
 	private RoomService roomServiceimpl;
     @Action(value="addHirePage",results={@Result(name="success",location="/hire/addhire.jsp")})
 	 public String addHirePage(){
-   	 roomlist=roomServiceimpl.findAll();
+   	 roomlist=roomServiceimpl.findAllhire();
 	    return SUCCESS;
 	 }
   @Action(value="saveHire",results={@Result(name="success",type="redirectAction",location="findAllHire.action")})
  	public String saveHire(){
-	  System.out.println("666");
 	  hireServiceimpl.saveHire(hire);
 	  return SUCCESS;
  	}
@@ -55,7 +54,7 @@ public class HireAction extends BaseAction implements ModelDriven<Hire> {
 
 	@Action(value = "modifyHirepage", results = { @Result(name = "success", location = "/hire/updatehire.jsp") })
 	public String modifyHirepage() {
-		roomlist = roomServiceimpl.findAll();
+		roomlist = roomServiceimpl.findAllhire();
 		hire = hireServiceimpl.findChargeID(hire);
 		return SUCCESS;
 	}

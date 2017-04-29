@@ -11,6 +11,7 @@ import com.xzit.pms.dao.RoomDAO;
 import com.xzit.pms.po.Cleanmanage;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
+import com.xzit.pms.po.Users;
 import com.xzit.pms.service.RoomService;
 @Service("roomService")
 public class RoomServiceimpl implements RoomService {
@@ -62,9 +63,33 @@ public class RoomServiceimpl implements RoomService {
 	}
 
 	@Override
+	public List<Room> findAllcharge() {
+		// TODO Auto-generated method stub
+		return roomDAO.findAllcharge();
+	}
+
+	@Override
 	public List<Room> findAll() {
 		// TODO Auto-generated method stub
 		return roomDAO.findAll();
+	}
+
+	@Override
+	public List<Room> findAllhire() {
+		// TODO Auto-generated method stub
+		return roomDAO.findAllhire();
+	}
+
+	@Override
+	public List<Room> findAllresident() {
+		// TODO Auto-generated method stub
+		return roomDAO.findAllresident();
+	}
+
+	@Override
+	public Room findUserID(Users users) {
+		// TODO Auto-generated method stub
+		return roomDAO.findUserID(users.getId());
 	}
 
 }

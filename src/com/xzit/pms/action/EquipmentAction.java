@@ -30,7 +30,7 @@ public class EquipmentAction extends BaseAction implements ModelDriven<Equipment
     private SecurityService securityServiceimpl; 
     @Action(value="addEquipmentPage",results={@Result(name="success",location="/equipment/addequipment.jsp")})
 	 public String addEquipmentPage(){
-    	securitylist=securityServiceimpl.findAll();
+    	securitylist=securityServiceimpl.findAllequipment();
 	    return SUCCESS;
 	 }
    @Action(value="saveEquipment",results={@Result(name="success",type="redirectAction",location="findAllEquipment.action")})
@@ -55,7 +55,7 @@ public class EquipmentAction extends BaseAction implements ModelDriven<Equipment
   }
   @Action(value="modifyEquipmentpage",results={@Result(name="success",location="/equipment/updateequipment.jsp")})   
   public String  modifyEquipmentpage(){
-	  securitylist=securityServiceimpl.findAll();
+	  securitylist=securityServiceimpl.findAllequipment();
 	  equipment=equipmentServiceimpl.findEquipmentID(equipment);
 		return SUCCESS; 	
  }

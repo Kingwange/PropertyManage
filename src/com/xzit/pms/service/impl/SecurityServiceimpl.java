@@ -66,4 +66,10 @@ public class SecurityServiceimpl implements SecurityService {
 		return securityDAO.findAll();
 	}
 
+	@Override
+	public List<Security> findAllequipment() {
+		
+		return securityDAO.findAllequipment();
+	}
+
 }

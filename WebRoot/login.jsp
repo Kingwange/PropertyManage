@@ -29,7 +29,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="loginitem"><input type="text"  id="username" name="username" placeholder="请输入用户名"/></div>
         <div class="loginitem"><input type="password" id="password" name="password" placeholder="请输入密码" /></div>
         <div class="loginitem"><a href="javascript:document.form1.submit();">登录</a></div>
+        </form> 
     </div>
-    </form> 
+    
 </body>
 </html>

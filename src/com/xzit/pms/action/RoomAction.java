@@ -11,7 +11,6 @@ import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xzit.pms.po.Building;
-import com.xzit.pms.po.Cleanmanage;
 import com.xzit.pms.po.Ower;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
@@ -44,7 +43,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	public String addRoomPage() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
-		userslist=usersServiceimpl.finAll();
+		userslist=usersServiceimpl.findAllroom();
 		return SUCCESS;
 	}
 
@@ -58,7 +57,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	public String findAllRoom() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
-		userslist=usersServiceimpl.finAll();
+		userslist=usersServiceimpl.findAll();
 		if (queryroom == null) {
 			queryroom = "";
 		}
@@ -81,7 +80,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	public String modifyRoompage() {
 		buildlist=buildingServiceimpl.findAll();
 		owerlist=owerServiceimpl.findAll();
-		userslist=usersServiceimpl.finAll();
+		userslist=usersServiceimpl.findAllroom();
 		room = roomServiceimpl.findRoomID(room);
 		return SUCCESS;
 	}

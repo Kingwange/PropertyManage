@@ -123,8 +123,19 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    padding: 7px 2em;
+    background: #0ab2d2;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    margin: 9px 0px 0px 0px;
 }
 button[disabled],
 html input[disabled] {

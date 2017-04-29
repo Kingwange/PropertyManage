@@ -7,12 +7,15 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Complaint;
@@ -28,7 +31,7 @@ import com.xzit.pms.po.Complaint;
  * @see com.xzit.pms.po.Complaint
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("complaintDAO")
 public class ComplaintDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(ComplaintDAO.class);
@@ -36,7 +39,7 @@ public class ComplaintDAO {
 	public static final String CPCONTENT = "cpcontent";
 	public static final String STATE = "state";
 	public static final String HANDLEINFO = "handleinfo";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -53,6 +56,7 @@ public class ComplaintDAO {
 
 	public void save(Complaint transientInstance) {
 		log.debug("saving Complaint instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -60,10 +64,14 @@ public class ComplaintDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Complaint persistentInstance) {
 		log.debug("deleting Complaint instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -71,6 +79,9 @@ public class ComplaintDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Complaint findById(java.lang.Integer id) {
@@ -154,6 +165,7 @@ public class ComplaintDAO {
 
 	public void attachDirty(Complaint instance) {
 		log.debug("attaching dirty Complaint instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -161,6 +173,9 @@ public class ComplaintDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Complaint instance) {
@@ -177,5 +192,18 @@ public class ComplaintDAO {
 
 	public static ComplaintDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (ComplaintDAO) ctx.getBean("ComplaintDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+	    return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Complaint> queryForPage(String hql1, int offset, int length) {
+		Query q = this.getCurrentSession().createQuery(hql1);
+        q.setFirstResult(offset);
+        q.setMaxResults(length);
+        System.out.println(q.list().size());
+       return q.list();
 	}
 }

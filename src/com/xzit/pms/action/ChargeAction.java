@@ -30,7 +30,7 @@ public class ChargeAction extends BaseAction implements ModelDriven<Charge> {
 	private RoomService roomServiceimpl;
     @Action(value="addChargePage",results={@Result(name="success",location="/charge/addcharge.jsp")})
 	 public String addChargePage(){
-   	roomlist=roomServiceimpl.findAll();
+    	roomlist=roomServiceimpl.findAllcharge();
 	    return SUCCESS;
 	 }
   @Action(value="saveCharge",results={@Result(name="success",type="redirectAction",location="findAllCharge.action")})
@@ -57,7 +57,7 @@ public class ChargeAction extends BaseAction implements ModelDriven<Charge> {
 
 	@Action(value = "modifyChargepage", results = { @Result(name = "success", location = "/charge/updatecharge.jsp") })
 	public String modifyChargepage() {
-		roomlist = roomServiceimpl.findAll();
+		roomlist=roomServiceimpl.findAllcharge();
 		charge = chargeServiceimpl.findChargeID(charge);
 		return SUCCESS;
 	}

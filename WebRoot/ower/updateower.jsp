@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'findTask.jsp' starting page</title>
+<title>业主信息</title>
  <meta name="keywords" content="ower">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 <script>
  $('#intime').datetimepicker({
-	  format: 'yyyy-mm-dd hh:ii'
+	  format: 'yyyy-mm-dd'
 	});
  </script>
 

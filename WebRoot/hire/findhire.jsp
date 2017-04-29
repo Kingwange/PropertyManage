@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'findHire.jsp' starting page</title>
+<title>租赁管理</title>
 
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -63,8 +65,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="am-u-md-3 am-cf">
 				<div class="am-fr">
 					<div class="am-input-group am-input-group-sm">
-						<input type="text" class="am-form-field" id="queryInfo" name="queryInfo" placeholder="租户姓名/ Name" value="${queryInfo}">
-						 <span class="am-input-group-btn">
+						<input type="text" class="am-form-field" id="queryInfo"
+							name="queryInfo" placeholder="租户姓名/ Name" value="${queryInfo}">
+						<span class="am-input-group-btn">
 							<button class="am-btn am-btn-default" type="button"
 								onclick="findAllHire(1)">搜索</button>
 						</span>
@@ -115,20 +118,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						</tr>
 					</s:iterator>
+					</tbody>
+				</table>
+				<table>
 					<tr>
-						<td></td>
+						<td width="7%"></td>
 
-						<td class="tocenter">共 <s:property value="pageBean.totalPage" />
-							页
+						<td width="14%" class="tocenter">共 <s:property
+								value="pageBean.totalPage" /> 页
 						</td>
-						<td></td>
-						<td class="tocenter">共 <s:property value="pageBean.allRow" />
-							条记录
+						<td width="25%" class="tocenter">共 <s:property
+								value="pageBean.allRow" /> 条记录
 						</td>
-						<td class="tocenter">当前第 <s:property
+						<td width="10%" class="tocenter">当前第 <s:property
 								value="pageBean.currentPage" /> 页
 						</td>
-						<td colspan="4" class="tocenter"><s:if
+						<td width="7%"></td>
+						<td colspan="4" width="37%" class="tocenter"><s:if
 								test="%{pageBean.currentPage == 1}">第1页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;</s:if>
 							<s:else>
 								<a onclick="findAllHire(1)">第1页&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -141,7 +147,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									onclick='findAllHire(<s:property value="pageBean.totalPage"/>)'>末页</a>
 							</s:if> <s:else>下一页&nbsp;&nbsp;&nbsp;&nbsp; 末页</s:else></td>
 					</tr>
-					</tbody>
 				</table>
 			</form>
 		</div>

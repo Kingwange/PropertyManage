@@ -18,6 +18,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xzit.pms.po.Maintainman;
+import com.xzit.pms.po.Room;
+import com.xzit.pms.po.Security;
 import com.xzit.pms.po.Users;
 
 /**
@@ -41,6 +44,7 @@ public class UsersDAO {
     @Autowired
 	private SessionFactory sessionFactory;
 	private Query query;
+	private Users user=new Users(); 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -140,7 +144,7 @@ public class UsersDAO {
 	public List findAll() {
 		log.debug("finding all Users instances");
 		try {
-			String queryString = "from Users";
+			String queryString = "from Users ";
 			Query queryObject = getCurrentSession().createQuery(queryString);
 			return queryObject.list();
 		} catch (RuntimeException re) {
@@ -148,7 +152,22 @@ public class UsersDAO {
 			throw re;
 		}
 	}
-
+	@SuppressWarnings("unchecked")
+	public List<Users> findAllmaintainman() {
+		
+			String queryString = "from Users where  authority = 'C' and  id not in (select users.id from Maintainman) ";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			System.out.println(queryObject.list().size());
+			return queryObject.list();
+		
+	}
+	public List<Users> findAllroom() {
+		
+			String queryString = "from Users where authority = 'B' and id not in (select users.id from Room) ";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		
+	}
 	public Users merge(Users detachedInstance) {
 		log.debug("merging Users instance");
 		try {
@@ -187,13 +206,12 @@ public class UsersDAO {
 			throw re;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	public Users usersLogin(Users users) {
-	    Users user=new Users(); 
+	    
 		query = this.getCurrentSession().createQuery(" from Users where username=? and password=? ");
-		System.out.println(users.getUsername());
 		query.setString(0, users.getUsername());
 		query.setString(1, users.getPassword());
-		System.out.println(query);
 		List<Users> lists = query.list();
 		System.out.println(lists.get(0));
 		if (lists.size() > 0) {
@@ -202,7 +220,7 @@ public class UsersDAO {
 			System.out.println("失败");
 			user = null;
 		}
-		return users;
+		return user;
 	
 }
 
@@ -215,7 +233,6 @@ public List<Users> queryForPage(String hql1, int offset, int length) {
 	Query q = this.getCurrentSession().createQuery(hql1);
     q.setFirstResult(offset);
     q.setMaxResults(length);
-    System.out.println(q.list().size());
    return q.list();
 }
 
@@ -223,4 +240,5 @@ public List<Users> queryForPage(String hql1, int offset, int length) {
 	public static UsersDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (UsersDAO) ctx.getBean("UsersDAO");
 	}
+
 }

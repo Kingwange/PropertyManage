@@ -19,4 +19,6 @@ public interface SecurityService {
 
 	public List<Security> findAll();
 
+	public List<Security> findAllequipment();
+
 }

@@ -56,14 +56,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-4 am-text-left">
 							<select data-am-selected="{btnSize: 'sm'}" class="am-input-sm" style="width:70px"
 						id="rid" name="room.rid" required="required">
+				              <option  value='<s:property value="room.rid"/>' ><s:property value="room.rname" /></option>
 				               <s:iterator value="roomlist">
-				               <s:if test="room.rid==rid">
-                               <option  selected="selected" value='<s:property value="rid"/>' ><s:property value="rname" /></option>
-                               </s:if>
-                               <s:else>
-                                <option value='<s:property value="rid"  />'><s:property value="rname" /></option>
-                               </s:else>
-                               </s:iterator>
+				               <option value='<s:property value="rid"  />'><s:property value="rname" /></option>
+                              </s:iterator>
 			               </select>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
@@ -121,10 +117,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <script>
 $('#starttime').datetimepicker({
-	  format: 'yyyy-mm-dd hh:ii'
+	  format: 'yyyy-mm-dd '
 	});
 $('#endtime').datetimepicker({
-	  format: 'yyyy-mm-dd hh:ii'
+	  format: 'yyyy-mm-dd '
 	});
  </script>
 </body>

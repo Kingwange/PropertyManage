@@ -18,6 +18,13 @@ public interface UsersService {
 
 	public void deleteUsers(Users users);
 
-	public List<Users> finAll();
+	public List<Users> findAllmaintainman();
+	
+	public List<Users> findAllroom();
+
+	public List<Users> findAllsecurity();
+
+	public List<Users> findAll();
+
 	
 }

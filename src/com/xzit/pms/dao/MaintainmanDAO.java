@@ -7,14 +7,18 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Maintainman;
 
 /**
@@ -28,7 +32,7 @@ import com.xzit.pms.po.Maintainman;
  * @see com.xzit.pms.po.Maintainman
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("maintainmanDAO")
 public class MaintainmanDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(MaintainmanDAO.class);
@@ -36,7 +40,7 @@ public class MaintainmanDAO {
 	public static final String NAME = "name";
 	public static final String REPAIRTYPE = "repairtype";
 	public static final String TEL = "tel";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -53,6 +57,7 @@ public class MaintainmanDAO {
 
 	public void save(Maintainman transientInstance) {
 		log.debug("saving Maintainman instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -60,10 +65,14 @@ public class MaintainmanDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Maintainman persistentInstance) {
 		log.debug("deleting Maintainman instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -71,6 +80,9 @@ public class MaintainmanDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Maintainman findById(java.lang.Integer id) {
@@ -154,6 +166,7 @@ public class MaintainmanDAO {
 
 	public void attachDirty(Maintainman instance) {
 		log.debug("attaching dirty Maintainman instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().saveOrUpdate(instance);
 			log.debug("attach successful");
@@ -161,6 +174,9 @@ public class MaintainmanDAO {
 			log.error("attach failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Maintainman instance) {
@@ -178,5 +194,18 @@ public class MaintainmanDAO {
 	public static MaintainmanDAO getFromApplicationContext(
 			ApplicationContext ctx) {
 		return (MaintainmanDAO) ctx.getBean("MaintainmanDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+	    return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Maintainman> queryForPage(String hql1, int offset, int length) {
+		    Query q = this.getCurrentSession().createQuery(hql1);
+	        q.setFirstResult(offset);
+	        q.setMaxResults(length);
+	        System.out.println(q.list().size());
+	       return q.list();
 	}
 }

@@ -23,13 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
   <link rel="stylesheet" href="assets/css/admin.css">
   <link href='http://fonts.googleapis.com/css?family=Roboto'>
-  <link rel="stylesheet" href="assets/css/calender.css">
  
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/amazeui.min.js"></script>
   <script src="assets/js/app.js"></script>
   <script type="text/javascript" src="assets/js/main.js"></script>
-  <script src="assets/js/checkInfo.js"></script>
 </head>
 <body>
 <header class="am-topbar admin-header">
@@ -44,7 +42,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
       <li class="am-dropdown" data-am-dropdown>
         <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          <span class="am-icon-users"></span>${session.users1.username}<span class="am-icon-caret-down"></span>
+          <span class="am-icon-users"></span>${session.users.username}<span class="am-icon-caret-down"></span>
         </a>
         <ul class="am-dropdown-content">
           <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
@@ -125,24 +123,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-sign-out"></span> 客户服务管理<span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-          <li><a href="admin-user.html" class="am-cf"><span class="am-icon-sign-out"></span> 维修管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
-          <li><a href="admin-gallery.html"><span class="am-icon-sign-out"></span> 投诉管理<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
-          <li><a href="admin-gallery.html"><span class="am-icon-bookmark"></span> 客户留言<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a data-am-collapse="{target: '#collapse-nav-10'}" class="am-cf"><span class="am-icon-sign-out"></span> 维修管理<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a>
+            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-10">
+            <li><a class="am-cf" style="cursor: pointer;" onclick="findAllMaintain(1) "><span class="am-icon-sign-out"></span>维修信息管理 </a>
+            </li>
+            <li><a style="cursor: pointer;" data-am-collapse="{target: '#collapse-nav-12'}" "><span class="am-icon-sign-out"></span> 维修人员管理 </a>
+                <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-12">
+                  <li><a class="am-cf" style="cursor: pointer;" onclick="findAllMaintainman(1)"><span class="am-icon-check"></span>维修人员查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+                  <li><a style="cursor: pointer;" onclick="addMaintainman()"><span class="am-icon-puzzle-piece"></span> 维修人员添加 </a></li>
+               </ul>
+            </li>
+       </ul>
+          </li>
+          <li><a onclick="findAllComplaint(1)" ><span class="am-icon-sign-out"></span> 投诉管理<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          
         </ul>
       </li>
     </ul>
 
     <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-bookmark"></span> 公告</p>
-        <p>时光静好，与君语；细水流年，与君同。—— Amaze</p>
-      </div>
+      
     </div>
 
     <div class="am-panel am-panel-default admin-sidebar-panel">
       <div class="am-panel-bd">
-        <p><span class="am-icon-tag"></span> wiki</p>
-        <p>Welcome to the Amaze wiki!</p>
+        <p><span class="am-icon-tag"></span> 欢迎</p>
+        <p>Welcome to use PropertyManage!</p>
       </div>
     </div>
   </div>

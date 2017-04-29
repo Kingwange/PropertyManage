@@ -18,4 +18,5 @@ public interface OwerService {
 	public PageBean queryForPage(int pageSize, int currentPage,String queryInfo);
 
 
+
 }

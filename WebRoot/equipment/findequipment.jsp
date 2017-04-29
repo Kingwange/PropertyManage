@@ -115,20 +115,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 						</tr>
 					</s:iterator>
+					</tbody>
+				</table>
+				<table>
 					<tr>
-						<td></td>
+						<td width="7%"></td>
 
-						<td class="tocenter">共 <s:property value="pageBean.totalPage" />
-							页
+						<td width="14%" class="tocenter">共 <s:property
+								value="pageBean.totalPage" /> 页
 						</td>
-						<td></td>
-						<td class="tocenter">共 <s:property value="pageBean.allRow" />
-							条记录
+						<td width="25%" class="tocenter">共 <s:property
+								value="pageBean.allRow" /> 条记录
 						</td>
-						<td class="tocenter">当前第 <s:property
+						<td width="10%" class="tocenter">当前第 <s:property
 								value="pageBean.currentPage" /> 页
 						</td>
-						<td colspan="4" class="tocenter"><s:if
+						<td width="7%"></td>
+						<td colspan="4" width="37%" class="tocenter"><s:if
 								test="%{pageBean.currentPage == 1}">第1页&nbsp;&nbsp;&nbsp;&nbsp;上一页&nbsp;&nbsp;&nbsp;&nbsp;</s:if>
 							<s:else>
 								<a onclick="findAllEquipment(1)">第1页&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -141,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									onclick='findAllEquipment(<s:property value="pageBean.totalPage"/>)'>末页</a>
 							</s:if> <s:else>下一页&nbsp;&nbsp;&nbsp;&nbsp; 末页</s:else></td>
 					</tr>
-					</tbody>
+
 				</table>
 			</form>
 		</div>

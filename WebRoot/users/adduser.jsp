@@ -61,8 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <select  class="am-input-sm" name="authority" required="required">
 					<option value="">请选择</option>
 					<option value="B">普通住户</option>
-					<option value="C">维修人员</option>
-					<option value="D">小区保安</option>		
+					<option value="C">维修人员</option>	
 			</select>
             </div>
           </div>

@@ -31,7 +31,7 @@ public class ResidentAction extends BaseAction implements ModelDriven<Resident> 
 	private RoomService roomServiceimpl;
     @Action(value="addResidentPage",results={@Result(name="success",location="/resident/addresident.jsp")})
 	 public String addResidentPage(){
-    	roomlist=roomServiceimpl.findAll();
+    	roomlist=roomServiceimpl.findAllresident();
 	    return SUCCESS;
 	 }
    @Action(value="saveResident",results={@Result(name="success",type="redirectAction",location="findAllResident.action")})
@@ -57,7 +57,7 @@ public class ResidentAction extends BaseAction implements ModelDriven<Resident> 
   }
   @Action(value="modifyResidentpage",results={@Result(name="success",location="/resident/updateresident.jsp")})   
   public String  modifyResidentpage(){
-	  roomlist=roomServiceimpl.findAll();
+	  roomlist=roomServiceimpl.findAllresident();
 	  resident=residentServiceimpl.findResidentID(resident);
 		return SUCCESS; 	
  }

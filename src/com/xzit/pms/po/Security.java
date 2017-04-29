@@ -29,7 +29,6 @@ public class Security implements java.io.Serializable {
 	// Fields
 
 	private Integer sid;
-	private Users users;
 	private String sname;
 	private String sex;
 	private String identity;
@@ -47,19 +46,16 @@ public class Security implements java.io.Serializable {
 	public Security() {
 	}
 	
-	public Security(Users users) {
-		this.users = users;
-	}
+
 	/** minimal constructor */
 	public Security(String sname) {
 		this.sname = sname;
 	}
 
 	/** full constructor */
-	public Security(Users users,String sname, String sex, String identity, String tel,
+	public Security(String sname, String sex, String identity, String tel,
 			String job, String address, String territory, String worktype,
 			String remark, Set<Equipment> equipments) {
-		this.users = users;
 		this.sname = sname;
 		this.sex = sex;
 		this.identity = identity;
@@ -84,15 +80,7 @@ public class Security implements java.io.Serializable {
 	public void setSid(Integer sid) {
 		this.sid = sid;
 	}
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID", nullable = false)
-	public Users getUsers() {
-		return this.users;
-	}
-
-	public void setUsers(Users users) {
-		this.users = users;
-	}
+	
 	@Column(name = "SNAME", nullable = false, length = 20)
 	public String getSname() {
 		return this.sname;

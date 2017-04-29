@@ -181,6 +181,17 @@ public class SecurityDAO {
 			throw re;
 		}
 	}
+	public List findAllequipment() {
+		log.debug("finding all Security instances");
+		try {
+			String queryString = "from Security where sid not in (select security.sid from Equipment)";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 
 	public Security merge(Security detachedInstance) {
 		log.debug("merging Security instance");

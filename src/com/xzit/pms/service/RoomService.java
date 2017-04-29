@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Room;
+import com.xzit.pms.po.Users;
 
 public interface RoomService {
 
@@ -18,7 +19,15 @@ public interface RoomService {
 
 	public void deleteRoom(Room room);
 
+	public List<Room> findAllcharge();
+
 	public List<Room> findAll();
+
+	public List<Room> findAllhire();
+
+	public List<Room> findAllresident();
+
+	public Room findUserID(Users users);
 
 	
 

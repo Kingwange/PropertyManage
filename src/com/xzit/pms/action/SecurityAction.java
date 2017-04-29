@@ -25,11 +25,8 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
     private List<Users> userslist;
     @Resource(name="securityService")
     private SecurityService securityServiceimpl;
-    @Resource(name="usersService")
-    private UsersService usersServiceimpl;
     @Action(value="addSecurityPage",results={@Result(name="success",location="/security/addsecurity.jsp")})
 	 public String addSecurityPage(){
-    	userslist=usersServiceimpl.finAll();
 	    return SUCCESS;
 	 }
    @Action(value="saveSecurity",results={@Result(name="success",type="redirectAction",location="findAllSecurity.action")})
@@ -55,7 +52,6 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
   }
   @Action(value="modifySecuritypage",results={@Result(name="success",location="/security/updatesecurity.jsp")})   
   public String  modifySecuritypage(){
-	  userslist=usersServiceimpl.finAll();
 	  security=securityServiceimpl.findSecurityID(security);
 		return SUCCESS; 	
  }

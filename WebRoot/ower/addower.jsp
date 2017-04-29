@@ -85,16 +85,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!-- content end -->
  <script>
  $('#intime').datetimepicker({
-	  format: 'yyyy-mm-dd hh:ii'
+	  format: 'yyyy-mm-dd '
 	});
  $(function(){
 	 var today=new Date();
     var y=today.getFullYear();
     var m=today.getMonth()+1;
-    var d=today.getDate();
-    var h=today.getHours();
-    var min=today.getMinutes();
-    var localtime =  y+"-"+m+"-"+d+" "+h+":"+min;
+    var localtime =  y+"-"+m+"-"+d;
 	$("#intime").val(localtime);
  }); 
  </script>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.xzit.pms.dao.ResidentDAO;
+import com.xzit.pms.po.Complaint;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Resident;
 import com.xzit.pms.po.Room;
@@ -58,5 +59,13 @@ public class ResidentServiceimpl implements ResidentService {
 		residentDAO.delete(resident);
 
 	}
+
+	@Override
+	public Resident findResidentID(Room room) {
+		
+		return residentDAO.findRoomID(room.getRid());
+	}
+
+	
 
 }

@@ -216,4 +216,16 @@ public class ResidentDAO {
         System.out.println(q.list().size());
         return q.list();
 	}
+
+	public Resident findRoomID(Integer rid) {
+		log.debug("finding all Resident instances");
+		try {
+			String queryString = "from Resident where room.rid="+rid;
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return (Resident)queryObject.list().get(0);
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 }

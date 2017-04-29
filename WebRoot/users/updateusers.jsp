@@ -61,18 +61,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<s:if test="authority=='B'.toString()">
 									<option value="B">普通住户</option>
 									<option value="C">维修人员</option>
-									<option value="D">小区保安</option>
+									
 									
 								</s:if>
 								<s:elseif test="authority=='C'.toString()">
 									<option value="C">维修人员</option>
 									<option value="B">普通住户</option>
-									<option value="D">小区保安</option>
-								</s:elseif>
-								<s:elseif test="authority=='D'.toString()">
-								    <option value="D">小区保安</option>
-									<option value="C">维修人员</option>
-									<option value="B">普通住户</option>
+									
 								</s:elseif>
 								<s:else><option value="A">超级管理员</option></s:else>
 							</select>

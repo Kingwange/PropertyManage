@@ -52,7 +52,7 @@ public class Users implements java.io.Serializable {
 	}
 
 	// Property accessors
-	@SequenceGenerator(name = "generator",sequenceName="SEQ_USERS",allocationSize=1)
+	@SequenceGenerator(name = "generator",sequenceName="seq_users",allocationSize=1)
 	@Id
 	@GeneratedValue(strategy = SEQUENCE, generator = "generator")
 	@Column(name = "ID", unique = true, nullable = false, precision = 6, scale = 0)
@@ -108,5 +108,7 @@ public class Users implements java.io.Serializable {
 	public void setMaintainmans(Set<Maintainman> maintainmans) {
 		this.maintainmans = maintainmans;
 	}
+
+	
 
 }

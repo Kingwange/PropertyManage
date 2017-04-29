@@ -67,4 +67,6 @@ public class BuildingServiceimpl implements BuildingService {
 		return buildingDAO.findAll();
 	}
 
+	
+
 }

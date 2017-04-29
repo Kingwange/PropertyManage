@@ -155,7 +155,6 @@ public class BuildingDAO {
 			throw re;
 		}
 	}
-
 	public Building merge(Building detachedInstance) {
 		log.debug("merging Building instance");
 		try {

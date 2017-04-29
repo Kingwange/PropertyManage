@@ -48,7 +48,8 @@
 				<value>com.xzit.pms.po.Users</value>
 				<value>com.xzit.pms.po.Maintainman</value>
 				<value>com.xzit.pms.po.Maintain</value>
-				<value>com.xzit.pms.po.Resident</value></list>
+				<value>com.xzit.pms.po.Resident</value>
+			</list>
 		</property></bean>
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">

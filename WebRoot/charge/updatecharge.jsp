@@ -47,13 +47,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-4 am-text-left">
 							<select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
 						id="rid" name="room.rid" required="required">
+				               <option  selected="selected" value='<s:property value="room.rid"/>' ><s:property value="room.rname" /></option>
 				               <s:iterator value="roomlist">
-				               <s:if test="room.rid==rid">
-                               <option  selected="selected" value='<s:property value="rid"/>' ><s:property value="rname" /></option>
-                               </s:if>
-                               <s:else>
                                 <option value='<s:property value="rid"  />'><s:property value="rname" /></option>
-                               </s:else>
+                               
                                </s:iterator>
 			               </select>
 						</div>

@@ -1,7 +1,9 @@
 package com.xzit.pms.service;
 
+import com.xzit.pms.po.Complaint;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Resident;
+import com.xzit.pms.po.Room;
 
 public interface ResidentService {
 
@@ -15,5 +17,8 @@ public interface ResidentService {
 	public void updateResident(Resident resident);
 
 	public void deleteResident(Resident resident);
+
+	public Resident findResidentID(Room room);
+
 
 }

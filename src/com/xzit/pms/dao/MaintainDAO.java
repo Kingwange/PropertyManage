@@ -7,15 +7,19 @@ import org.hibernate.LockOptions;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import static org.hibernate.criterion.Example.create;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Maintain;
+import com.xzit.pms.po.Maintainman;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -28,7 +32,7 @@ import com.xzit.pms.po.Maintain;
  * @see com.xzit.pms.po.Maintain
  * @author MyEclipse Persistence Tools
  */
-@Transactional
+@Repository("maintainDAO")
 public class MaintainDAO {
 	private static final Logger log = LoggerFactory
 			.getLogger(MaintainDAO.class);
@@ -38,7 +42,7 @@ public class MaintainDAO {
 	public static final String MTEL = "mtel";
 	public static final String TYPE = "type";
 	public static final String REMARK = "remark";
-
+    @Autowired
 	private SessionFactory sessionFactory;
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
@@ -55,6 +59,7 @@ public class MaintainDAO {
 
 	public void save(Maintain transientInstance) {
 		log.debug("saving Maintain instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().save(transientInstance);
 			log.debug("save successful");
@@ -62,10 +67,14 @@ public class MaintainDAO {
 			log.error("save failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void delete(Maintain persistentInstance) {
 		log.debug("deleting Maintain instance");
+		Transaction tran=getCurrentSession().beginTransaction();
 		try {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
@@ -73,6 +82,9 @@ public class MaintainDAO {
 			log.error("delete failed", re);
 			throw re;
 		}
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public Maintain findById(java.lang.Integer id) {
@@ -164,13 +176,13 @@ public class MaintainDAO {
 
 	public void attachDirty(Maintain instance) {
 		log.debug("attaching dirty Maintain instance");
-		try {
+		Transaction tran=getCurrentSession().beginTransaction();
+		
 			getCurrentSession().saveOrUpdate(instance);
-			log.debug("attach successful");
-		} catch (RuntimeException re) {
-			log.error("attach failed", re);
-			throw re;
-		}
+			
+		tran.commit();
+		getCurrentSession().flush();
+		getCurrentSession().close();
 	}
 
 	public void attachClean(Maintain instance) {
@@ -187,5 +199,18 @@ public class MaintainDAO {
 
 	public static MaintainDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (MaintainDAO) ctx.getBean("MaintainDAO");
+	}
+
+	public int getCount(String hql) {
+		Query q = getCurrentSession().createQuery(hql);
+	    return Integer.parseInt(q.list().get(0).toString());
+	}
+
+	public List<Maintain> queryForPage(String hql1, int offset, int length) {
+		 Query q = this.getCurrentSession().createQuery(hql1);
+	        q.setFirstResult(offset);
+	        q.setMaxResults(length);
+	        System.out.println(q.list().size());
+	       return q.list();
 	}
 }

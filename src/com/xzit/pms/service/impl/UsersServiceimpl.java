@@ -3,6 +3,7 @@ package com.xzit.pms.service.impl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.management.loading.PrivateClassLoader;
 
 import org.springframework.stereotype.Service;
 
@@ -59,9 +60,23 @@ public class UsersServiceimpl implements UsersService {
 		
 	}
 	@Override
-	public List<Users> finAll() {
+	public List<Users> findAllmaintainman() {
+		// TODO Auto-generated method stub
+		return usersDAO.findAllmaintainman();
+	}
+	@Override
+	public List<Users> findAllroom() {
+		// TODO Auto-generated method stub
+		return usersDAO.findAllroom();
+	}
+	@Override
+	public List<Users> findAllsecurity() {
+		// TODO Auto-generated method stub
+		return usersDAO.findAllmaintainman();
+	}
+	@Override
+	public List<Users> findAll() {
 		// TODO Auto-generated method stub
 		return usersDAO.findAll();
 	}
-
 }

@@ -1,4 +1,83 @@
+/*  
+            检测时间是否为空 */  
+        function checkNull(id){  
+            //开始时间  
+            if(id == "starttime"){  
+                startTime = $("#starttime").val();  
+                  
+                if(isNull(startTime)){  
+                	$("#stime").html("入住时间不能为空");
+                    return false;  
+                }  
+                return true;  
+            }  
+              
+            //结束时间  
+            if(id == "endtime"){  
+                endTime = $("#endtime").val();  
+                  
+                if(isNull(endTime)){  
+                	$("#etime").html("到期时间不能为空");
+                    return false;  
+                }  
+                return true;  
+            }  
+        }  
+          
+        /* 
+            检测开始时间是否小于结束时间（字符串也可以之间比较难控制相差的时间长度，使用毫秒计算） */  
+        function checkDate(){  
+            var startTimeMills = getDateMillsByDateString("starttime");  
+            var endTIimeMills =  getDateMillsByDateString("endtime");  
+            //开始时间和结束世间的最大间隔：3天  
+           // var interval = 365*24*60*60*1000;  
+            if(startTimeMills < endTIimeMills &&  (endTIimeMills - startTimeMills)>0 ){  
+            	return true;  
+            }  
+            $("#etime").html("到期时间必须大于入住时间");
+            return false;  
+        }  
+          
+        /* 
+      */  
+       
+          
+        //将字符串时间(yyyy-MM-dd HH:mm:ss)转换成毫秒  
+        function getDateMillsByDateString(timeId){  
+            var timeStr = $("#" + timeId).val();  
+              
+            var dateAndTimeArray = timeStr.split(" ");  
+            var dateArray = dateAndTimeArray[0].split("-");  
+           
+              
+            var date = new Date(dateArray[0],dateArray[1],dateArray[2]);  
+              
+            var dateMills = date.getTime();  
+              
+            return dateMills;  
+        }  
+          
+          
+        //判断字符串时间是否为空  
+        function isNull(timeString){  
+            if(timeString == null || timeString == ""){  
+                return true;  
+            }  
+            return false;  
+        } 
+//检测姓名是否为空和类型
+        function checkName(id){  
+            if($("#id")==null){
+            	$("#errname").html("姓名不能为空!");
+            }
+            
+                return true;  
+            } 
 //用户管理
+function skipaboutPage(){
+	$("#context").load("skipaboutPage.action");
+}
+
 function addUsers(){
 	 $("#admin-content").load("addusersPage.action");
  }
@@ -260,6 +339,44 @@ function deleteEquipment(i){
 function addHire(){
 	 $("#admin-content").load("addHirePage.action");
 }
+function saveHire(){
+    if(!checkNull('starttime')){
+    	$("#stime").html("入住时间不能为空");
+        return ;  
+    }  
+    if(!checkNull('endtime')){ 
+    	$("#etime").html("到期时间不能为空");
+        return;  
+    }  
+    if(!checkDate()){ 
+    	$("#etime").html("到期时间必须大于入住时间");
+        return;  
+    } 
+    var addHireinfo = $("#addHireForm").serialize();
+	  $.post("saveHire.action",addHireinfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}  
+function updateHire(){
+	 alert(123);
+	if(!checkNull('starttime')){
+    	$("#stime").html("入住时间不能为空");
+        return ;  
+    }  
+    if(!checkNull('endtime')){ 
+    	$("#etime").html("到期时间不能为空");
+        return;  
+    }  
+    if(!checkDate()){ 
+    	$("#etime").html("到期时间必须大于入住时间");
+        return;  
+    } 
+    alert(1234);
+	 var updateHireInfo = $("#updateHireForm").serialize();
+ $.post("updateHire.action",updateHireInfo,function(data){
+	  $("#admin-content").html(data);
+   });
+}
 
 function findAllHire(page){
 	var queryHireInfo = $("#hireconditionForm").serialize();
@@ -274,6 +391,109 @@ function getUpdateHirePage(i){
 function deleteHire(i){
 		$("#admin-content").load("deleteHire.action",{"hid":i});
 }
+//维修人员管理
+function addMaintainman(){
+	 $("#admin-content").load("addMaintainmanPage.action");
+}
+function saveMaintainman(){
+	var addMaintainmanInfo = $("#addMaintainmanForm").serialize();
+	  $.post("saveMaintainman.action",addMaintainmanInfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}
+function findAllMaintainman(page){
+	var queryMaintainmanInfo = $("#maintainmanconditionForm").serialize();
+	  $.post("findAllMaintainman.action?page="+page,queryMaintainmanInfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}
+function getUpdateMaintainmanPage(i){
+	$("#admin-content").load("modifyMaintainmanpage.action",{"mmid":i});
+}
+function updateMaintainman(){
+	
+	 var updateMaintainmanInfo = $("#updateMaintainmanForm").serialize();
+ $.post("updateMaintainman.action",updateMaintainmanInfo,function(data){
+	  $("#admin-content").html(data);
+   });
+}
+function deleteMaintainman(i){
+		$("#admin-content").load("deleteMaintainman.action",{"mmid":i});
+}
+//维修管理
+function skipblogPage(){
+	$("#context").load("skipblogPage.action");
+}
 
-
-
+function saveMaintain(){
+	if($("#usersname").html()!=null)
+		$("#addMaintainForm").submit();
+		else{
+		$("#maintain").html("报修请先登录！");
+		setTimeout(function() {
+			$("#maintain").fadeOut(2000);
+		}, 2300);	
+	}
+}
+function findAllMaintain(page){
+	var queryMaintainInfo = $("#maintainconditionForm").serialize();
+	  $.post("findAllMaintain.action?page="+page,queryMaintainInfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}
+function getUpdateMaintainPage(i){
+	$("#admin-content").load("modifyMaintainpage.action",{"mid":i});
+}
+function updateMaintain(){
+	 var updateMaintainInfo = $("#updateMaintainForm").serialize();
+  $.post("updateMaintain.action",updateMaintainInfo,function(data){
+	  $("#admin-content").html(data);
+    });
+}
+function deleteMaintain(i){
+		$("#admin-content").load("deleteMaintain.action",{"mid":i});
+}
+//投诉管理
+function skipcontactPage(){
+	$("#context").load("skipcontactPage.action");
+}
+function saveComplaint(){
+	if($("#usersname").html()!=null)
+	$("#saveComlaintForm").submit();
+	else{
+		$("#warn").html("投诉请先登录！");
+		setTimeout(function() {
+			$("#warn").fadeOut(2000);
+		}, 2300);	
+	}
+}
+function findAllComplaint(page){
+	var queryComplaintInfo = $("#complaintconditionForm").serialize();
+	  $.post("findAllComplaint.action?page="+page,queryComplaintInfo,function(data){
+		  $("#admin-content").html(data);
+	  });
+}
+function findMycomplaint(page){
+	if($("#usersname").html()==null){
+		$("#search").html("查询请先登录！");
+		setTimeout(function() {
+			$("#search").fadeOut(2000);
+		}, 2300);
+	}
+		else{	
+	  $.post("findMycomplaint.action?page="+page,function(data){
+		  $("#complaint-table").html(data);
+	  });}
+}
+function getUpdateComplaintPage(i){
+	$("#admin-content").load("modifyComplaintpage.action",{"cpid":i});
+}
+function updateComplaint(){
+	 var updateComplaintInfo = $("#updateComplaintForm").serialize();
+  $.post("updateComplaint.action",updateComplaintInfo,function(data){
+	  $("#admin-content").html(data);
+    });
+}
+function deleteComplaint(i){
+		$("#admin-content").load("deleteComplaint.action",{"cpid":i});
+}

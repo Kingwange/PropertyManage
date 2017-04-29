@@ -39,12 +39,6 @@ public class Maintain implements java.io.Serializable {
 	public Maintain() {
 	}
 
-	/** minimal constructor */
-	public Maintain(String mname, String mtel) {
-		this.mname = mname;
-		this.mtel = mtel;
-	}
-
 	/** full constructor */
 	public Maintain(Room room, Maintainman maintainman, String mcontent,
 			String mname, Date repairdate, String mtel, String type,
@@ -101,7 +95,7 @@ public class Maintain implements java.io.Serializable {
 		this.mcontent = mcontent;
 	}
 
-	@Column(name = "MNAME", nullable = false, length = 20)
+	@Column(name = "MNAME", length = 20)
 	public String getMname() {
 		return this.mname;
 	}
@@ -120,7 +114,7 @@ public class Maintain implements java.io.Serializable {
 		this.repairdate = repairdate;
 	}
 
-	@Column(name = "MTEL", nullable = false, length = 20)
+	@Column(name = "MTEL", length = 20)
 	public String getMtel() {
 		return this.mtel;
 	}

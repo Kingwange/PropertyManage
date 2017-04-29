@@ -154,6 +154,39 @@ public class RoomDAO {
 			throw re;
 		}
 	}
+	public List<Room> findAllcharge() {
+		log.debug("finding all Room instances");
+		try {
+			String queryString = "from Room where rid not in (select room.rid from Charge)";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
+	public List<Room> findAllhire() {
+		log.debug("finding all Room instances");
+		try {
+			String queryString = "from Room where rid not in (select room.rid from Hire)";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
+	public List<Room> findAllresident() {
+		log.debug("finding all Room instances");
+		try {
+			String queryString = "from Room where rid not in (select room.rid from Resident)";
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
+	}
 
 	public Room merge(Room detachedInstance) {
 		log.debug("merging Room instance");
@@ -209,5 +242,17 @@ public class RoomDAO {
 	        q.setMaxResults(length);
 	        System.out.println(q.list().size());
 	       return q.list();
+	}
+
+	public Room findUserID(Integer id) {
+		log.debug("finding all Room instances");
+		try {
+			String queryString = "from Room where users.id ="+id;
+			Query queryObject = getCurrentSession().createQuery(queryString);
+			return (Room)queryObject.list().get(0);
+		} catch (RuntimeException re) {
+			log.error("find all failed", re);
+			throw re;
+		}
 	}
 }
