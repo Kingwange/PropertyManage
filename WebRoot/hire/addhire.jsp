@@ -43,25 +43,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="am-form-group" >
             <label  class="am-u-sm-3 am-form-label">租客名</label>
             <div class="am-u-sm-9" >
-              <input type="text" style="width:100px" id="hname" name="hname" placeholder="Name"  />
+              <input type="text" style="width:200px"  name="hname" placeholder="Name"  onblur="checkName(this)"/>
+              <small class="error"></small>
             </div>
           </div>
           <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">房间号 </label>
             <div class="am-u-sm-9">
               <select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="rid" name="room.rid" required="required" style="width:70px">
+						id="rid" name="room.rid" required="required" style="width:150px" onchange="checktype(this)">
 					  <option value="">请选择</option>
 				   <s:iterator value="roomlist" >	
                       <option value='<s:property value="rid" />'><s:property value="rname" /></option>
                    </s:iterator>
 			</select>
+			<small class="error"></small>
             </div>
           </div>
            <div class="am-form-group">
             <label  class="am-u-sm-3 am-form-label">联系电话</label>
             <div class="am-u-sm-9">
-           <input type="text" style="width:200px" id="tel" name="htel" placeholder="Tel"  />
+           <input type="text" style="width:200px" id="tel" name="htel" placeholder="Tel"  onblur="checkTel(this)"/>
+            <small class="error"></small>
             </div>
           </div>
           
@@ -87,6 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <label  class="am-u-sm-3 am-form-label">备注</label>
             <div class="am-u-sm-9">
              <textarea type="text" style="width:350px" id="remark" name="remark" placeholder=""  />
+              <small id="maintain"></small>
             </div>
             </div>
             <br><br>

@@ -16,4 +16,6 @@ public interface ChargeService {
 
 	public void deleteCharge(Charge charge);
 
+	public int checkchargetype(Charge charge);
+
 }

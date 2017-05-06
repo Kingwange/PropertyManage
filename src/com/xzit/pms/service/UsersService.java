@@ -28,5 +28,7 @@ public interface UsersService {
 
 	public Users findUsersName(Users users);
 
+	public int findUsersPassword(Users users);
+
 	
 }

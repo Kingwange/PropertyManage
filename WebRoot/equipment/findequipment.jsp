@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="ename" /></td>
 							<td><s:property value="enumber" /></td>
 							<td><s:property value="vendor" /></td>
-							<td><s:property value="producedate" /></td>
+							<td><s:date name="producedate" format="yyyy-MM-dd "/></td>
 							<td><s:property value="maintenancetime" /></td>
 							<td><s:property value="security.sname" /></td>
 							<td><s:property value="remark" /></td>

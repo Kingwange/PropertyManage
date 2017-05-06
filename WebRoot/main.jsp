@@ -66,19 +66,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <li><a style="cursor: pointer;" onclick="addUsers()"><span class="am-icon-puzzle-piece"></span> 用户添加 </a></li>
       </ul>
     </li>
-    <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-'}"><span class="am-icon-file"></span>楼宇信息管理</a>
+    <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-'}"><span class="am-icon-file"></span>楼宇管理</a>
          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-">
             <li><a class="am-cf" style="cursor: pointer;" onclick="findAllBuilding(1)"><span class="am-icon-check"></span>楼宇信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
             <li><a style="cursor: pointer;" onclick="addBuilding()"><span class="am-icon-puzzle-piece"></span> 楼宇信息添加 </a></li>
       </ul>
      </li>
-      <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-2'}"><span class="am-icon-file"></span>房间信息管理</a>
+      <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-2'}"><span class="am-icon-file"></span>房间管理</a>
          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-2">
              <li><a class="am-cf" style="cursor: pointer;" onclick="findAllRoom(1)"><span class="am-icon-check"></span>房间信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
             <li><a style="cursor: pointer;" onclick="addRoom()"><span class="am-icon-puzzle-piece"></span> 房间信息添加 </a></li>
       </ul>
      </li>
-      <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-3'}"><span class="am-icon-file"></span>业主信息管理</a>
+      <li><a class="am-cf" data-am-collapse="{target: '#collapse-nav-3'}"><span class="am-icon-file"></span>业主管理</a>
            <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav-3">
             <li><a class="am-cf" style="cursor: pointer;" onclick="findAllOwer(1)"><span class="am-icon-check"></span>业主信息查询 <span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
             <li><a style="cursor: pointer;" onclick="addOwer()"><span class="am-icon-puzzle-piece"></span> 业主信息添加 </a></li>

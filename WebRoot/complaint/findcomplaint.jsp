@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="cpid" /></td>
 							<td><s:property value="resident.rsname" /></td>
 							<td><s:property value="cpcontent" /></td>
-							<td><s:property value="submissiontime" /></td>
+							<td><s:date name="submissiontime" format="yyyy-MM-dd HH:mm"/></td>
 							<td><s:if test="state=='N'.toString()">未处理</s:if> <s:elseif
 									test="state=='Z'.toString()">正在处理</s:elseif> <s:else>已处理</s:else>
 							</td>

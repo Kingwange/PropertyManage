@@ -16,4 +16,6 @@ public interface EquipmentService {
 
 	public void deleteEquipment(Equipment equipment);
 
+	public Equipment findEquipName(Equipment equipment);
+
 }

@@ -40,13 +40,15 @@ public class UserAction extends BaseAction implements ModelDriven<Users> {
 		users = usersServiceimpl.usersLogin(users);
 		if(users!= null){
 			 session.put("users", users);
-				if(("A").equals(users.getAuthority())||("C").equals(users.getAuthority())){
+				if(("A").equals(users.getAuthority())){
 					return SUCCESS;}
-			else {
+			else if(("B").equals(users.getAuthority())){
 				room=roomServiceimpl.findUserID(users);
 				resident=residentServiceimpl.findResidentID(room);
 				session.put("resident", resident);
 					return "fail";
+			}else{
+				return "fail";
 			}
 		}
 		return "fail";
@@ -56,7 +58,21 @@ public class UserAction extends BaseAction implements ModelDriven<Users> {
 		session.remove("users");
 	    return SUCCESS;
 	 }
+	@Action(value="changepasswordpage",results={@Result(name="success",location="/users/changepassword.jsp")})
+	 public String changepasswordpage(){
+	    return SUCCESS;
+	 }
 	
+	@Action(value="checkIsPassword")
+  	public void checkIsPassword(){
+	 int n;
+	 n= usersServiceimpl.findUsersPassword(users);
+		 try {
+			ServletActionContext.getResponse().getWriter().println(n);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+  	}
 	@Action(value="skipaboutPage",results={@Result(name="success",location="/users/about.jsp")})
 	 public String skipaboutPage(){
 	    return SUCCESS;
@@ -102,7 +118,7 @@ public class UserAction extends BaseAction implements ModelDriven<Users> {
 			page=1;
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("queryname",queryname);
-	    this.pageBean =usersServiceimpl.queryForPage(2, page,queryInfo,queryname);
+	    this.pageBean =usersServiceimpl.queryForPage(5, page,queryInfo,queryname);
 	    return SUCCESS;
   }
   @Action(value="modifyUserspage",results={@Result(name="success",location="/users/updateusers.jsp")})   
@@ -115,6 +131,15 @@ public class UserAction extends BaseAction implements ModelDriven<Users> {
 		 usersServiceimpl.updateUsers(users);
 		return SUCCESS; 	
  }
+	 @Action(value="updatepassword",results={@Result(name="success",location="/index.jsp")})
+	  public String  updatepassword(){
+		    Users nuser=new Users();
+		    nuser=(Users)session.get("users");
+		    users.setUsername(nuser.getUsername());
+		    users.setAuthority(nuser.getAuthority());
+			usersServiceimpl.updateUsers(users);
+			return SUCCESS; 	
+	 }
 	 @Action(value="deleteUsers",results={@Result(name="success",type="redirectAction",location="findAllUsers.action")})
   public String  deleteUsers(){
 		 usersServiceimpl.deleteUsers(users);

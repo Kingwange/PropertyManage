@@ -40,7 +40,7 @@ public String findAllOwer() {
 	if(page==0)
 		page=1;
 	this.req.setAttribute("queryInfo", queryInfo);;
-    this.pageBean = owerServiceimpl.queryForPage(2, page,queryInfo);
+    this.pageBean = owerServiceimpl.queryForPage(5, page,queryInfo);
     return SUCCESS;
 }
 	 @Action(value="modifyOwerpage",results={@Result(name="success",location="/ower/updateower.jsp")})   

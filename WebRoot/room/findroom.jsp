@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="building.bname" /></td>
 							<td><s:property value="rname" /></td>
 							<td><s:property value="ower.oname" /></td>
-							<td><s:property value="ower.intime" /></td>
+							<td><s:date name="ower.intime" format="yyyy-MM-dd HH:mm"/></td>
 							<td><s:if test="type.equals('One')">
                                                             一居室</s:if> <s:elseif
 									test="type.equals('Two')">

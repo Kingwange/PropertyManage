@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td class="tocenter"><s:property value="mtel" /></td>
 								<td class="tocenter"><s:property value="maintainman.name" /></td>
 								<td class="tocenter"><s:property value="maintainman.tel" /></td>
-								<td class="tocenter"><s:property value="repairdate" /></td>
+								<td class="tocenter"><s:date name="repairdate" format="yyyy-MM-dd HH:mm"/></td>
 								<td class="tocenter"><s:if test="type=='N'.toString()">未处理</s:if>
 									<s:else>已处理</s:else></td>
 								<td class="tocenter"><s:property value="remark" /></td>

@@ -51,7 +51,7 @@ public class MaintainmanAction extends BaseAction implements
 			page=1;
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("querytype",querytype);
-	    this.pageBean =maintainmanServiceimpl.queryForPage(2, page,queryInfo,querytype);
+	    this.pageBean =maintainmanServiceimpl.queryForPage(5, page,queryInfo,querytype);
 	    return SUCCESS;
   }
   @Action(value="modifyMaintainmanpage",results={@Result(name="success",location="/maintainman/updatemaintainman.jsp")})   

@@ -165,7 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<tr>
 								<td class="tocenter"><s:property value="mmid" /></td>
 								<td class="tocenter"><s:property value="name" /></td>
-								<td class="tocenter"><s:if test="repairtype.equals('Wood')">木工</s:if>
+								<td class="tocenter"><s:if test="repairtype.equals('Wood')">木工类</s:if>
 									<s:elseif test="repairtype.equals('Air')">空调类</s:elseif> <s:elseif
 										test="repairtype.equals('Warm')">气暖类</s:elseif> <s:elseif
 										test="repairtype.equals('Lock')">锁具</s:elseif> <s:elseif

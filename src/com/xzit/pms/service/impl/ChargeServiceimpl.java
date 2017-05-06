@@ -23,13 +23,18 @@ public class ChargeServiceimpl implements ChargeService {
 	@Override
 	public PageBean queryForPage(int pageSize, int currentPage,
 			String queryInfo, String queryroom) {
-		String hql = "select count(*) from Charge where chargestate like '%" +queryInfo+"%'  and rid like '%"+queryroom+"%'  order by cid asc";
+		if(queryroom==""){
+			queryroom=" like '%%' ";
+		}else{
+			queryroom=" = "+queryroom;
+		}
+		String hql = "select count(*) from Charge where chargestate like '%" +queryInfo+"%'  and rid "+queryroom+"  order by cid asc";
 		int count = chargeDAO.getCount(hql); // 总记录数
 		int totalPage = PageBean.countTotalPage(pageSize, count); // 总页数
 		int offset = PageBean.countOffset(pageSize, currentPage); // 当前页开始记录
 		int length = pageSize; // 每页记录数
 		currentPage = PageBean.countCurrentPage(currentPage);
-		String hql1="from Charge where chargestate like '%" +queryInfo+"%'  and rid like '%"+queryroom+"%'  order by cid asc";
+		String hql1="from Charge where chargestate like '%" +queryInfo+"%'  and rid "+queryroom+"  order by cid asc";
 		List<Charge> list = chargeDAO.queryForPage(hql1, offset, length); // 该分页的记录
 		// 把分页信息保存到Bean中
 		PageBean pageBean = new PageBean();
@@ -56,6 +61,12 @@ public class ChargeServiceimpl implements ChargeService {
 	@Override
 	public void deleteCharge(Charge charge) {
         chargeDAO.delete(charge);
+	}
+
+	@Override
+	public int checkchargetype(Charge charge) {
+		// TODO Auto-generated method stub
+		return chargeDAO.checkchargetype(charge.getRoom().getRid(),charge.getCname());
 	}
 
 }

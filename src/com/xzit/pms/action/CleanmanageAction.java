@@ -44,7 +44,7 @@ public class CleanmanageAction extends BaseAction implements ModelDriven<Cleanma
 		if (page == 0)
 			page = 1;
 		this.req.setAttribute("queryInfo", queryInfo);
-		this.pageBean = cleanmanageServiceimpl.queryForPage(2, page, queryInfo);
+		this.pageBean = cleanmanageServiceimpl.queryForPage(5, page, queryInfo);
 		return SUCCESS;
 	}
 

@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>报修管理</title>
+<title>修改密码</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="js/jquery-1.11.0.min.js"></script>
@@ -47,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		padding:5px 0 5px 0px;
 	}
 	.table_content tr td{
-		width:35%;
+		width:45%;
 		padding:5px 0 5px 0px;
 	}
 	.table_content tr td input{
@@ -66,54 +66,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- //end-smoth-scrolling -->
 <div class="contact" style="background-image:url(images/blog11.jpg);background-size: cover">
 	<div class="contact-main">
-	   <div class="container" >
+	   <div class="container">
 			<div class="contact-top">
-				<h3>填写报修信息</h3>
+				<h3>修改用户密码</h3>
 			</div>
 			<div class="contact-bottom">
 			
 				<div class="col-md-7 contact-left" style="boder:1px;color:black">
 					
 				</div>
-				<form id="addMaintainForm" action="saveMaintain.action" method="post">
+				<form id="updatepasswordForm" action="updatepassword.action" method="post">
 				 <div class="tableBox"> 
 				 <table class="table_content">
-					<tr><th>姓名</th>
-		             <td><input type="text" style="width:150px" name="mname" id="mname" onblur="checkName(this)"/><small class="error"></small></td>
+				    <tr>
+		             <td><input type="hidden" id="id" name="id"  value="${users.id}"></td>
+		             </tr>
+					<tr><th>请输入原密码</th>
+		             <td><input type="password" style="width:150px" name="oldpassword"  onblur="checkIsPassword(this)"/><small class="error"></small></td>
+		             </tr>
+		            <tr> <th>输入新密码</th>
+		             <td><input type="password" style="width:150px" name="password" id="newpassword" onblur="checkPassword(this)"/><small class="error"></small></td>
 		             </tr>
 		            <tr>
+		            	<th>再次输入新密码</th>
+		             <td><input type="password" style="width:150px"  name="renewpassword"  onblur="checkIsnewpassword(this)"/><small class="error"></small></td></tr>
 		            
-		            <th>联系电话</th>
-		             <td><input type="text" style="width:150px" name="mtel" id="mtel" onblur="checkTel(this)"/><small class="error"></small></td></tr>
-		            
-		            <tr>
-		            	<th>报修类别</th>
-		            	<td><select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						 name="maintainman.mmid" required="required">
-					 
-				        <s:iterator value="maintainmanlist" >	
-                      <option value='<s:property value="mmid" />'>
-                        <s:if test="repairtype.equals('Wood')">木工类</s:if>
-                        <s:elseif test="repairtype.equals('Warm')">气暖类</s:elseif>
-                        <s:elseif test="repairtype.equals('Lock')">锁具类</s:elseif>
-                        <s:elseif test="repairtype.equals('Air')">空调类</s:elseif>
-                        <s:elseif test="repairtype.equals('Water')">水类</s:elseif>
-                        <s:elseif test="repairtype.equals('Power')">电类</s:elseif>
-                        <s:else>其它</s:else>
-                      </option>
-                        </s:iterator>
-			        </select></td>
-		            </tr>
-				
-					<tr>
-						<th>报修内容</th>
-						<td>
-						<textarea name="mcontent" style= "background:transparent;"  id="remark" onblur="checkRemark(this)" /> </textarea>
-						<small class="error"></small></td>
-					</tr>
 		            <tr>
 		            	<td>
-		            		<input type="button" style="width:50%" onclick="saveMaintain()" value="报修"><small id="maintain" style="color:red"></small>
+		            		<input type="button" style="width:50%" onclick="updateOwnpassword()" value="确定修改"><small id="maintain" style="color:red"></small>
 		            	</td>
 		            </tr>
 				</table>
@@ -123,11 +103,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 
-<!--contact end here-->
-<!--map start here-->
 <div class="map">
   <div class="container">
 		<div class="col-md-7 map-left">
+		<br>
+		<br>
 		<br>
 		</div>
 		</div>
@@ -137,5 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 </div>
+
+
 </body>
 </html>

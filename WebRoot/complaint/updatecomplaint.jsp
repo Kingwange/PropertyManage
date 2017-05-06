@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*投诉时间</div>
 						<div class="am-u-sm-4 am-text-left">
-						    <span><s:property value="submissiontime"/></span>
+						    <span><s:date name="submissiontime" format="yyyy-MM-dd HH:mm"/></span>
 							<input  type="hidden" name="submissiontime"  value='<s:property value="submissiontime"/>'>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
@@ -98,11 +98,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<br>
 					<br>
-					<div class="roomupdate">
+					<div class="owerupdate">
 						<button style="" type="button"
 							class="am-btn am-btn-primary am-btn-xs"
 							onclick="updateComplaint()" id="buttonBtn">确认修改</button>
 					</div>
+					<br>
 				</form>
 
 			</div>

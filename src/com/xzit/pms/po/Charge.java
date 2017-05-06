@@ -1,18 +1,19 @@
 package com.xzit.pms.po;
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+
 import static javax.persistence.GenerationType.SEQUENCE;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * Charge entity. @author MyEclipse Persistence Tools
@@ -112,8 +113,7 @@ public class Charge implements java.io.Serializable {
 		this.remark = remark;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "CHARGEDATE", length = 7)
+	@Column(name = "CHARGEDATE", length = 11)
 	public Date getChargedate() {
 		return this.chargedate;
 	}

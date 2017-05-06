@@ -41,40 +41,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*房间号</div>
 						<div class="am-u-sm-4 am-text-left">
-							<select data-am-selected="{btnSize: 'sm'}" class="am-input-sm"
-						id="rid" name="room.rid" required="required">
-				               <option  selected="selected" value='<s:property value="room.rid"/>' ><s:property value="room.rname" /></option>
-				               <s:iterator value="roomlist">
-				              
-                                <option value='<s:property value="rid"  />'><s:property value="rname" /></option>
-                               
-                               </s:iterator>
-			               </select>
+							<select data-am-selected="{btnSize: 'sm'}" style="width:150px"
+								class="am-input-sm" id="rid" name="room.rid" required="required">
+								<option selected="selected"
+									value='<s:property value="room.rid"/>'><s:property
+										value="room.rname" /></option>
+								<s:iterator value="roomlist">
+
+									<option value='<s:property value="rid"  />'><s:property
+											value="rname" /></option>
+
+								</s:iterator>
+							</select> 
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*姓名</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="rsname"
-								width="50" value='<s:property value="rsname"/>'>
+							<input type="text" style="width:200px" class="am-checkbox-inline"
+								name="rsname" width="50" value='<s:property value="rsname"/>'
+								onblur="checkName(this)"><small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*性别</div>
 						<div class="am-u-sm-4 am-text-left">
-							<select class="am-input-sm" name="rsex" required="required">
+							<select style="width:150px" class="am-input-sm" name="rsex"
+								required="required" >
 								<s:if test="rsex=='M'.toString()">
 									<option value="M">男</option>
 									<option value="F">女</option>
-									
+
 								</s:if>
 								<s:else>
 									<option value="F">女</option>
 									<option value="M">男</option>
 								</s:else>
-								
 							</select>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
@@ -82,36 +86,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*身份证</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="identity"
-								width="50" value='<s:property value="identity"/>'>
+							<input type="text" style="width:250px" class="am-checkbox-inline"
+								name="identity" width="50"
+								value='<s:property value="identity"/>'
+								onblur="checkIdentity(this)"><small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
-					
-                   
+
+
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*联系方式</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="tel"
-								width="50" value='<s:property value="tel"/>'>
+							<input type="text" style="width:200px" class="am-checkbox-inline"
+								name="tel" width="50" value='<s:property value="tel"/>'
+								onblur="checkTel(this)"><small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*备注</div>
 						<div class="am-u-sm-4 am-text-left">
-						<input type="text" class="am-checkbox-inline" name="remark"
-								width="50" value='<s:property value="remark"/>'>	
+							<input type="text" style="width:300px" class="am-checkbox-inline"
+								name="remark" width="50" value='<s:property value="remark"/>'><small
+								id="maintain"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
-					<br>
-					<br>
-					<div class="update">
+					<br> <br>
+					<div class="owerupdate">
 						<button style="" type="button"
 							class="am-btn am-btn-primary am-btn-xs"
 							onclick="updateResident()" id="buttonBtn">确认修改</button>
 					</div>
+					<br>
 				</form>
 
 			</div>

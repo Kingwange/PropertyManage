@@ -78,8 +78,7 @@ public class Complaint implements java.io.Serializable {
 		this.cpcontent = cpcontent;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "SUBMISSIONTIME", length = 7)
+	@Column(name = "SUBMISSIONTIME", length = 11)
 	public Date getSubmissiontime() {
 		return this.submissiontime;
 	}

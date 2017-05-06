@@ -48,7 +48,7 @@ public class HireAction extends BaseAction implements ModelDriven<Hire> {
 		roomlist=roomServiceimpl.findAll();
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("queryroom",queryroom);
-	    this.pageBean =hireServiceimpl.queryForPage(2, page,queryInfo,queryroom);
+	    this.pageBean =hireServiceimpl.queryForPage(5, page,queryInfo,queryroom);
 	    return SUCCESS;
 	}
 

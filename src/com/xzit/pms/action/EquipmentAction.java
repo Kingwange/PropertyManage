@@ -1,15 +1,18 @@
 package com.xzit.pms.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.xzit.pms.po.Building;
 import com.xzit.pms.po.Equipment;
 import com.xzit.pms.po.PageBean;
 import com.xzit.pms.po.Security;
@@ -38,6 +41,23 @@ public class EquipmentAction extends BaseAction implements ModelDriven<Equipment
 	   equipmentServiceimpl.saveEquipment(equipment);
   		return SUCCESS;
   	}
+   @Action(value="checkequipmentName")
+ 	public void checkequipmentName(){
+	 int n;
+	 Equipment equipmentnumber= equipmentServiceimpl.findEquipName(equipment);
+	 if(equipmentnumber==null){
+		 n=1;
+	 }else{
+		 n=0;
+	 }
+		 try {
+			ServletActionContext.getResponse().getWriter().println(n);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	 
+ 		
+ 	}
   @Action(value="findAllEquipment",results={@Result(name="success",location="/equipment/findequipment.jsp")})
   public String findAllEquipment() {
 	   if(queryInfo==null){
@@ -50,7 +70,7 @@ public class EquipmentAction extends BaseAction implements ModelDriven<Equipment
 	   securitylist=securityServiceimpl.findAll();
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("queryman",queryman);
-	    this.pageBean =equipmentServiceimpl.queryForPage(2, page,queryInfo,queryman);
+	    this.pageBean =equipmentServiceimpl.queryForPage(5, page,queryInfo,queryman);
 	    return SUCCESS;
   }
   @Action(value="modifyEquipmentpage",results={@Result(name="success",location="/equipment/updateequipment.jsp")})   

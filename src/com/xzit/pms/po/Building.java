@@ -104,7 +104,6 @@ public class Building implements java.io.Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "building")
 	public Set<Room> getRooms() {
 		return this.rooms;

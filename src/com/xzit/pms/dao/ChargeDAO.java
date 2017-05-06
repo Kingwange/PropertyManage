@@ -1,6 +1,4 @@
 package com.xzit.pms.dao;
-
-import java.util.Date;
 import java.util.List;
 
 import org.hibernate.LockOptions;
@@ -16,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.xzit.pms.po.Charge;
+import com.xzit.pms.po.Users;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -208,5 +206,14 @@ public class ChargeDAO {
         q.setMaxResults(length);
         System.out.println(q.list().size());
         return q.list();
+	}
+
+	public int checkchargetype(int rid, String cname2) {
+		Query query = this.getCurrentSession().createQuery(" from Charge where rid = "+rid+" and  cname = '"+cname2+"'");
+		List<Users> lists = query.list();
+		if(lists.size()<1)
+			return 0;
+		else
+		   return 1;
 	}
 }

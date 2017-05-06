@@ -7,9 +7,10 @@ function checkNull(id) {
 
 		if (isNull(startTime)) {
 			$("#stime").html("入住时间不能为空");
-			return false;
+		}else{
+			$("#stime").html("");
+		   return true;
 		}
-		return true;
 	}
 
 	// 结束时间
@@ -18,9 +19,11 @@ function checkNull(id) {
 
 		if (isNull(endTime)) {
 			$("#etime").html("到期时间不能为空");
-			return false;
-		}
-		return true;
+			
+		}else{
+			$("#etime").html("");
+			   return true;
+			}
 	}
 }
 
@@ -46,10 +49,11 @@ function checkDate() {
 function getDateMillsByDateString(timeId) {
 	var timeStr = $("#" + timeId).val();
 
-	var dateAndTimeArray = timeStr.split(" ");
-	var dateArray = dateAndTimeArray[0].split("-");
+	 var dateAndTimeArray = timeStr.split(" ");  
+     var dateArray = dateAndTimeArray[0].split("-");  
+     
 
-	var date = new Date(dateArray[0], dateArray[1], dateArray[2]);
+     var date = new Date(dateArray[0],dateArray[1],dateArray[2]);
 
 	var dateMills = date.getTime();
 
@@ -86,11 +90,15 @@ function checkName(obj) {
 function checkTel(obj) {
 	var phone = $(obj).val();
 	var error = $(obj).next();
+	if (phone==""){
+		error.html("电话不能为空!");
+	}else {
 	if (!(/^1[34578]\d{9}$/.test(phone))) {
 		error.html("电话输入有误!");
 	} else {
 		error.html("");
 		return true;
+	}
 	}
 }
 // 检测备注内容是否为空
@@ -116,8 +124,8 @@ function checkUsername(obj) {
 			error.html("用户名为英文或数字组成!");
 		} else {
 			error.html("");
-			if (!(username.length > 4 && username.length <= 10)) {
-				error.html("长度5到10位!");
+			if (!(username.length > 4 && username.length <= 20)) {
+				error.html("长度5到20位!");
 			} else {
 				error.html("");
 				$.post("checkName.action", {
@@ -215,7 +223,7 @@ function checkPiles(obj) {
 	}
 
 }
-// 房间管理
+// 房间名是否重复
 function checkRoomName(obj) {
 	var pram = /^[A-Za-z0-9]+$/;
 	var roomname = $(obj).val();
@@ -235,7 +243,6 @@ function checkRoomName(obj) {
 					error.html("房间名称已存在");
 				} else {
 					error.html("");
-
 				}
 			});
 		}
@@ -258,7 +265,166 @@ function checkArea(obj) {
 		}
 	}
 }
+//检测时间是否为空
+function checkTime(obj) {
+	var time = $(obj).val();
+	var error = $(obj).next();
+	if (time == "") {
+		error.html("日期不能为空!");
+	} else {
+		error.html("");
+		return true;
+	    }
+}
+//身份证验证
+function checkIdentity(obj) {
+	var identity = $(obj).val();
+	var error = $(obj).next();
+	if (identity == "") {
+		error.html("身份证号码不能为空!");
+	} else {
+		error.html("");
+		if (!(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/.test(identity))) {
+			error.html("身份证错误!");
+		} else {
+			error.html("");
+			return true;
+		}
+	}
+}
+//价格验证
 
+function checkPrice(obj) {
+	var price = $(obj).val();
+	var error = $(obj).next();
+	if (price == "") {
+		error.html("价格不能为空!");
+	} else {
+		error.html("");
+		if (!(/^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/.test(price))) {
+			error.html("价格为正数，小数位2位!");
+		} else {
+			error.html("");
+			return true;
+		}
+	}
+}
+//验证楼宇名称
+function checkEquipmentname(obj) {
+	var pram = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
+	var ename = $(obj).val();
+	var error = $(obj).next();
+	if (ename == "") {
+		error.html("设备名称不能为空!");
+	} else {
+		error.html("");
+		if (!(pram.test(ename))) {
+			error.html("设备名称由数字英文中文组成!");
+		} else {
+			error.html("");
+			$.post("checkequipmentName.action", {
+				"ename" : ename
+			}, function(data) {
+				if (data == 0) {
+					error.html("设备名称已存在");
+				} else {
+					error.html("");
+
+				}
+			});
+		}
+	}
+
+}
+//验证数字
+function checkNumber(obj){
+	var number = $(obj).val();
+	var error = $(obj).next();
+	if (number == "") {
+		error.html("数量不能为空!");
+	} else {
+		error.html("");
+		if (!(/^[1-9]\d*$/.test(number))) {
+			error.html("数量格式错误！");
+		}else {
+			error.html("");
+
+		}
+	}
+}
+//验证中文英文数字
+function checkNametype(obj) {
+	var pram = /^[a-zA-Z0-9\u4e00-\u9fa5]+$/;
+	var name = $(obj).val();
+	var error = $(obj).next();
+	if (name == "") {
+		error.html("内容不能为空!");
+	} else {
+		error.html("");
+		if (!(pram.test(name))) {
+			error.html("名称由数字英文中文组成!");
+		}else{
+			error.html("");
+		}
+	}
+
+}
+//检验原密码
+function checkIsPassword(obj) {
+	var password = $(obj).val();
+	var id=$("#id").val();
+	var error = $(obj).next();
+	if (password == "") {
+		error.html("密码不能为空!");
+	} else {
+			error.html("");
+			$.post("checkIsPassword.action", {
+				"password" : password,
+				"id":id
+			}, function(data) {
+				if (data == 0) {
+					error.html("原密码输入错误!");	
+				} else {
+					error.html("");
+
+				}
+			});
+		}
+	}
+//确认新密码
+
+function checkIsnewpassword(obj) {
+	var repassword = $(obj).val();
+	var error = $(obj).next();
+	if (repassword != $("#newpassword").val()) {
+		error.html("密码输入不一致!");
+	} 
+	else {
+		error.html("");
+		}
+	}
+//验证收费类别
+
+function checkChargetype(obj) {
+	var ctype = $(obj).val();
+	var rid=$("#rid").val();
+	var error = $(obj).next();
+	if (ctype == "") {
+		error.html("收费类别不能为空!");
+	} else {
+			error.html("");
+			$.post("checkchargetype.action", {
+				"cname" : ctype,"room":rid
+			}, function(data) {
+				if (data == 1) {
+					error.html("收费类别已存在");
+				} else {
+					error.html("");
+
+				}
+			});
+		}
+}
 // 用户管理
 function skipaboutPage() {
 	$("#context").load("skipaboutPage.action");
@@ -267,11 +433,14 @@ function skipaboutPage() {
 function skipahomePage() {
 	$("#context").load("skipahomePage.action");
 }
+function changepasswordPage() {
+	$("#context").load("changepasswordpage.action");
+}
 function addUsers() {
 	$("#admin-content").load("addusersPage.action");
 }
 function saveUsers() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var addUsersInfo = $("#addUsersForm").serialize();
 		$.post("saveUsers.action", addUsersInfo, function(data) {
@@ -293,8 +462,15 @@ function getUpdateUsersPage(i) {
 		"id" : i
 	});
 }
+function updateOwnpassword() {
+	if ("" == $(".error").text()) {
+		$("#updatepasswordForm").submit();
+	} else {
+		$("#maintain").html("更新信息有误");
+	}
+}
 function updateUsers() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var usersInfo = $("#updateUsersForm").serialize();
 		$.post("updateUsers.action", usersInfo, function(data) {
@@ -315,10 +491,16 @@ function addOwer() {
 	$("#admin-content").load("addowerPage.action");
 }
 function saveOwer() {
-	var addOwerInfo = $("#addOwerForm").serialize();
-	$.post("saveOwer.action", addOwerInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addOwerInfo = $("#addOwerForm").serialize();
+		$.post("saveOwer.action", addOwerInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}
+	
 }
 function findAllOwer(page) {
 	var queryOwerInfo = $("#owerconditionForm").serialize();
@@ -332,10 +514,16 @@ function getUpdateOwerPage(i) {
 	});
 }
 function updateOwer() {
-	var owerInfo = $("#updateOwerForm").serialize();
-	$.post("updateOwer.action", owerInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var owerInfo = $("#updateOwerForm").serialize();
+		$.post("updateOwer.action", owerInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 function deleteOwer(i) {
 	$("#admin-content").load("deleteOwer.action", {
@@ -347,14 +535,14 @@ function addBuilding() {
 	$("#admin-content").load("addbuildingPage.action");
 }
 function saveBuilding() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var addBuildingInfo = $("#addBuildingForm").serialize();
 		$.post("saveBuilding.action", addBuildingInfo, function(data) {
 			$("#admin-content").html(data);
 		});
 	} else {
-		$("#maintain").html("新增信息有误！");
+		$("#maintain").html("新增信息有误!");
 	}
 }
 function findAllBuilding(page) {
@@ -370,7 +558,7 @@ function getUpdateBuildingPage(i) {
 	});
 }
 function updateBuilding() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var buildingInfo = $("#updateBuildingForm").serialize();
 		$.post("updateBuilding.action", buildingInfo, function(data) {
@@ -390,10 +578,16 @@ function addSecurity() {
 	$("#admin-content").load("addSecurityPage.action");
 }
 function saveSecurity() {
-	var addSecurityInfo = $("#addSecurityForm").serialize();
-	$.post("saveSecurity.action", addSecurityInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addSecurityInfo = $("#addSecurityForm").serialize();
+		$.post("saveSecurity.action", addSecurityInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}
+	
 }
 function findAllSecurity(page) {
 	var querySecurityInfo = $("#securityconditionForm").serialize();
@@ -408,10 +602,15 @@ function getUpdateSecurityPage(i) {
 	});
 }
 function updateSecurity() {
-	var securityInfo = $("#updateSecurityForm").serialize();
-	$.post("updateSecurity.action", securityInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var securityInfo = $("#updateSecurityForm").serialize();
+		$.post("updateSecurity.action", securityInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}	
 }
 function deleteSecurity(i) {
 	$("#admin-content").load("deleteSecurity.action", {
@@ -423,10 +622,15 @@ function addCleanmanage() {
 	$("#admin-content").load("addCleanmanagePage.action");
 }
 function saveCleanmanage() {
-	var addCleanmanageInfo = $("#addCleanmanageForm").serialize();
-	$.post("saveCleanmanage.action", addCleanmanageInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addCleanmanageInfo = $("#addCleanmanageForm").serialize();
+		$.post("saveCleanmanage.action", addCleanmanageInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}
 }
 function findAllCleanmanage(page) {
 	var queryCleanmanageInfo = $("#cleanmanageconditionForm").serialize();
@@ -441,10 +645,16 @@ function getUpdateCleanmanagePage(i) {
 	});
 }
 function updateCleanmanage() {
-	var cleanmanageInfo = $("#updateCleanmanageForm").serialize();
-	$.post("updateCleanmanage.action", cleanmanageInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var cleanmanageInfo = $("#updateCleanmanageForm").serialize();
+		$.post("updateCleanmanage.action", cleanmanageInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 function deleteCleanmanage(i) {
 	$("#admin-content").load("deleteCleanmanage.action", {
@@ -456,7 +666,7 @@ function addRoom() {
 	$("#admin-content").load("addRoomPage.action");
 }
 function saveRoom() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var addRoomInfo = $("#addRoomForm").serialize();
 		$.post("saveRoom.action", addRoomInfo, function(data) {
@@ -478,14 +688,14 @@ function getUpdateRoomPage(i) {
 	});
 }
 function updateRoom() {
-	if ("" == $(".error").val()) {
+	if ("" == $(".error").text()) {
 		$("#maintain").html("");
 		var updateroomInfo = $("#updateRoomForm").serialize();
 		$.post("updateRoom.action", updateroomInfo, function(data) {
 			$("#admin-content").html(data);
 		});
 	} else {
-		$("#maintain").html("新增信息有误！");
+		$("#maintain").html("更新信息有误！");
 	}
 }
 function deleteRoom(i) {
@@ -498,10 +708,16 @@ function addResident() {
 	$("#admin-content").load("addResidentPage.action");
 }
 function saveResident() {
-	var addInfo = $("#addResidentForm").serialize();
-	$.post("saveResident.action", addInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addInfo = $("#addResidentForm").serialize();
+		$.post("saveResident.action", addInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}
+	
 }
 function findAllResident(page) {
 	var queryResidentInfo = $("#residentconditionForm").serialize();
@@ -516,11 +732,15 @@ function getUpdateResidentPage(i) {
 	});
 }
 function updateResident() {
-
-	var updateResidentInfo = $("#updateResidentForm").serialize();
-	$.post("updateResident.action", updateResidentInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateResidentInfo = $("#updateResidentForm").serialize();
+		$.post("updateResident.action", updateResidentInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
 }
 function deleteResident(i) {
 	$("#admin-content").load("deleteResident.action", {
@@ -532,10 +752,15 @@ function addCharge() {
 	$("#admin-content").load("addChargePage.action");
 }
 function saveCharge() {
-	var addInfo = $("#addChargeForm").serialize();
-	$.post("saveCharge.action", addInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addInfo = $("#addChargeForm").serialize();
+		$.post("saveCharge.action", addInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}	
 }
 function findAllCharge(page) {
 	var queryChargeInfo = $("#chargeconditionForm").serialize();
@@ -550,11 +775,16 @@ function getUpdateChargePage(i) {
 	});
 }
 function updateCharge() {
-
-	var updateChargeInfo = $("#updateChargeForm").serialize();
-	$.post("updateCharge.action", updateChargeInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateChargeInfo = $("#updateChargeForm").serialize();
+		$.post("updateCharge.action", updateChargeInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 function deleteCharge(i) {
 	$("#admin-content").load("deleteCharge.action", {
@@ -566,10 +796,15 @@ function addEquipment() {
 	$("#admin-content").load("addEquipmentPage.action");
 }
 function saveEquipment() {
-	var addEquipmentInfo = $("#addEquipmentForm").serialize();
-	$.post("saveEquipment.action", addEquipmentInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addEquipmentInfo = $("#addEquipmentForm").serialize();
+		$.post("saveEquipment.action", addEquipmentInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}	
 }
 function findAllEquipment(page) {
 	var queryEquipmentInfo = $("#equipmentconditionForm").serialize();
@@ -584,11 +819,16 @@ function getUpdateEquipmentPage(i) {
 	});
 }
 function updateEquipment() {
-
-	var updateEquipmentInfo = $("#updateEquipmentForm").serialize();
-	$.post("updateEquipment.action", updateEquipmentInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateEquipmentInfo = $("#updateEquipmentForm").serialize();
+		$.post("updateEquipment.action", updateEquipmentInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 function deleteEquipment(i) {
 	$("#admin-content").load("deleteEquipment.action", {
@@ -613,13 +853,22 @@ function saveHire() {
 		$("#etime").html("到期时间必须大于入住时间");
 		return;
 	}
-	var addHireinfo = $("#addHireForm").serialize();
-	$.post("saveHire.action", addHireinfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		if(""==$("#etime").text() && ""==$("#stime").text()){
+		$("#maintain").html("");
+		var addHireinfo = $("#addHireForm").serialize();
+		$.post("saveHire.action", addHireinfo, function(data) {
+			$("#admin-content").html(data);
+		});}else {
+			$("#maintain").html("新增信息有误!");
+		}
+	 } else {
+		 $("#maintain").html("");
+		$("#maintain").html("新增信息有误!");
+	}
+	
 }
 function updateHire() {
-	alert(123);
 	if (!checkNull('starttime')) {
 		$("#stime").html("入住时间不能为空");
 		return;
@@ -632,10 +881,20 @@ function updateHire() {
 		$("#etime").html("到期时间必须大于入住时间");
 		return;
 	}
-	var updateHireInfo = $("#updateHireForm").serialize();
-	$.post("updateHire.action", updateHireInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		if(""==$("#etime").text() && ""==$("#stime").text()){
+		$("#maintain").html("");
+		var updateHireInfo = $("#updateHireForm").serialize();
+		$.post("updateHire.action", updateHireInfo, function(data) {
+			$("#admin-content").html(data);
+		});}else {
+			$("#maintain").html("更新信息有误!");
+		}
+	 } else {
+		 $("#maintain").html("");
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 
 function findAllHire(page) {
@@ -660,10 +919,16 @@ function addMaintainman() {
 	$("#admin-content").load("addMaintainmanPage.action");
 }
 function saveMaintainman() {
-	var addMaintainmanInfo = $("#addMaintainmanForm").serialize();
-	$.post("saveMaintainman.action", addMaintainmanInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var addMaintainmanInfo = $("#addMaintainmanForm").serialize();
+		$.post("saveMaintainman.action", addMaintainmanInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("新增信息有误!");
+	}
+	
 }
 function findAllMaintainman(page) {
 	var queryMaintainmanInfo = $("#maintainmanconditionForm").serialize();
@@ -678,11 +943,15 @@ function getUpdateMaintainmanPage(i) {
 	});
 }
 function updateMaintainman() {
-
-	var updateMaintainmanInfo = $("#updateMaintainmanForm").serialize();
-	$.post("updateMaintainman.action", updateMaintainmanInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateMaintainmanInfo = $("#updateMaintainmanForm").serialize();
+		$.post("updateMaintainman.action", updateMaintainmanInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
 }
 function deleteMaintainman(i) {
 	$("#admin-content").load("deleteMaintainman.action", {
@@ -692,6 +961,11 @@ function deleteMaintainman(i) {
 // 维修管理
 function skipblogPage() {
 	$("#context").load("skipblogPage.action");
+}
+function findmaintaininfo(page) {
+	$.post("findmaintaininfo.action?page=" + page, function(data) {
+		$("#context").html(data);
+	});
 }
 
 function saveMaintain() {
@@ -722,13 +996,34 @@ function getUpdateMaintainPage(i) {
 	});
 }
 function updateMaintain() {
-	var updateMaintainInfo = $("#updateMaintainForm").serialize();
-	$.post("updateMaintain.action", updateMaintainInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateMaintainInfo = $("#updateMaintainForm").serialize();
+		$.post("updateMaintain.action", updateMaintainInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
+
+function updateOwnMaintain(i) {
+	var updateinfo="updateOwnMaintainForm"+i;
+	var updateOwnMaintain = $("#updateOwnMaintainForm"+i).serialize();
+	$.post("updateOwnMaintain.action", updateOwnMaintain, function(data) {
+		$("#context").html(data);
+	});
+	
+}
+
 function deleteMaintain(i) {
 	$("#admin-content").load("deleteMaintain.action", {
+		"mid" : i
+	});
+}
+function deleteOwnMaintain(i) {
+	$("#admin-content").load("deleteOwnMaintain.action", {
 		"mid" : i
 	});
 }
@@ -771,10 +1066,16 @@ function getUpdateComplaintPage(i) {
 	});
 }
 function updateComplaint() {
-	var updateComplaintInfo = $("#updateComplaintForm").serialize();
-	$.post("updateComplaint.action", updateComplaintInfo, function(data) {
-		$("#admin-content").html(data);
-	});
+	if ("" == $(".error").text()) {
+		$("#maintain").html("");
+		var updateComplaintInfo = $("#updateComplaintForm").serialize();
+		$.post("updateComplaint.action", updateComplaintInfo, function(data) {
+			$("#admin-content").html(data);
+		});
+	} else {
+		$("#maintain").html("更新信息有误!");
+	}
+	
 }
 function deleteComplaint(i) {
 	$("#admin-content").load("deleteComplaint.action", {

@@ -5,7 +5,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="price" />元</td>
 							<td><s:if test="chargestate=='Y'.toString()">已缴费</s:if> <s:else>未缴费</s:else>
 							</td>
-							<td><s:property value="chargedate" /></td>
+							<td><s:date name="chargedate" format="yyyy-MM-dd HH:mm"/></td>
 							<td><s:property value="remark" /></td>
 							<td><button type="button"
 									class="am-btn am-btn-xs am-btn-default am-radius"

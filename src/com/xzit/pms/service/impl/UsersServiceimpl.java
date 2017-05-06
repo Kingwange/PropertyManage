@@ -84,4 +84,9 @@ public class UsersServiceimpl implements UsersService {
 		
 		return usersDAO.findcheckName(users.getUsername());
 	}
+	@Override
+	public int findUsersPassword(Users users) {
+		// TODO Auto-generated method stub
+		return usersDAO.findcheckPassword(users.getId(),users.getPassword());
+	}
 }

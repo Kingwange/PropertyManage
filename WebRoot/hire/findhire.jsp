@@ -105,8 +105,8 @@
 							<td><s:property value="room.building.bname" /></td>
 							<td><s:property value="room.rname" /></td>
 							<td><s:property value="htel" /></td>
-							<td><s:property value="checkindate" /></td>
-							<td><s:property value="duedate" /></td>
+							<td><s:date name="checkindate" format="yyyy-MM-dd"/></td>
+							<td><s:date name="duedate" format="yyyy-MM-dd"/></td>
 							<td><s:property value="remark" /></td>
 							<td><button type="button"
 									class="am-btn am-btn-xs am-btn-default am-radius"

@@ -24,13 +24,18 @@ public class ResidentServiceimpl implements ResidentService {
 	@Override
 	public PageBean queryForPage(int pageSize, int currentPage,
 			String queryInfo, String queryroom) {
-		String hql = "select count(*) from Resident where rsname like '%" +queryInfo+"%'  and rid like '%"+queryroom+"%'  order by rsid asc";
+		if(queryroom==""){
+			queryroom=" like '%%' ";
+		}else{
+			queryroom=" = "+queryroom;
+		}
+		String hql = "select count(*) from Resident where rsname like '%" +queryInfo+"%'  and rid "+queryroom+"  order by rsid asc";
 		int count = residentDAO.getCount(hql); // 总记录数
 		int totalPage = PageBean.countTotalPage(pageSize, count); // 总页数
 		int offset = PageBean.countOffset(pageSize, currentPage); // 当前页开始记录
 		int length = pageSize; // 每页记录数
 		currentPage = PageBean.countCurrentPage(currentPage);
-		String hql1="from Resident where rsname like '%" +queryInfo+"%'  and rid like '%"+queryroom+"%'  order by rsid asc";
+		String hql1="from Resident where rsname like '%" +queryInfo+"%'  and rid "+queryroom+"  order by rsid asc";
 		List<Resident> list = residentDAO.queryForPage(hql1, offset, length); // 该分页的记录
 		// 把分页信息保存到Bean中
 		PageBean pageBean = new PageBean();

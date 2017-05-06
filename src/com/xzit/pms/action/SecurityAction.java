@@ -47,7 +47,7 @@ public class SecurityAction extends BaseAction implements ModelDriven<Security> 
 			page=1;
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("querytype",querytype);
-	    this.pageBean =securityServiceimpl.queryForPage(2, page,queryInfo,querytype);
+	    this.pageBean =securityServiceimpl.queryForPage(5, page,queryInfo,querytype);
 	    return SUCCESS;
   }
   @Action(value="modifySecuritypage",results={@Result(name="success",location="/security/updatesecurity.jsp")})   

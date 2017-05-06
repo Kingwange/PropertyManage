@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <base href="<%=basePath%>">
 
-<title>My JSP 'updatehire.jsp' starting page</title>
+<title>租赁信息修改</title>
 <meta name="keywords" content="ower">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
@@ -45,8 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*租客名</div>
 						<div class="am-u-sm-4 am-text-left">
-							<input type="text" class="am-checkbox-inline" name="hname" style="width:100px"
-								 value='<s:property value="hname"/>'>
+							<input type="text" class="am-checkbox-inline" name="hname" style="width:200px"
+								 value='<s:property value="hname"/>' onblur="checkName(this)"> <small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -54,13 +54,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*房间号</div>
 						<div class="am-u-sm-4 am-text-left">
-							<select data-am-selected="{btnSize: 'sm'}" class="am-input-sm" style="width:70px"
+							<select data-am-selected="{btnSize: 'sm'}" class="am-input-sm" style="width:150px"
 						id="rid" name="room.rid" required="required">
 				              <option  value='<s:property value="room.rid"/>' ><s:property value="room.rname" /></option>
 				               <s:iterator value="roomlist">
 				               <option value='<s:property value="rid"  />'><s:property value="rname" /></option>
-                              </s:iterator>
-			               </select>
+                              </s:iterator></select>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -69,8 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="am-g am-margin-top">
 						<div class="am-u-sm-2 am-text-right">*联系电话</div>
 						<div class="am-u-sm-4 am-text-left">
-							<scan><input type="text" style="width:200px" class="am-checkbox-inline" name="htel"
-								width="50" value='<s:property value="htel"/>'></scan>
+							<input type="text" style="width:200px" class="am-checkbox-inline" name="htel"
+								 value='<s:property value="htel"/>' onblur="checkTel(this)"><small class="error"></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -79,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-2 am-text-right">*入住日期</div>
 						<div class="am-u-sm-4 am-text-left">
 						 <input type="text" style="width:250px" id="starttime" name="checkindate" placeholder="Checkindate" 
-                         value='<s:property value="checkindate"/>' onBlur="checkNull('starttime')" /><small id="stime" style="color:red" ></small>
+                         value='<s:date name="checkindate" format="yyyy-MM-dd"/>' onBlur="checkNull('starttime')" /><small id="stime" style="color:red" ></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -88,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-2 am-text-right">*到期日期</div>
 						<div class="am-u-sm-4 am-text-left">
 						 <input type="text" style="width:250px" id="endtime" name="duedate" placeholder="Duedate" 
-                         value='<s:property value="duedate"/>' onBlur="checkNull('endtime')" /><small id="etime" style="color:red" ></small>
+                         value='<s:date name="duedate" format="yyyy-MM-dd"/>' onBlur="checkNull('endtime')" /><small id="etime" style="color:red" ></small>
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -97,7 +96,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="am-u-sm-2 am-text-right">*备注</div>
 						<div class="am-u-sm-4 am-text-left">
 						<input type="text" class="am-checkbox-inline" name="remark"
-								style="width:350px;height:50px" value='<s:property value="remark"/>'>	
+								style="width:350px;height:50px" value='<s:property value="remark"/>'>
+								<small id="maintain"></small>	
 						</div>
 						<div class="am-u-sm-6 am-text-right"></div>
 					</div>
@@ -122,6 +122,7 @@ $('#starttime').datetimepicker({
 $('#endtime').datetimepicker({
 	  format: 'yyyy-mm-dd '
 	});
+  
  </script>
 </body>
 </html>

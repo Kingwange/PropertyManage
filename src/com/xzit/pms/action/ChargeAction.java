@@ -1,9 +1,11 @@
 package com.xzit.pms.action;
-
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
@@ -24,17 +26,21 @@ public class ChargeAction extends BaseAction implements ModelDriven<Charge> {
     private String queryInfo;
     private String queryroom;
     private List<Room> roomlist;
+    Date date =new Date();
     @Resource(name="chargeService")
     private ChargeService chargeServiceimpl;
     @Resource(name ="roomService")
 	private RoomService roomServiceimpl;
     @Action(value="addChargePage",results={@Result(name="success",location="/charge/addcharge.jsp")})
 	 public String addChargePage(){
-    	roomlist=roomServiceimpl.findAllcharge();
+    	roomlist=roomServiceimpl.findAll();
 	    return SUCCESS;
 	 }
   @Action(value="saveCharge",results={@Result(name="success",type="redirectAction",location="findAllCharge.action")})
  	public String saveCharge(){
+	  if(charge.getChargestate().equals("Y")){
+		  charge.setChargedate(date);
+	  }
 	  chargeServiceimpl.saveCharge(charge);
  		return SUCCESS;
  	}
@@ -51,19 +57,31 @@ public class ChargeAction extends BaseAction implements ModelDriven<Charge> {
 		roomlist=roomServiceimpl.findAll();
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("queryroom",queryroom);
-	    this.pageBean =chargeServiceimpl.queryForPage(2, page,queryInfo,queryroom);
+	    this.pageBean =chargeServiceimpl.queryForPage(5, page,queryInfo,queryroom);
 	    return SUCCESS;
 	}
-
+ @Action(value="checkchargetype")
+	public void checkchargetype(){
+	 int n;
+	 n= chargeServiceimpl.checkchargetype(charge);
+		 try {
+			ServletActionContext.getResponse().getWriter().println(n);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
 	@Action(value = "modifyChargepage", results = { @Result(name = "success", location = "/charge/updatecharge.jsp") })
 	public String modifyChargepage() {
-		roomlist=roomServiceimpl.findAllcharge();
+		roomlist=roomServiceimpl.findAll();
 		charge = chargeServiceimpl.findChargeID(charge);
 		return SUCCESS;
 	}
 
 	@Action(value = "updateCharge", results = { @Result(name = "success", type = "redirectAction", location = "findAllCharge.action") })
 	public String updateCharge() {
+		if(charge.getChargestate().equals("Y")){
+			  charge.setChargedate(date);;
+		  }
 		chargeServiceimpl.updateCharge(charge);
 		return SUCCESS;
 	}

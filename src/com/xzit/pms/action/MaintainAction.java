@@ -1,5 +1,4 @@
 package com.xzit.pms.action;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +8,7 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
+import org.hibernate.Session;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.xzit.pms.po.Maintain;
@@ -47,12 +47,14 @@ public  class MaintainAction extends BaseAction implements ModelDriven<Maintain>
   @Action(value="saveMaintain",results={@Result(name="success",location="/index.jsp")})
  	public String saveMaintain(){
 	    room=roomServiceimpl.findUserID((Users)(session.get("users")));
+	    if(room!=null){
 	    maintain.setRoom(room);
         maintain.setType("N");
+        System.out.println(date+"00");
         maintain.setRepairdate(date);
         System.out.println("时间");
 	    maintainServiceimpl.saveMaintain(maintain);
-	    System.out.println("成功");
+	    System.out.println("成功");}
  		return SUCCESS;
  	}
  @Action(value="findAllMaintain",results={@Result(name="success",location="/maintain/findmaintain.jsp")})
@@ -73,9 +75,18 @@ public  class MaintainAction extends BaseAction implements ModelDriven<Maintain>
 		this.req.setAttribute("queryroom",queryroom);
 		this.req.setAttribute("querytype",querytype);
 		this.req.setAttribute("queryrepairtype",queryrepairtype);
-	    this.pageBean =maintainServiceimpl.queryForPage(2, page,queryroom,querytype,queryrepairtype);
+	    this.pageBean =maintainServiceimpl.queryForPage(5, page,queryroom,querytype,queryrepairtype);
 	    return SUCCESS;
  }
+ @Action(value="findmaintaininfo",results={@Result(name="success",location="/maintain/repaireprocess.jsp")})
+ public String  findmaintaininfo() {
+		if(page==0)
+			page=1;
+		Users maintainmanUsers=(Users)session.get("users");
+	    this.pageBean =maintainServiceimpl.queryOwnMatainInfo(5, page,maintainmanUsers);
+	    return SUCCESS;
+ }
+
  @Action(value="modifyMaintainpage",results={@Result(name="success",location="/maintain/updatemaintain.jsp")})   
  public String  modifyMaintainpage(){
 	   roomlist=roomServiceimpl.findAll();
@@ -85,15 +96,24 @@ public  class MaintainAction extends BaseAction implements ModelDriven<Maintain>
 }
 	 @Action(value="updateMaintain",results={@Result(name="success",type="redirectAction",location="findAllMaintain.action")})
  public String  updateMaintain(){
-		 System.out.println("123");
 		 maintainServiceimpl.updateMaintain(maintain);
 		return SUCCESS; 	
+} 
+	 @Action(value="updateOwnMaintain",results={@Result(name="success",type="redirectAction",location="findmaintaininfo.action")})
+public String updateOwnMaintain(){
+	    maintainServiceimpl.updateMaintain(maintain);
+	return SUCCESS; 	
 }
 	 @Action(value="deleteMaintain",results={@Result(name="success",type="redirectAction",location="findAllMaintain.action")})
  public String  deleteMaintain(){
 		 maintainServiceimpl.deleteMaintain(maintain);
 		return SUCCESS; 	
 }
+	 @Action(value="deleteOwnMaintain",results={@Result(name="success",type="redirectAction",location="findmaintaininfo.action")})
+	 public String  deleteOwnMaintain(){
+			 maintainServiceimpl.deleteMaintain(maintain);
+			return SUCCESS; 	
+	}
 	@Override
 	public Maintain getModel() {
 		if(maintain==null){

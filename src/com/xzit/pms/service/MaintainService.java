@@ -3,6 +3,7 @@ package com.xzit.pms.service;
 import com.xzit.pms.po.Maintain;
 import com.xzit.pms.po.Maintainman;
 import com.xzit.pms.po.PageBean;
+import com.xzit.pms.po.Users;
 
 public interface MaintainService {
 
@@ -16,6 +17,8 @@ public interface MaintainService {
 	public void updateMaintain(Maintain maintain);
 
 	public void deleteMaintain(Maintain maintain);
+
+	public PageBean queryOwnMatainInfo(int pageSize, int currentPage, Users maintainmanUsers);
 
 
 }

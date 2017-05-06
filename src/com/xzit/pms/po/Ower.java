@@ -94,8 +94,7 @@ public class Ower implements java.io.Serializable {
 		this.tel = tel;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "INTIME", length = 7)
+	@Column(name = "INTIME", length = 11)
 	public Date getIntime() {
 		return this.intime;
 	}

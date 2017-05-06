@@ -79,6 +79,7 @@ public class UsersDAO {
 			getCurrentSession().delete(persistentInstance);
 			log.debug("delete successful");
 		} catch (RuntimeException re) {
+			re.printStackTrace();
 			log.error("delete failed", re);
 			throw re;
 		}
@@ -216,7 +217,6 @@ public class UsersDAO {
 		if (lists.size() > 0) {
 			user = lists.get(0);
 		} else {
-			System.out.println("失败");
 			user = null;
 		}
 		return user;
@@ -245,6 +245,15 @@ public List<Users> queryForPage(String hql1, int offset, int length) {
 		query.setString(0, username);
 		List<Users> lists = query.list();
 		return lists.get(0);
+	}
+
+	public int findcheckPassword(int id, String password2) {
+		query = this.getCurrentSession().createQuery(" from Users where id = "+id+" and  password = '"+password2+"'");
+		List<Users> lists = query.list();
+		if(lists.size()<1)
+			return 0;
+		else
+		   return 1;
 	}
 
 }

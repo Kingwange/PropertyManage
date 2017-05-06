@@ -24,13 +24,18 @@ public class ComplaintServiceimpl implements ComplaintService {
 
 	@Override
 	public PageBean queryForPage(int pageSize, int currentPage, String queryInfo,String querystate) {
-		String hql = "select count(*) from Complaint where rsid like '%" +queryInfo+"%'  and state like '%" +querystate+"%'  order by cpid asc";
+		if(queryInfo==""){
+			queryInfo=" like '%%' ";
+		}else{
+			queryInfo=" = "+queryInfo;
+		}
+		String hql = "select count(*) from Complaint where rsid " +queryInfo+" and state like '%" +querystate+"%'  order by cpid asc";
 		int count = complaintDAO.getCount(hql); // 总记录数
 		int totalPage = PageBean.countTotalPage(pageSize, count); // 总页数
 		int offset = PageBean.countOffset(pageSize, currentPage); // 当前页开始记录
 		int length = pageSize; // 每页记录数
 		currentPage = PageBean.countCurrentPage(currentPage);
-		String hql1="from Complaint where rsid like '%" +queryInfo+"%'  and state like '%" +querystate+"%'  order by cpid asc";
+		String hql1="from Complaint where rsid "+queryInfo+"  and state like '%" +querystate+"%'  order by cpid asc";
 		List<Complaint> list = complaintDAO.queryForPage(hql1, offset, length); // 该分页的记录
 		// 把分页信息保存到Bean中
 		PageBean pageBean = new PageBean();

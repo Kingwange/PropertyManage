@@ -52,7 +52,7 @@ public class ResidentAction extends BaseAction implements ModelDriven<Resident> 
 		roomlist=roomServiceimpl.findAll();
 		this.req.setAttribute("queryInfo",queryInfo);
 		this.req.setAttribute("queryroom",queryroom);
-	    this.pageBean =residentServiceimpl.queryForPage(2, page,queryInfo,queryroom);
+	    this.pageBean =residentServiceimpl.queryForPage(5, page,queryInfo,queryroom);
 	    return SUCCESS;
   }
   @Action(value="modifyResidentpage",results={@Result(name="success",location="/resident/updateresident.jsp")})   

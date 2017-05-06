@@ -24,13 +24,18 @@ public class EquipmentServiceimpl implements EquipmentService {
 	@Override
 	public PageBean queryForPage(int pageSize, int currentPage,
 			String queryInfo, String queryman) {
-		String hql = "select count(*) from Equipment where ename like '%" +queryInfo+"%'  and sid like '%"+queryman+"%'  order by eid asc";
+		if(queryman==""){
+			queryman=" like '%%' ";
+		}else{
+			queryman=" = "+queryman;
+		}
+		String hql = "select count(*) from Equipment where ename like '%" +queryInfo+"%'  and sid  "+queryman+"  order by eid asc";
 		int count = equipmentDAO.getCount(hql); // 总记录数
 		int totalPage = PageBean.countTotalPage(pageSize, count); // 总页数
 		int offset = PageBean.countOffset(pageSize, currentPage); // 当前页开始记录
 		int length = pageSize; // 每页记录数
 		currentPage = PageBean.countCurrentPage(currentPage);
-		String hql1="from Equipment where ename like '%" +queryInfo+"%'  and sid like '%"+queryman+"%'  order by eid asc";
+		String hql1="from Equipment where ename like '%" +queryInfo+"%'  and sid  "+queryman+"  order by eid asc";
 		List<Equipment> list = equipmentDAO.queryForPage(hql1, offset, length); // 该分页的记录
 		// 把分页信息保存到Bean中
 		PageBean pageBean = new PageBean();
@@ -59,6 +64,12 @@ public class EquipmentServiceimpl implements EquipmentService {
 	public void deleteEquipment(Equipment equipment) {
 		equipmentDAO.delete(equipment);
 
+	}
+
+	@Override
+	public Equipment findEquipName(Equipment equipment) {
+		// TODO Auto-generated method stub
+		return equipmentDAO.findCheckName(equipment.getEname());
 	}
 
 }

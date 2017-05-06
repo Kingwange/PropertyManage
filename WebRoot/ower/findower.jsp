@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<td class="tocenter"><s:property value="oname" /></td>
 								<td class="tocenter"><s:property value="identity" /></td>
 								<td class="tocenter"><s:property value="tel" /></td>
-								<td class="tocenter"><s:property value="intime" /></td>
+								<td class="tocenter"><s:date name="intime" format="yyyy-MM-dd"/></td>
 								<td class="tocenter"><s:property value="remark" /></td>
 								<td><button type="button"
 										class="am-btn am-btn-xs am-btn-default am-radius"

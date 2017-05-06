@@ -4,6 +4,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -38,9 +39,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<tr>
 							<th style="width:45px">ID</th>
 							<th style="width:100px">住户姓名</th>
-							<th style="width:350px">投诉内容</th>
-							<th style="width:100px">投诉时间</th>
-							<th style="width:90px">处理状态</th>
+							<th style="width:200px">投诉内容</th>
+							<th style="width:280px">投诉时间</th>
+							<th style="width:130px">处理状态</th>
 							<th style="width:250px">处理信息</th>
 						</tr>
 					</thead>
@@ -49,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<td><s:property value="cpid" /></td>
 							<td><s:property value="resident.rsname" /></td>
 							<td><s:property value="cpcontent" /></td>
-							<td><s:property value="submissiontime" /></td>
+							<td><s:date name="submissiontime" format="yyyy-MM-dd HH:mm"/></td>
 							<td>
 							<s:if test="state=='N'.toString()">未处理</s:if>
 							<s:elseif test="state=='Z'.toString()">正在处理</s:elseif>
@@ -59,6 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</tr>
 					</s:iterator>
 			</table>
+			<c:if test="${pageBean.list.size()!=0}">
 			<table><tr>
 						<td></td>
 
@@ -86,6 +88,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</s:if> <s:else>下一页&nbsp;&nbsp;&nbsp;&nbsp; 末页</s:else></td>
 					</tr>
 		
-    </table>
+    </table></c:if>
   </body>
 </html>

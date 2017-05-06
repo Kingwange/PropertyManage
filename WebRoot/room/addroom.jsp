@@ -107,9 +107,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <option value='<s:property value="id" />'><s:property value="username" /></option>
                      </s:if>
                    </s:iterator>
-                   <small class="error"></small>
-			 <small id="maintain"></small>
 			</select>
+			 <small class="error"></small>
+			  <small id="maintain"></small>
             </div>
             <br><br>
               <br><br>

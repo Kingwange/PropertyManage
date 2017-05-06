@@ -104,3 +104,13 @@
 .error{
 	color:red;
 }
+#maintain{
+	color:red;
+}
+#loaduser{
+	
+    position: absolute;
+    top: -1px;
+    left:1058px;
+    
+}

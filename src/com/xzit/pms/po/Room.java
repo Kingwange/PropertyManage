@@ -74,8 +74,7 @@ public class Room implements java.io.Serializable {
 		this.rid = rid;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "BID")
+	@ManyToOne()
 	public Building getBuilding() {
 		return this.building;
 	}

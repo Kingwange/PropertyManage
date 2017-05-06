@@ -57,14 +57,13 @@ public class BuildingAction extends BaseAction implements ModelDriven<Building> 
    	}
    @Action(value="findAllBuilding",results={@Result(name="success",location="/building/findbuilding.jsp")})
    public String findAllBuilding() {
-	   System.out.println(queryInfo);
 	   if(queryInfo==null){
 			queryInfo="";
 		}
 		if(page==0)
 			page=1;
 		this.req.setAttribute("queryInfo",queryInfo);
-	    this.pageBean =buildingServiceimpl.queryForPage(2, page,queryInfo);
+	    this.pageBean =buildingServiceimpl.queryForPage(5, page,queryInfo);
 	    return SUCCESS;
    }
    @Action(value="modifyBuildingpage",results={@Result(name="success",location="/building/updatebuilding.jsp")})   

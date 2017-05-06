@@ -95,7 +95,6 @@ public class Hire implements java.io.Serializable {
 	public void setHtel(String htel) {
 		this.htel = htel;
 	}
-
 	@Temporal(TemporalType.DATE)
 	@Column(name = "CHECKINDATE", length = 7)
 	public Date getCheckindate() {

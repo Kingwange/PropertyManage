@@ -52,6 +52,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 	  	public void checkroomName(){
 		 int n;
 		 Room roomnumber= roomServiceimpl.findRoomName(room);
+		
 		 if(roomnumber==null){
 			 n=1;
 		 }else{
@@ -90,7 +91,7 @@ public class RoomAction extends BaseAction implements ModelDriven<Room> {
 		this.req.setAttribute("queryroom", queryroom);
 		this.req.setAttribute("querybuild", querybuild);
 		this.req.setAttribute("queryower", queryower);
-		this.pageBean = roomServiceimpl.queryForPage(2, page, queryroom,querybuild,queryower);
+		this.pageBean = roomServiceimpl.queryForPage(5, page, queryroom,querybuild,queryower);
 		return SUCCESS;
 	}
 

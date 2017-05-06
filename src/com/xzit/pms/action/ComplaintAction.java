@@ -51,7 +51,7 @@ public String findAllComplaint() {
 		page=1;
 	this.req.setAttribute("queryInfo", queryInfo);
 	this.req.setAttribute("querystate", querystate);
-    this.pageBean = complaintServiceimpl.queryForPage(2, page,queryInfo,querystate);
+    this.pageBean = complaintServiceimpl.queryForPage(5, page,queryInfo,querystate);
     return SUCCESS;
 }  
    @Action(value="findMycomplaint",results={@Result(name="success",location="/complaint/findMycomplaint.jsp")})   
@@ -65,8 +65,7 @@ public String findAllComplaint() {
 
 	 @Action(value="modifyComplaintpage",results={@Result(name="success",location="/complaint/updatecomplaint.jsp")})   
      public String  modifyComplaintpage(){
-		
-		 complaint=complaintServiceimpl.findComplaintID(complaint);
+		complaint=complaintServiceimpl.findComplaintID(complaint);
 		return SUCCESS; 	
     }
 	 @Action(value="updateComplaint",results={@Result(name="success",type="redirectAction",location="findAllComplaint.action")})

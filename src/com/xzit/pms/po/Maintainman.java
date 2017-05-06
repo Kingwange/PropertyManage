@@ -66,7 +66,7 @@ public class Maintainman implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "ID", nullable = false)
+	@JoinColumn(name = "ID")
 	public Users getUsers() {
 		return this.users;
 	}

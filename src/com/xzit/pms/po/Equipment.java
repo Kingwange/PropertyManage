@@ -105,9 +105,7 @@ public class Equipment implements java.io.Serializable {
 	public void setVendor(String vendor) {
 		this.vendor = vendor;
 	}
-
-	@Temporal(TemporalType.DATE)
-	@Column(name = "PRODUCEDATE", length = 7)
+	@Column(name = "PRODUCEDATE", length = 11)
 	public Date getProducedate() {
 		return this.producedate;
 	}

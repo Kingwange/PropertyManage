@@ -48,19 +48,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul class="res">
 					<li><a onclick="skipahomePage()" >主页</a></li>
 					<li><a onclick="skipaboutPage()">关于我们</a></li>
+					<c:if test="${users != null&&users.authority == 'B'||users == null || users.id == 0}">
 					<li><a onclick="skipblogPage()">网上报修</a></li>
 					<li><a onclick="skipcontactPage()">客户投诉</a></li>
-					<li><a href="#"></a></li>
+					</c:if>
+					<c:if test="${users != null&&users.authority == 'C'}">
+					<li><a onclick="findmaintaininfo(1)">报修处理</a></li>
+					</c:if>
 					<c:if test="${users == null || users.id == 0}">
 					<li><a a href="javascript:;" onClick="ShowLoginBox()">登录</a></li>
 					</c:if>
 	                <c:if test="${users != null && users.id != 0}">
-	                
+	                <div id="loaduser">
 	                <li><a class="am-cf" style="color:blue;fond-size:2px;" id="usersname" class="state" data-am-collapse="{target: '#logout'}">${session.users.username}</a>  
 	                </li>
 	                 <li><a class="am-cf" style="cursor: pointer;" href="logout.action"><span class="am-icon-check"></span>退出</a></li>
+	                 <li><a onclick="changepasswordPage()">修改密码</a></li>
+	                </div>
 					</c:if>
-				<div class="clearfix"> </div>
+				<div class="clearfix" > </div>
 				</ul>
 			 </div>
 			 

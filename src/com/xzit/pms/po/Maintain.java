@@ -104,8 +104,7 @@ public class Maintain implements java.io.Serializable {
 		this.mname = mname;
 	}
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "REPAIRDATE", length = 7)
+	@Column(name = "REPAIRDATE", length = 11)
 	public Date getRepairdate() {
 		return this.repairdate;
 	}
